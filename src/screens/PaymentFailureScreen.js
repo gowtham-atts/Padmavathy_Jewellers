@@ -1,0 +1,147 @@
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import DetailsHeader from '../components/DetailsHeader';
+import { COLORS, FONTS, FONT_SIZES } from '../utils/constants';
+import { responsiveWidth } from '../utils/responsive';
+
+const PaymentFailureScreen = ({ navigation }) => {
+  return (
+    <View style={styles.container}>
+      <DetailsHeader
+        title="Payment"
+        onBackPress={() => {
+          navigation.goBack();
+        }}
+        onNotifyPress={() => {
+          navigation.navigate('Notification');
+        }}
+        onWishlistPress={() => {
+          navigation.navigate('WishList');
+        }}
+      />
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <View style={styles.card}>
+          <View style={styles.cardHeader}>
+            <Image style={styles.icon} source={require('../assets/shanthi_jellewery/faild-icon.png')} />
+          </View>
+
+          <View style={{ alignItems: 'center', bottom: 30 }}>
+            <Text style={styles.totalTxt}>Payment Total</Text>
+            <Text style={styles.totalSubTxt}>$1000</Text>
+          </View>
+
+          <View>
+            <View style={styles.detailsContainer}>
+              <Text style={styles.detailLabel}>Date</Text>
+              <Text style={styles.detailValue}>2024-01-11</Text>
+            </View>
+            <View style={styles.detailsContainer}>
+              <Text style={styles.detailLabel}>Scheme</Text>
+              <Text style={styles.detailValue}>Gold</Text>
+            </View>
+            <View style={styles.detailsContainer}>
+              <Text style={styles.detailLabel}>Payment ID</Text>
+              <Text style={styles.detailValue}>123456</Text>
+            </View>
+            <View style={styles.detailsContainer}>
+              <Text style={styles.detailLabel}>Payment Status</Text>
+              <Text style={styles.detailValue}>Failed</Text>
+            </View>
+          </View>
+        </View>
+      </View>
+      <View style={{ flex: 0.4 }}>
+        <TouchableOpacity
+          style={[styles.button, { backgroundColor: '#1B243D' }]}
+          onPress={() => navigation.navigate('Home')}
+        >
+          <Text style={styles.buttonText}>Go to Dashboard</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  card: {
+    width: responsiveWidth(90),
+    borderRadius: 20,
+    backgroundColor: 'white',
+    elevation: 3,
+    padding: 20,
+    alignSelf: 'center',
+  },
+  cardHeader: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    bottom: 60
+  },
+  icon: {
+    width: 90,
+    height: 90,
+    resizeMode: 'contain',
+  },
+  text: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontFamily: FONTS.OUTFIT_MEDIUM,
+    fontWeight: '500'
+  },
+  detailsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+  detailLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+    fontFamily: FONTS.OUTFIT_MEDIUM,
+    fontWeight: '500'
+  },
+  detailValue: {
+    fontSize: 16,
+    color: '#666',
+    fontFamily: FONTS.OUTFIT_MEDIUM,
+    fontWeight: '500'
+  },
+  detailLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#333',
+    fontFamily: FONTS.OUTFIT_MEDIUM,
+    fontWeight: '500'
+  },
+  totalTxt: {
+    fontSize: 16,
+    color: '#666',
+    fontFamily: FONTS.OUTFIT_MEDIUM,
+    fontWeight: '500'
+  },
+  totalSubTxt: {
+    fontSize: FONT_SIZES.EXTRA_LARGE,
+    color: COLORS.DARK_PRIMARY,
+    fontFamily: FONTS.OUTFIT_MEDIUM,
+    fontWeight: '500'
+  },
+  button: {
+    marginTop: 20,
+    padding: 4,
+    borderRadius: 16,
+    width: responsiveWidth(40),
+    alignItems: 'center',
+    alignSelf: 'center'
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontFamily: FONTS.OUTFIT_MEDIUM,
+    fontWeight: '500'
+  },
+});
+
+export default PaymentFailureScreen;
