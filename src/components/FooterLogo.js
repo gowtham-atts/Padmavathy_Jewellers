@@ -1,14 +1,13 @@
 import React from 'react';
 import { View, StyleSheet, Image, Text } from 'react-native';
-import { FONTS, images } from '../utils/constants';
-import { hp, rfpercentage, wp } from '../utils/responsive';
+import { images } from '../utils/constants';
+import { hp, wp } from '../utils/responsive';
 
 const FooterLogo = () => {
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Powered by</Text>
             <Image
-                source={images.powered_aurum}
+                source={images.atts_logo_dark}
                 style={styles.logo}
             />
         </View>
@@ -17,21 +16,17 @@ const FooterLogo = () => {
 
 const styles = StyleSheet.create({
     container: {
+        flex:1,
         alignItems: 'center',
-        marginBottom: 10,
+        justifyContent:'flex-end',
+        padding:10
     },
     logo: {
         width: wp(14),
         height: hp(7),
         resizeMode: 'contain',
     },
-    text: {
-        color: '#D1B5B5',
-        fontFamily: FONTS.OUTFIT_MEDIUM,
-        fontSize: rfpercentage(1.2),
-        textTransform: 'uppercase',
-        fontWeight: '500',
-    }
+
 });
 
 export default FooterLogo;

@@ -7,7 +7,8 @@ import {
     TextInput,
     ActivityIndicator,
     SafeAreaView,
-    Platform
+    Platform,
+    ImageBackground
 } from 'react-native';
 import ImagePickerModal from '../components/ImagePickerModal';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
@@ -20,7 +21,7 @@ import {
     imageHeight,
     imageBorderRadius,
 } from '../utils/responsive';
-import { COLORS, FONTS, colors } from '../utils/constants';
+import { COLORS, FONTS, colors, images } from '../utils/constants';
 import DetailsHeader from '../components/DetailsHeader';
 import ScrollContainer from '../components/ScrollContainer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -340,8 +341,9 @@ const EditProfile = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <KeyboardAvoidingWrapper>
-                <ScrollContainer>
+            <ImageBackground source={images.login_bg} style={styles.login_bg} resizeMode='cover'>
+              <KeyboardAvoidingWrapper>
+                  <ScrollContainer>
                     <DetailsHeader
                         title="Edit Profile"
                         onBackPress={() => navigation.goBack()}
@@ -387,7 +389,8 @@ const EditProfile = ({ navigation }) => {
                     </TouchableOpacity>
 
                 </ScrollContainer>
-            </KeyboardAvoidingWrapper>
+              </KeyboardAvoidingWrapper>
+            </ImageBackground>
         </SafeAreaView>
     );
 };
@@ -397,6 +400,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor:COLORS.WHITE
+    },
+    login_bg:{
+     width:"100%",
+     height:"100%"
     },
     profileHeaderTxt: {
         ...fontStyle(FONTS.OUTFIT_MEDIUM, rfpercentage(2.2), '500', '#666666'),
@@ -451,9 +458,12 @@ const styles = StyleSheet.create({
         ...fontStyle(FONTS.OUTFIT_MEDIUM, rfpercentage(2), '500', COLORS.WHITE),
     },
     input: {
-        ...spacing(0, Platform.OS === 'ios' ? 16 : 12, 'lightgray', 8),
+        ...spacing(0, Platform.OS === 'ios' ? 16 : 12, 8),
         width: wp(90),
         paddingHorizontal: 10,
+        borderColor:'#E2E2E2',
+        borderWidth:1,
+        borderRadius:8
     },
     inputText: {
         ...fontStyle(FONTS.OUTFIT_MEDIUM, rfpercentage(1.8), '500', COLORS.TEXT),

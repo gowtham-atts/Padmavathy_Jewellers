@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Image, TouchableOpacity, Text, TextInput, SafeAreaView } from 'react-native';
+import { View, Image, TouchableOpacity, Text, TextInput, SafeAreaView, ImageBackground, ScrollView } from 'react-native';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 import ScrollContainer from '../components/ScrollContainer';
 import verifyOtpStyles from './styles/verifyOtpStyles';
@@ -9,12 +9,10 @@ import { hp, responsiveHeight, responsiveImageSize } from '../utils/responsive';
 import GradientButton from '../components/GradientButton';
 import authService from '../services/authService';
 import Toast from 'react-native-simple-toast';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectLoading, setLoading } from '../features/auth/authSlice';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
-const aurumLogo = responsiveImageSize(150, 100);
+
+const wingLogo = responsiveImageSize(180, 100);
 
 
 const OtpInput = React.forwardRef(({ value, onChangeText, onKeyPress }, ref) => {
@@ -48,7 +46,7 @@ const OtpInput = React.forwardRef(({ value, onChangeText, onKeyPress }, ref) => 
 const VerifyForgotOtp = ({ navigation, route }) => {
 
 
-    const user = route.params.username;
+    const user = route?.params?.username;
 
     const [errorText, setErrorText] = useState('');
 
@@ -139,67 +137,78 @@ const VerifyForgotOtp = ({ navigation, route }) => {
 
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.WHITE }}>
-            <KeyboardAvoidingWrapper>
-                <ScrollContainer>
+        <SafeAreaView style={verifyOtpStyles.container}>
+            <ImageBackground source={images.login_bg} style={verifyOtpStyles.splash_logo} resizeMode='cover'>
+                <KeyboardAvoidingWrapper>
 
-                    <View style={{flex:1}}>
-                        <View style={{ alignItems: 'center',flex:0.5, marginTop:hp(8) }}>
-                            <Image source={images.dark_logo} style={aurumLogo} resizeMode="contain" />
+                    <ScrollContainer>
+
+                        <View style={{ flex: 1 }}>
+
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <Image source={images.padtext_logo} style={wingLogo} resizeMode="contain" />
+                            </View>
+
+                            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+
+                                <View style={verifyOtpStyles.modalContainer}>
+                                    <View>
+
+                                        <View>
+                                            <Text style={verifyOtpStyles.headerText}>{strings.verifyOtpScreen.title}</Text>
+                                        </View>
+
+                                        <View>
+                                            <Text style={verifyOtpStyles.userTitle}>{strings.verifyOtpScreen.enter}</Text>
+                                        </View>
+
+                                        <View style={verifyOtpStyles.otpContainer}>
+                                            {otp.map((digit, index) => (
+                                                <OtpInput
+                                                    key={index}
+                                                    ref={refs[index]}
+                                                    value={digit}
+                                                    onChangeText={(value) => handleOtpChange(index, value)}
+                                                    onKeyPress={({ nativeEvent }) => {
+                                                        if (nativeEvent.key === 'Backspace' && !digit) {
+                                                            handleCancel(index);
+                                                        }
+                                                    }}
+                                                />
+                                            ))}
+                                        </View>
+
+                                        <TouchableOpacity style={verifyOtpStyles.resendButton} onPress={handleResendCode} disabled={timer > 0}>
+                                            <Text style={verifyOtpStyles.resendButtonText}>
+                                                {timer > 0 ? `Resend Code in ${timer} seconds` : 'Resend Code'}
+                                            </Text>
+                                        </TouchableOpacity>
+
+                                        {errorText !== '' && (
+                                            <Text style={verifyOtpStyles.errorText}>{errorText}</Text>
+                                        )}
+                                        <View style={verifyOtpStyles.buttonContainer}>
+                                            <GradientButton
+                                                loading={loading}
+                                                title={strings.verifyOtpScreen.submit}
+                                                onPress={onPinEntered}
+                                                colors={[colors.gradientBg, colors.gradientBg2]}
+                                            />
+                                        </View>
+                                        <TouchableOpacity onPress={() => navigation.replace('Login')} style={{ marginTop: responsiveHeight(6) }}>
+                                            <Text style={verifyOtpStyles.newUser}>{strings.verifyOtpScreen.backtologin} <Text style={verifyOtpStyles.createAcc}>{strings.verifyOtpScreen.clickhere}</Text>
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            </ScrollView>
                         </View>
 
-                        <View>
-                            <Text style={verifyOtpStyles.headerText}>{strings.verifyOtpScreen.title}</Text>
-                        </View>
+                    </ScrollContainer>
 
-                        <View>
-                            <Text style={verifyOtpStyles.userTitle}>{strings.verifyOtpScreen.enter}</Text>
-                        </View>
+                </KeyboardAvoidingWrapper>
 
-                        <View style={verifyOtpStyles.otpContainer}>
-                            {otp.map((digit, index) => (
-                                <OtpInput
-                                    key={index}
-                                    ref={refs[index]}
-                                    value={digit}
-                                    onChangeText={(value) => handleOtpChange(index, value)}
-                                    onKeyPress={({ nativeEvent }) => {
-                                        if (nativeEvent.key === 'Backspace' && !digit) {
-                                            handleCancel(index);
-                                        }
-                                    }}
-                                />
-                            ))}
-                        </View>
-
-
-                        <TouchableOpacity style={verifyOtpStyles.resendButton} onPress={handleResendCode} disabled={timer > 0}>
-                            <Text style={verifyOtpStyles.resendButtonText}>
-                                {timer > 0 ? `Resend Code in ${timer} seconds` : 'Resend Code'}
-                            </Text>
-                        </TouchableOpacity>
-
-
-                        {errorText !== '' && (
-                            <Text style={verifyOtpStyles.errorText}>{errorText}</Text>
-                        )}
-                    </View>
-
-                    <View style={verifyOtpStyles.buttonContainer}>
-                            <GradientButton
-                                title={strings.verifyOtpScreen.submit}
-                                onPress={onPinEntered}
-                                colors={[colors.gradientBg, colors.gradientBg2]}
-                                loading={loading}
-                            />
-                        </View>
-                        <TouchableOpacity onPress={() => navigation.replace('Login')} style={{ marginTop: responsiveHeight(4), marginBottom:hp(2) }}>
-                            <Text style={verifyOtpStyles.newUser}>{strings.verifyOtpScreen.backtologin} <Text style={verifyOtpStyles.createAcc}>{strings.verifyOtpScreen.clickhere}</Text>
-                            </Text>
-                        </TouchableOpacity>
-
-                </ScrollContainer>
-            </KeyboardAvoidingWrapper>
+            </ImageBackground>
         </SafeAreaView>
 
     );

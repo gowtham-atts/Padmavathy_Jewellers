@@ -27,13 +27,10 @@ const PayEMICount = ({count}) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.PRIMARY,
+    backgroundColor:colors.gradientBg,
     borderRadius: 15,
     padding: 1,
-    // position: 'absolute',
     minWidth:Platform.OS === 'ios' ? 25 : 24,
-    // right:Platform.OS === 'ios' ? 10 : 0,
-    // bottom: Platform.OS === 'ios' ? 40 : 20,
   },
   badge: {
     color: COLORS.WHITE,

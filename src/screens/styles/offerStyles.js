@@ -15,6 +15,10 @@ const offerStyles = StyleSheet.create({
         flex: 1,
         backgroundColor:COLORS.WHITE
       },
+      login_bg:{
+        width:"100%",
+        height:"100%"
+     },
       title: {
         fontSize: rfpercentage(2.6),
         fontFamily: FONTS.OUTFIT_MEDIUM,

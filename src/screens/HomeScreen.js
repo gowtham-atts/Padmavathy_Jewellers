@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Pressable, ScrollView, ActivityIndicator, Platform } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Pressable, ScrollView, ActivityIndicator, Platform, ImageBackground } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Iconify } from 'react-native-iconify';
 import Header from '../components/Header';
 import CarouselComponent from '../components/CarouselComponent';
 import { hp, rfpercentage, wp } from '../utils/responsive';
-import { COLORS, FONTS, FONT_SIZES, colors } from '../utils/constants';
+import { COLORS, FONTS, FONT_SIZES, colors, images } from '../utils/constants';
 import offerService from '../services/offerService';
 import { getData } from '../utils/storage';
 import notificationService from '../services/notificationService';
@@ -218,8 +218,8 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-
-      <ScrollView contentContainerStyle={{ paddingVertical: hp(2), paddingBottom: hp(10) }}>
+      <ImageBackground source={images.login_bg} style={styles.login_bg} resizeMode='cover'>
+        <ScrollView contentContainerStyle={{ paddingVertical: hp(2), paddingBottom: hp(10) }}>
 
         <Header
           title="Shanthi Jewellery"
@@ -352,7 +352,8 @@ const HomeScreen = ({ navigation }) => {
           />
         </View>
 
-      </ScrollView>
+        </ScrollView>
+      </ImageBackground>
     </SafeAreaView>
   );
 };
@@ -365,8 +366,7 @@ const FONT_MEDIUM = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor:COLORS.WHITE
+    flex: 1
   },
   slideContainer: {
     width: wp(80),
@@ -375,6 +375,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 8
   },
+  login_bg:{
+    width:"100%",
+    height:"100%"
+ },
   scrollViewContent: {
     flexGrow: 1
   },

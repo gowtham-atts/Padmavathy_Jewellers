@@ -16,6 +16,10 @@ const verifyOtpStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
       },
+    splash_logo:{
+        width:"100%",
+        height:"100%",
+     },
     backgroundImage: {
         flex: 1,
         justifyContent: 'center',
@@ -170,17 +174,10 @@ const verifyOtpStyles = StyleSheet.create({
     },
     modalContainer: {
         flex: 1,
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
         alignItems: 'center',
     },
-    modalContent: {
-        padding: 20,
-        backgroundColor: COLORS.LIGHT_WHITE,
-        height: responsiveHeight(60),
-        width: responsiveWidth(100),
-        borderTopLeftRadius: 40,
-        borderTopRightRadius: 40
-    },
+
     scrollwidth: {
         backgroundColor: '#CFCFCF',
         padding: 2,

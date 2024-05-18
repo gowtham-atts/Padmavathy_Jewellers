@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, TouchableOpacity, Text, KeyboardAvoidingView, ScrollView, SafeAreaView } from 'react-native';
+import { View, Image, TouchableOpacity, Text, KeyboardAvoidingView, ScrollView, SafeAreaView, ImageBackground } from 'react-native';
 import TextInput from '../components/TextInput';
 import { isPhoneNumberValid, isUsernameValid, isPasswordValid } from '../utils/validations';
 import loginStyles from './styles/loginStyles';
@@ -16,6 +16,7 @@ import locationService from '../services/locationService';
 import { Iconify } from 'react-native-iconify';
 import Toast from 'react-native-simple-toast';
 import { fetchPayEMI } from '../features/payEMI/payEMIActions';
+import FooterLogo from '../components/FooterLogo';
 
 
 
@@ -110,7 +111,7 @@ const LoginScreen = ({ navigation }) => {
         } else {
           await clearCredentials();
         }
-        
+
         Toast.show(response?.message, Toast.BOTTOM);
         navigation.replace('Home');
       } else {
@@ -151,129 +152,135 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={loginStyles.container}>
+      <ImageBackground source={images.login_bg} style={loginStyles.login_bg} resizeMode='cover'>
 
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
 
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
 
-          <TouchableOpacity onPress={handleSkipLogin} style={{ alignItems: 'flex-end', top: hp(2), right: hp(2) }}>
-            <Text style={loginStyles.skipTxt}>{strings.loginScreen.skipLogin}</Text>
-          </TouchableOpacity>
+            <TouchableOpacity onPress={handleSkipLogin} style={{ alignItems: 'flex-end', top: hp(2), right: hp(2) }}>
+              <Text style={loginStyles.skipTxt}>{strings.loginScreen.skipLogin}</Text>
+            </TouchableOpacity>
 
 
-          <View style={{ alignItems: 'center', marginTop: hp(4) }}>
-            <Image source={images.dark_logo} style={loginStyles.img_logo} />
-          </View>
-
-          <View style={{ paddingLeft: hp(3), paddingRight: hp(3) }}>
-
-            <View style={{ marginTop: hp(4) }}>
-              <Text style={loginStyles.subHeader2}>{strings.loginScreen.title}</Text>
+            <View style={{ alignItems: 'center', marginTop: hp(6) }}>
+              <Image source={images.padtext_logo} style={loginStyles.img_logo} />
             </View>
 
-            <View style={{ marginTop: responsiveHeight(4) }}>
-              <Text style={loginStyles.userTitle}>{strings.loginScreen.mobilePlaceholder}</Text>
-              <TextInput
-                placeholder={strings.loginScreen.mobilePlaceholder}
-                placeholderTextColor={colors.gray58}
-                value={username}
-                keyboardType={"numeric"}
-                onChangeText={(text) => { setUsername(text), setErrorUserName('') }}
-                style={[loginStyles.input, loginStyles.inputText]}
-                iconSource={images.mail}
-              />
-            </View>
+            <View style={{ paddingLeft: hp(3), paddingRight: hp(3) }}>
 
-            {errorUserName !== '' && (
-              <Text style={loginStyles.errorText}>{errorUserName}</Text>
-            )}
+              <View style={{ marginTop: hp(5) }}>
+                <Text style={loginStyles.subHeader2}>{strings.loginScreen.title}</Text>
+              </View>
 
-            <View>
-              <Text style={loginStyles.passTitle}>{strings.loginScreen.passwordPlaceholder}</Text>
-              <View style={loginStyles.passwordContainer}>
+              <View style={{ marginTop: responsiveHeight(4) }}>
+                <Text style={loginStyles.userTitle}>{strings.loginScreen.mobilePlaceholder}</Text>
                 <TextInput
-                  placeholder={strings.loginScreen.passwordPlaceholder}
+                  placeholder={strings.loginScreen.mobilePlaceholder}
                   placeholderTextColor={colors.gray58}
-                  value={password}
-                  onChangeText={(text) => { setPassword(text), setErrorPassword('') }}
-                  secureTextEntry={!isPasswordVisible}
-                  style={[loginStyles.passInput, loginStyles.passInputText]}
-                  iconSource={images.pass}
+                  value={username}
+                  keyboardType={"numeric"}
+                  onChangeText={(text) => { setUsername(text), setErrorUserName('') }}
+                  style={[loginStyles.input, loginStyles.inputText]}
+                  iconSource={images.mail}
                 />
-                <TouchableOpacity onPress={togglePasswordVisibility} style={loginStyles.eyeIcon}>
-                  {isPasswordVisible ? (
-                    <Iconify icon="ph:eye-light" size={25} color="#1E282A" />
-                  ) : (
-                    <Iconify icon="ph:eye-slash" size={25} color="#1E282A" />
-                  )}
-                </TouchableOpacity>
               </View>
-            </View>
 
-            {errorPassword !== '' && (
-              <Text style={loginStyles.errorText}>{errorPassword}</Text>
-            )}
+              {errorUserName !== '' && (
+                <Text style={loginStyles.errorText}>{errorUserName}</Text>
+              )}
 
-            {branchData?.length > 1 ?
-              <View style={{ marginTop: responsiveHeight(2) }}>
-                <Text style={loginStyles.userTitle}>{strings.loginScreen.branch}</Text>
-                <View style={loginStyles.branchCtnr}>
-                  <TouchableOpacity style={loginStyles.dropdown} onPress={toggleBranchList}>
-                    <Text style={loginStyles.dropdownText}>{selectedBranch || strings.loginScreen.selectBranch}</Text>
+              <View>
+                <Text style={loginStyles.passTitle}>{strings.loginScreen.passwordPlaceholder}</Text>
+                <View style={loginStyles.passwordContainer}>
+                  <TextInput
+                    placeholder={strings.loginScreen.passwordPlaceholder}
+                    placeholderTextColor={colors.gray58}
+                    value={password}
+                    onChangeText={(text) => { setPassword(text), setErrorPassword('') }}
+                    secureTextEntry={!isPasswordVisible}
+                    style={[loginStyles.passInput, loginStyles.passInputText]}
+                    iconSource={images.pass}
+                  />
+                  <TouchableOpacity onPress={togglePasswordVisibility} style={loginStyles.eyeIcon}>
+                    {isPasswordVisible ? (
+                      <Iconify icon="ph:eye-light" size={25} color="#1E282A" />
+                    ) : (
+                      <Iconify icon="ph:eye-slash" size={25} color="#1E282A" />
+                    )}
                   </TouchableOpacity>
-                  {showBranchList && (
-                    <ScrollView style={loginStyles.branchList}>
-                      {branchData.map((branch) => (
-                        <TouchableOpacity
-                          key={branch.id_branch}
-                          style={loginStyles.branchItem}
-                          onPress={() => handleBranchChange(branch.name, branch.id_branch)}
-                        >
-                          <Text style={loginStyles.branchText}>{branch.name}</Text>
-                        </TouchableOpacity>
-                      ))}
-                    </ScrollView>
-                  )}
                 </View>
-                {/* <Text style={registerStyles.errorText}>{branchError}</Text> */}
-              </View> : null}
- 
-
-            <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
-              <View style={loginStyles.checkboxContainer}>
-                <TouchableOpacity
-                  style={loginStyles.checkbox}
-                  onPress={() => setKeepLoggedIn(!keepLoggedIn)}
-                >
-                  {keepLoggedIn ? (
-                    <Iconify icon="material-symbols:check-circle-outline" size={25} color={colors.gradientBg} />
-                  ) : (
-                    <Iconify icon="mdi:radio-button-unchecked" size={25} color={colors.gradientBg2} />
-                  )}
-                </TouchableOpacity>
-                <Text style={loginStyles.checkboxLabel}>{strings.loginScreen.keepMeLogin}</Text>
               </View>
-              <TouchableOpacity style={{ marginTop: responsiveHeight(2) }} onPress={() => navigation.navigate('Forgot')}>
-                <Text style={loginStyles.forgotText}>{strings.loginScreen.forgotPassword}</Text>
+
+              {errorPassword !== '' && (
+                <Text style={loginStyles.errorText}>{errorPassword}</Text>
+              )}
+
+              {branchData?.length > 1 ?
+                <View style={{ marginTop: responsiveHeight(2) }}>
+                  <Text style={loginStyles.userTitle}>{strings.loginScreen.branch}</Text>
+                  <View style={loginStyles.branchCtnr}>
+                    <TouchableOpacity style={loginStyles.dropdown} onPress={toggleBranchList}>
+                      <Text style={loginStyles.dropdownText}>{selectedBranch || strings.loginScreen.selectBranch}</Text>
+                    </TouchableOpacity>
+                    {showBranchList && (
+                      <ScrollView style={loginStyles.branchList}>
+                        {branchData.map((branch) => (
+                          <TouchableOpacity
+                            key={branch.id_branch}
+                            style={loginStyles.branchItem}
+                            onPress={() => handleBranchChange(branch.name, branch.id_branch)}
+                          >
+                            <Text style={loginStyles.branchText}>{branch.name}</Text>
+                          </TouchableOpacity>
+                        ))}
+                      </ScrollView>
+                    )}
+                  </View>
+                  {/* <Text style={registerStyles.errorText}>{branchError}</Text> */}
+                </View> : null}
+
+
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
+                <View style={loginStyles.checkboxContainer}>
+                  <TouchableOpacity
+                    style={loginStyles.checkbox}
+                    onPress={() => setKeepLoggedIn(!keepLoggedIn)}
+                  >
+                    {keepLoggedIn ? (
+                      <Iconify icon="material-symbols:check-circle-outline" size={25} color={colors.gradientBg} />
+                    ) : (
+                      <Iconify icon="mdi:radio-button-unchecked" size={25} color={colors.gradientBg2} />
+                    )}
+                  </TouchableOpacity>
+                  <Text style={loginStyles.checkboxLabel}>{strings.loginScreen.keepMeLogin}</Text>
+                </View>
+                <TouchableOpacity style={{ marginTop: responsiveHeight(2) }} onPress={() => navigation.navigate('Forgot')}>
+                  <Text style={loginStyles.forgotText}>{strings.loginScreen.forgotPassword}</Text>
+                </TouchableOpacity>
+              </View>
+
+              <View style={loginStyles.buttonContainer}>
+                <GradientButton
+                  title={strings.loginScreen.loginButton}
+                  onPress={handleLogin}
+                  colors={[colors.gradientBg, colors.gradientBg2]}
+                  loading={loading}
+                />
+              </View>
+              <TouchableOpacity onPress={() => navigation.navigate('Register')} style={{ marginTop: hp(2) }}>
+                <Text style={loginStyles.newUser}>{strings.loginScreen.newUser} <Text style={loginStyles.createAcc}>{strings.loginScreen.createAccount}</Text>
+                </Text>
               </TouchableOpacity>
             </View>
 
-            <View style={loginStyles.buttonContainer}>
-              <GradientButton
-                title={strings.loginScreen.loginButton}
-                onPress={handleLogin}
-                colors={[colors.gradientBg, colors.gradientBg2]}
-                loading={loading}
-              />
-            </View>
-            <TouchableOpacity onPress={() => navigation.navigate('Register')} style={{ marginTop: hp(2) }}>
-              <Text style={loginStyles.newUser}>{strings.loginScreen.newUser} <Text style={loginStyles.createAcc}>{strings.loginScreen.createAccount}</Text>
-              </Text>
-            </TouchableOpacity>
-          </View>
+            <FooterLogo/>
 
-        </ScrollView>
-      </KeyboardAvoidingView>
+          </ScrollView>
+        </KeyboardAvoidingView>
+
+      </ImageBackground>
+
     </SafeAreaView>
   );
 };

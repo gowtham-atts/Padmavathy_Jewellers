@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
-import { COLORS, FONTS } from '../utils/constants';
+import { COLORS, FONTS, colors } from '../utils/constants';
 import { rfpercentage } from '../utils/responsive';
 
 const NotificationBadge = ({ count }) => {
@@ -13,7 +13,7 @@ const NotificationBadge = ({ count }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.PRIMARY,
+    backgroundColor:colors.gradientBg,
     borderRadius: 15,
     padding: 2,
     minWidth:Platform.OS === 'ios' ? 25 : 24,

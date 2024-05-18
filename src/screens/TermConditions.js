@@ -213,6 +213,7 @@ const TermConditions = ({ navigation }) => {
 
             <FlatList
                 data={termsCondition}
+                style={{marginBottom:hp('6%')}}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item, index }) => <ListItem {...item} index={index} />}
                 ListHeaderComponent={
@@ -232,8 +233,8 @@ const TermConditions = ({ navigation }) => {
                         </View>
                     </View>}
             />
-
-            <FooterLogo />
+              
+              <FooterLogo />
 
         </SafeAreaView>
     );
@@ -242,7 +243,7 @@ const TermConditions = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:COLORS.WHITE
+        backgroundColor:COLORS.WHITE,
     },
     imageStyle: {
         width:wp('90%'),

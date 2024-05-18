@@ -4,7 +4,7 @@ import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 import ScrollContainer from '../components/ScrollContainer';
 import verifyOtpStyles from './styles/verifyOtpStyles';
 import { strings } from '../utils/strings';
-import { COLORS, colors, images } from '../utils/constants';
+import { colors, images } from '../utils/constants';
 import { responsiveHeight, responsiveImageSize } from '../utils/responsive';
 import { ScrollView } from 'react-native';
 import GradientButton from '../components/GradientButton';
@@ -12,15 +12,10 @@ import authService from '../services/authService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
 import { useSelector } from 'react-redux';
-import { selectCreateAccount, setLoading } from '../features/auth/authSlice';
-import LinearGradient from 'react-native-linear-gradient';
+import { selectCreateAccount } from '../features/auth/authSlice';
 
 
-
-const dummyLogo = require('../assets/shanthi_jellewery/Aurum_Logo.png');
-const wingImg = require('../assets/shanthi_jellewery/pngwing.png');
-const aurumLogo = responsiveImageSize(80, 80);
-const wingLogo = responsiveImageSize(150, 100);
+const wingLogo = responsiveImageSize(180, 100);
 
 
 const OtpInput = React.forwardRef(({ value, onChangeText, onKeyPress }, ref) => {
@@ -158,23 +153,21 @@ const VerifyOtpScreen = ({ navigation }) => {
 
     return (
         <SafeAreaView style={verifyOtpStyles.container}>
-            <LinearGradient colors={[COLORS.SPLASH_PRIMARY, COLORS.SPLASH_SECONDARY, COLORS.SPLASH_SECONDARY]} style={verifyOtpStyles.gradient}>
+            <ImageBackground source={images.login_bg} style={verifyOtpStyles.splash_logo} resizeMode='cover'>
                 <KeyboardAvoidingWrapper>
 
                     <ScrollContainer>
 
                         <View style={{ flex: 1 }}>
 
-                            <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
-                                <Image source={images.dark_logo} style={wingLogo} resizeMode="contain" />
+                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                <Image source={images.padtext_logo} style={wingLogo} resizeMode="contain" />
                             </View>
 
                             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
 
                                 <View style={verifyOtpStyles.modalContainer}>
-                                    <View style={verifyOtpStyles.modalContent}>
-
-                                        <View style={verifyOtpStyles.scrollwidth} />
+                                    <View>
 
                                         <View>
                                             <Text style={verifyOtpStyles.headerText}>{strings.verifyOtpScreen.title}</Text>
@@ -230,8 +223,7 @@ const VerifyOtpScreen = ({ navigation }) => {
 
                 </KeyboardAvoidingWrapper>
 
-            </LinearGradient>
-
+            </ImageBackground>
         </SafeAreaView>
     );
 };

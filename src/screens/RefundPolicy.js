@@ -15,6 +15,7 @@ import {
 } from '../utils/responsive';
 import { COLORS, FONTS } from '../utils/constants';
 import termsService from '../services/termsService';
+import FooterLogo from '../components/FooterLogo';
 
 
 
@@ -56,6 +57,7 @@ const RefundPolicy = ({ navigation }) => {
                 onWishlistPress={() => {
                     navigation.navigate('WishList');
                 }}
+                
             />
 
             <ScrollView contentContainerStyle={styles.contentContainer}>

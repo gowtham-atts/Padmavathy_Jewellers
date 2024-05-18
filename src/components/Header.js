@@ -90,8 +90,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   header_logo: {
-    width: wp('40%'),
-    height: hp('6%'),
+    width: wp('60%'),
+    height: hp('10%'),
     resizeMode: 'contain',
   },
   logoImg: {

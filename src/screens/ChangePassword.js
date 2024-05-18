@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Image, Text, TouchableOpacity, Alert, TextInput, SafeAreaView } from 'react-native';
+import { View, Image, Text, TouchableOpacity, Alert, TextInput, SafeAreaView, ImageBackground } from 'react-native';
 import DetailsHeader from '../components/DetailsHeader';
 import { hp } from '../utils/responsive';
 import { colors, images } from '../utils/constants';
@@ -83,6 +83,7 @@ const ChangePassword = ({ navigation }) => {
 
     return (
         <SafeAreaView style={changePassStyles.container}>
+          <ImageBackground source={images.login_bg} style={changePassStyles.login_bg} resizeMode='cover'>
             <KeyboardAvoidingWrapper>
                 <ScrollContainer>
                     <DetailsHeader
@@ -149,6 +150,7 @@ const ChangePassword = ({ navigation }) => {
 
                 </ScrollContainer>
             </KeyboardAvoidingWrapper>
+            </ImageBackground>
         </SafeAreaView>
     );
 };

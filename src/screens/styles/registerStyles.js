@@ -9,11 +9,16 @@ const commonFontFamily = {
 
 const registerStyles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: colors.white
+        flex: 1
     },
+    login_bg:{
+        width:"100%",
+        height:"100%"
+     },
     logo:{
-        width: wp('40%'), height: hp('10%'), resizeMode: 'contain'
+        width: wp('60%'), 
+        height: hp('10%'), 
+        resizeMode: 'contain'
     },
     headerText: {
         ...commonFontFamily,
@@ -24,13 +29,14 @@ const registerStyles = StyleSheet.create({
         marginBottom: responsiveHeight(1)
     },
     headerText2: {
-        ...commonFontFamily,
+        fontFamily:FONTS.OUTFIT_MEDIUM,
         fontSize: rfpercentage(3.5),
-        fontWeight: '700',
+        fontWeight: '500',
         fontStyle: 'normal',
         color: colors.black_clr,
         textAlign:'center'
     },
+
     subHeader2: {
         fontFamily: FONTS.OUTFIT_LIGHT,
         fontSize: rfpercentage(2.2),
@@ -46,12 +52,10 @@ const registerStyles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: responsiveHeight(4)
     },
-    contentSpace: {
-        marginTop: responsiveHeight(1)
-    },
+
     userTitle: {
         ...commonFontFamily,
-        fontSize: scaleFont(14),
+        fontSize: rfpercentage(2.4),
         fontWeight: '500',
         color: COLORS.DARK_PRIMARY,
         textAlign: 'left',
@@ -59,7 +63,7 @@ const registerStyles = StyleSheet.create({
     },
     passTitle: {
         ...commonFontFamily,
-        fontSize: scaleFont(14),
+        fontSize: rfpercentage(2.4),
         fontWeight: '500',
         color: COLORS.DARK_PRIMARY,
         textAlign: 'left',
@@ -69,7 +73,6 @@ const registerStyles = StyleSheet.create({
         width: 'auto',
         flex: 1,
         padding:Platform.OS === 'ios' ? 8 : 6,
-        backgroundColor:'#F1F1F1',
         borderRadius: 10
     },
     inputText: {
@@ -91,7 +94,7 @@ const registerStyles = StyleSheet.create({
         height: 20,
     },
     buttonContainer: {
-        marginTop: hp(6)
+        marginTop: hp(2)
     },
     button: {
         backgroundColor: '#3498db',

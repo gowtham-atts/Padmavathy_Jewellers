@@ -6,9 +6,8 @@ import { hp, rfpercentage, wp } from '../utils/responsive';
 const Footer = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Powered by</Text>
       <Image
-        source={images.poweredLogo}
+        source={images.atts_logo_light}
         style={styles.logo}
       />
     </View>

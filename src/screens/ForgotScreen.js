@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Image, TouchableOpacity, Text, ScrollView, StyleSheet, Platform } from 'react-native';
+import { View, Image, TouchableOpacity, Text, ScrollView, StyleSheet, Platform, ImageBackground } from 'react-native';
 import TextInput from '../components/TextInput';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 import { isPhoneNumberValid } from '../utils/validations';
@@ -63,24 +63,30 @@ const ForgotScreen = ({ navigation }) => {
 
 
   return (
-    <SafeAreaView style={{flex:1,backgroundColor:COLORS.WHITE}}>
-      <KeyboardAvoidingWrapper>
+    <SafeAreaView style={{flex:1}}>
+
+     <ImageBackground source={images.login_bg} style={forgotStyles.login_bg} resizeMode='cover'>
+
+       <KeyboardAvoidingWrapper>
+
         <ScrollView>
 
           <View style={forgotStyles.container}>
 
-            <View style={{ alignItems: 'center', marginTop: hp(2) }}>
-                <Image source={images.dark_logo}
-                  style={{ width: wp('40%'), height: hp('10%'), resizeMode: 'contain' }} />
-              </View>
+            <View style={{flexDirection:'row',alignItems:'center',margin:hp('2%')}}>
+               <TouchableOpacity onPress={()=>navigation.goBack()}>
+                 <Image source={images.back} style={{ width: wp('8%'), height: hp('4%'), resizeMode: 'contain' }} />
+               </TouchableOpacity>
+                <View style={{alignItems:'center',flex:1}}>
+                  <Image source={images.padtext_logo} style={{ width: wp('60%'), height: hp('10%'), resizeMode: 'contain' }} />
+                </View>
+            </View>
 
-
-              <View>
+              <View style={{marginTop:hp('2%')}}>
                 <Text style={forgotStyles.headerText}>{strings.forgotScreen.title}</Text>
               </View>
 
-
-            <View style={{flex:1}}>
+            <View style={{flex:1,marginTop:hp('6%')}}>
               <View style={{ marginTop: hp(5),alignSelf:'center' }}>
                 <Text style={forgotStyles.userTitle}>{strings.forgotScreen.mobileNo}</Text>
                 <TextInput
@@ -117,7 +123,7 @@ const ForgotScreen = ({ navigation }) => {
 
         </ScrollView>
       </KeyboardAvoidingWrapper>
-
+     </ImageBackground>
     </SafeAreaView>
 
   );
@@ -128,7 +134,6 @@ const styles = StyleSheet.create({
     width: wp('88%'),
     alignSelf:'center',
     flex:1,
-    backgroundColor:'#F1F1F1',
     padding:Platform.OS === 'ios' ? 8 : 6
   },
   text: {

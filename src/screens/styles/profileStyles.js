@@ -19,6 +19,10 @@ const profileStyles = StyleSheet.create({
         flex: 1,
         backgroundColor:COLORS.WHITE
      },
+     login_bg:{
+      width:"100%",
+      height:"100%"
+     },
      titleStyle: {
        fontFamily: FONTS.OUTFIT_BOLD,
        fontSize: rfpercentage(2.2),

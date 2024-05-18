@@ -16,6 +16,10 @@ const forgotStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
       },
+    login_bg:{
+        width:"100%",
+        height:"100%"
+    },
     logo: {
         width: 150,
         height: 150,
@@ -63,8 +67,7 @@ const forgotStyles = StyleSheet.create({
     input: {
         width: wp('90%'),
         alignSelf:'center',
-        flex:1,
-        backgroundColor:'#F1F1F1',
+        flex:1
     },
     inputText: {
         color: COLORS.TEXT,
@@ -87,7 +90,7 @@ const forgotStyles = StyleSheet.create({
         height: 20,
     },
     buttonContainer: {
-        marginTop: hp(8),
+        marginTop: hp('10%'),
         width:wp('90%'),
         alignSelf:'center'
     },

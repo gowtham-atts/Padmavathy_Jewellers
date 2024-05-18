@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, FlatList, Image, TouchableOpacity, SafeAreaView, ImageBackground } from 'react-native';
 import { hp } from '../utils/responsive';
 import offerService from '../services/offerService';
 import { getData } from '../utils/storage';
@@ -11,6 +11,7 @@ import offerStyles from './styles/offerStyles';
 import Header from '../components/Header';
 import CarouselComponent from '../components/CarouselComponent';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { images } from '../utils/constants';
 
 
 
@@ -114,42 +115,43 @@ const OfferScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={offerStyles.container}>
+      <ImageBackground source={images.login_bg} style={offerStyles.login_bg} resizeMode='cover'>
 
-      <FlatList
-        data={getTodayOfferData}
-        keyExtractor={(item) => item.id_offer.toString()}
-        style={{ marginBottom: hp(8) }}
-        renderItem={renderTodayOffer}
-        numColumns={3}
-        columnWrapperStyle={offerStyles.columnWrapperStyle}
-        ListHeaderComponent={
-          <View style={{ paddingTop: hp(2) }}>
-            <Header
-              onMenuPress={openToggle}
-              onWishlistPress={wishList}
-              onNotifyPress={notify}
-              notificationCount={notifyCount}
-              todayGoldRate={`₹ ${todayGoldRate?.mjdmagoldrate_22ct}`}
-              todaySliverRate={`₹ ${todayGoldRate?.silverrate_1gm}`}
-              isGoldArrow={isGoldArrow}
-              isSilverArrow={isSilverArrow}
-            />
-            <View style={offerStyles.carouselContainer}>
-              <CarouselComponent data={getOfferBannerData} />
-            </View>
-            {loading &&  <LoadingSpinner/>}
-            <View style={{ paddingLeft: hp(2),marginBottom:hp(2) }}>
-              <Text style={offerStyles.title}>Offers</Text>
-            </View>
-          </View>}
-        ListEmptyComponent={
-          loading &&
-          <View style={offerStyles.noWishlistContainer}>
-            <Text style={offerStyles.noWishlistText}>No Records Founds</Text>
-          </View>}
-      />
+        <FlatList
+          data={getTodayOfferData}
+          keyExtractor={(item) => item.id_offer.toString()}
+          style={{ marginBottom: hp(8) }}
+          renderItem={renderTodayOffer}
+          numColumns={3}
+          columnWrapperStyle={offerStyles.columnWrapperStyle}
+          ListHeaderComponent={
+            <View style={{ paddingTop: hp(2) }}>
+              <Header
+                onMenuPress={openToggle}
+                onWishlistPress={wishList}
+                onNotifyPress={notify}
+                notificationCount={notifyCount}
+                todayGoldRate={`₹ ${todayGoldRate?.mjdmagoldrate_22ct}`}
+                todaySliverRate={`₹ ${todayGoldRate?.silverrate_1gm}`}
+                isGoldArrow={isGoldArrow}
+                isSilverArrow={isSilverArrow}
+              />
+              <View style={offerStyles.carouselContainer}>
+                <CarouselComponent data={getOfferBannerData} />
+              </View>
+              {loading && <LoadingSpinner />}
+              <View style={{ paddingLeft: hp(2), marginBottom: hp(2) }}>
+                <Text style={offerStyles.title}>Offers</Text>
+              </View>
+            </View>}
+          ListEmptyComponent={
+            loading &&
+            <View style={offerStyles.noWishlistContainer}>
+              <Text style={offerStyles.noWishlistText}>No Records Founds</Text>
+            </View>}
+         />
 
-
+      </ImageBackground>
     </SafeAreaView>
   );
 };

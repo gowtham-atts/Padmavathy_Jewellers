@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, TouchableOpacity, Text, SafeAreaView } from 'react-native';
+import { View, Image, TouchableOpacity, Text, SafeAreaView, ImageBackground } from 'react-native';
 import TextInput from '../components/TextInput';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 import ScrollContainer from '../components/ScrollContainer';
@@ -17,6 +17,7 @@ import Toast from 'react-native-simple-toast';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setCreateAccount } from '../features/auth/authSlice';
 import { useDispatch } from 'react-redux';
+import FooterLogo from '../components/FooterLogo';
 
 
 
@@ -225,11 +226,12 @@ const RegisterScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={registerStyles.container}>
-      <KeyboardAvoidingWrapper>
-        <ScrollContainer>
+      <ImageBackground source={images.login_bg} style={registerStyles.login_bg} resizeMode='cover'>
+        <KeyboardAvoidingWrapper>
+          <ScrollContainer>
 
           <View style={{ alignItems: 'center', marginTop: hp(2) }}>
-            <Image source={images.dark_logo} style={registerStyles.logo} />
+            <Image source={images.padtext_logo} style={registerStyles.logo} />
           </View>
 
           <View style={{ marginTop: hp(5) }}>
@@ -406,8 +408,11 @@ const RegisterScreen = ({ navigation }) => {
             
           </View>
 
+          <FooterLogo/>
+
         </ScrollContainer>
-      </KeyboardAvoidingWrapper>
+        </KeyboardAvoidingWrapper>
+      </ImageBackground>
     </SafeAreaView>
   );
 };

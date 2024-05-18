@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, Text, TouchableOpacity, SafeAreaView, StyleSheet } from 'react-native';
+import { View, Image, Text, TouchableOpacity, SafeAreaView, StyleSheet, ImageBackground } from 'react-native';
 import { hp, wp, rfpercentage } from '../utils/responsive';
 import { Iconify } from 'react-native-iconify';
 import SwitchToggle from '../components/SwitchToggle';
@@ -35,7 +35,7 @@ const ProfileScreen = ({ navigation }) => {
 
   const notifyCount = useSelector(selectNotificationCount);
 
-  const [err , setErr] = useState('')
+  const [err, setErr] = useState('')
 
   const [isUserLogin, setIsLoggedIn] = useState('');
 
@@ -66,14 +66,14 @@ const ProfileScreen = ({ navigation }) => {
           setNotificationEnabled(!notificationEnabled);
           Toast.show(response?.message, Toast.SHORT)
         }
-      }   
-    } catch(err) {
-        setErr(err)
-    } 
+      }
+    } catch (err) {
+      setErr(err)
+    }
 
   }
 
- const handleCancel = () => {
+  const handleCancel = () => {
     setDeleteModalVisible(false)
   }
 
@@ -84,28 +84,28 @@ const ProfileScreen = ({ navigation }) => {
 
 
   const deleteAccount = async () => {
-      try {
-        const customer_id = await getData('customerId');
-        const payload = {
-          id_customer:customer_id
-        }
-        const response = await authService.delete_account(payload);
-        if (response.status === 'invalid') {
-            Toast.show(response.message, Toast.SHORT)
-            handleConfirmLogout();
-            navigation.replace('Login')
-        } else {
-          if (response?.status === 'success') {
-              Toast.show(response?.message, Toast.BOTTOM);
-              await deleteCredentials();
-              navigation.replace('Login');
-          } else {
-              Toast.show(response?.message, Toast.BOTTOM);
-          }
-        }
-      } catch {
-          console.log('err')
+    try {
+      const customer_id = await getData('customerId');
+      const payload = {
+        id_customer: customer_id
       }
+      const response = await authService.delete_account(payload);
+      if (response.status === 'invalid') {
+        Toast.show(response.message, Toast.SHORT)
+        handleConfirmLogout();
+        navigation.replace('Login')
+      } else {
+        if (response?.status === 'success') {
+          Toast.show(response?.message, Toast.BOTTOM);
+          await deleteCredentials();
+          navigation.replace('Login');
+        } else {
+          Toast.show(response?.message, Toast.BOTTOM);
+        }
+      }
+    } catch {
+      console.log('err')
+    }
   }
 
 
@@ -129,200 +129,204 @@ const ProfileScreen = ({ navigation }) => {
     const cusImg = response?.cus_img ?? '';
 
 
-    let source = images.empty_avator; 
+    let source = images.empty_avator;
 
     if (!cusImg || !getImage) {
-        return <Image source={source} style={profileStyles.avatar} />;
+      return <Image source={source} style={profileStyles.avatar} />;
     }
 
     const imageUrl = `${getImage}${cusImg}`;
 
     if (imageUrl.trim() === '') {
-        return <Image source={source} style={profileStyles.avatar} />;
+      return <Image source={source} style={profileStyles.avatar} />;
     }
 
-    return <Image source={{uri:imageUrl}} style={profileStyles.avatar} />;
-};
+    return <Image source={{ uri: imageUrl }} style={profileStyles.avatar} />;
+  };
 
 
 
   return (
     <SafeAreaView style={profileStyles.container}>
-      <ScrollContainer>
+      <ImageBackground source={images.login_bg} style={profileStyles.login_bg} resizeMode='cover'>
 
-        <DetailsHeader
-          title="Profile"
-          onBackPress={() => {
-            navigation.goBack('Offer');
-          }}
-          onNotifyPress={() => {
-            navigation.navigate('Notification');
-          }}
-          onWishlistPress={() => {
-            navigation.navigate('WishList');
-          }}
-          notificationCount={notifyCount}
-        />
+        <ScrollContainer>
 
-        <View style={{
-          flexDirection: 'row', alignItems: 'center', marginTop: hp(2),
-          marginHorizontal: hp(2)
-        }}>
-          {renderBase64Image()}
-          <View style={{ marginHorizontal: hp(2) }}>
-            <Text style={profileStyles.titleStyle}>{(profileList?.firstname || 'Welcome') + ' ' + (profileList?.lastname || ' ')}</Text>
-            <Text style={profileStyles.descStyle}>{profileList?.address1 || ''}</Text>
-          </View>   
-        </View>
+          <DetailsHeader
+            title="Profile"
+            onBackPress={() => {
+              navigation.goBack('Offer');
+            }}
+            onNotifyPress={() => {
+              navigation.navigate('Notification');
+            }}
+            onWishlistPress={() => {
+              navigation.navigate('WishList');
+            }}
+            notificationCount={notifyCount}
+          />
 
-        <View style={[profileStyles.iconCntr,{marginLeft:hp(1.5),marginRight:hp(2)}]}>
-          <View style={profileStyles.iconRow}>
-            <Image source={images.notify_bell} style={profileStyles.notify} />
-            <Text style={[profileStyles.itemheaderTxt]}>Notification</Text>
+          <View style={{
+            flexDirection: 'row', alignItems: 'center', marginTop: hp(2),
+            marginHorizontal: hp(2)
+          }}>
+            {renderBase64Image()}
+            <View style={{ marginHorizontal: hp(2) }}>
+              <Text style={profileStyles.titleStyle}>{(profileList?.firstname || 'Welcome') + ' ' + (profileList?.lastname || ' ')}</Text>
+              <Text style={profileStyles.descStyle}>{profileList?.address1 || ''}</Text>
+            </View>
           </View>
-          <View>
-            <SwitchToggle value={notificationEnabled} onValueChange={handleToggleSwitch} />
-          </View>
-        </View>
 
-        <View style={{ borderBottomColor: '#979797', borderBottomWidth: 0.5, marginTop: hp(2) }} />
-
-        {isUserLogin &&
-          <View style={{ margin: 15 }}>
-            <View style={[{ marginTop: hp(1) }]}>
-              <Text style={profileStyles.profileHeaderTxt}>Profile Settings</Text>
+          <View style={[profileStyles.iconCntr, { marginLeft: hp(1.5), marginRight: hp(2) }]}>
+            <View style={profileStyles.iconRow}>
+              <Image source={images.notify_bell} style={profileStyles.notify} />
+              <Text style={[profileStyles.itemheaderTxt]}>Notification</Text>
             </View>
             <View>
-              <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} style={profileStyles.iconCntr}>
-                <View style={profileStyles.iconRow}>
-                  <Image source={images.terms} style={profileStyles.iconImg} />
-                  <Text style={profileStyles.itemheaderTxt}>Edit Profile</Text>
-                </View>
-                <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} >
-                  <Image source={images.oval_arrow} style={profileStyles.arrowImg} />
-                </TouchableOpacity>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={() => navigation.navigate('ChangePassword')} style={profileStyles.iconCntr}>
-                <View style={profileStyles.iconRow}>
-                  <Image source={images.changePass} style={profileStyles.iconImg} />
-                  <Text style={profileStyles.itemheaderTxt}>Change Password</Text>
-                </View>
-                <TouchableOpacity onPress={() => navigation.navigate('ChangePassword')} >
-                  <Image source={images.oval_arrow} style={profileStyles.arrowImg} />
-                </TouchableOpacity>
-              </TouchableOpacity>
+              <SwitchToggle value={notificationEnabled} onValueChange={handleToggleSwitch} />
             </View>
-          </View>}
-
-
-        <View style={{ margin: 15, marginBottom: isUserLogin ? hp(15) : hp(40) }}>
-          <View>
-            <Text style={profileStyles.profileHeaderTxt}>Main Menu</Text>
           </View>
-          <View>
-            {isUserLogin && <TouchableOpacity onPress={() => navigation.navigate('PaymentHistory')} style={profileStyles.iconCntr}>
-              <View style={profileStyles.iconRow}>
-                <Image source={images.history} style={profileStyles.iconImg} />
-                <Text style={profileStyles.itemheaderTxt}>Payment History</Text>
+
+          <View style={{ borderBottomColor: '#979797', borderBottomWidth: 0.5, marginTop: hp(2) }} />
+
+          {isUserLogin &&
+            <View style={{ margin: 15 }}>
+              <View style={[{ marginTop: hp(1) }]}>
+                <Text style={profileStyles.profileHeaderTxt}>Profile Settings</Text>
               </View>
-              <TouchableOpacity onPress={() => navigation.navigate('PaymentHistory')} >
-                <Image source={images.oval_arrow} style={profileStyles.arrowImg} />
-              </TouchableOpacity>
-            </TouchableOpacity>}
-          </View>
+              <View>
+                <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} style={profileStyles.iconCntr}>
+                  <View style={profileStyles.iconRow}>
+                    <Image source={images.terms} style={profileStyles.iconImg} />
+                    <Text style={profileStyles.itemheaderTxt}>Edit Profile</Text>
+                  </View>
+                  <TouchableOpacity onPress={() => navigation.navigate('EditProfile')} >
+                    <Image source={images.oval_arrow} style={profileStyles.arrowImg} />
+                  </TouchableOpacity>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('ChangePassword')} style={profileStyles.iconCntr}>
+                  <View style={profileStyles.iconRow}>
+                    <Image source={images.changePass} style={profileStyles.iconImg} />
+                    <Text style={profileStyles.itemheaderTxt}>Change Password</Text>
+                  </View>
+                  <TouchableOpacity onPress={() => navigation.navigate('ChangePassword')} >
+                    <Image source={images.oval_arrow} style={profileStyles.arrowImg} />
+                  </TouchableOpacity>
+                </TouchableOpacity>
+              </View>
+            </View>}
 
-          {!isUserLogin &&
+
+          <View style={{ margin: 15, marginBottom: isUserLogin ? hp(15) : hp(40) }}>
             <View>
-             
-              <TouchableOpacity onPress={() => navigation.navigate('HomeDrawer', { screen: 'Offers' })} style={profileStyles.iconCntr}>
+              <Text style={profileStyles.profileHeaderTxt}>Main Menu</Text>
+            </View>
+            <View>
+              {isUserLogin && <TouchableOpacity onPress={() => navigation.navigate('PaymentHistory')} style={profileStyles.iconCntr}>
                 <View style={profileStyles.iconRow}>
-                  <Image source={images.offers} style={profileStyles.iconImg} />
-                  <Text style={profileStyles.itemheaderTxt}>Offers</Text>
+                  <Image source={images.history} style={profileStyles.iconImg} />
+                  <Text style={profileStyles.itemheaderTxt}>Payment History</Text>
                 </View>
-                <TouchableOpacity onPress={() => navigation.navigate('HomeDrawer', { screen: 'Offers' })} >
+                <TouchableOpacity onPress={() => navigation.navigate('PaymentHistory')} >
                   <Image source={images.oval_arrow} style={profileStyles.arrowImg} />
                 </TouchableOpacity>
-              </TouchableOpacity>
+              </TouchableOpacity>}
+            </View>
 
-              <TouchableOpacity onPress={() => navigation.replace('Register')} style={[profileStyles.iconCntr]}>
-                <View style={profileStyles.iconRow}>
-                  <Iconify icon='mdi:sign-in' size={25} color={colors.gradientBg} />
-                  <Text style={profileStyles.signup}>Sign Up</Text>
-                </View>
-              </TouchableOpacity>
+            {!isUserLogin &&
+              <View>
 
-            </View> }
+                <TouchableOpacity onPress={() => navigation.navigate('HomeDrawer', { screen: 'Offers' })} style={profileStyles.iconCntr}>
+                  <View style={profileStyles.iconRow}>
+                    <Image source={images.offers} style={profileStyles.iconImg} />
+                    <Text style={profileStyles.itemheaderTxt}>Offers</Text>
+                  </View>
+                  <TouchableOpacity onPress={() => navigation.navigate('HomeDrawer', { screen: 'Offers' })} >
+                    <Image source={images.oval_arrow} style={profileStyles.arrowImg} />
+                  </TouchableOpacity>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => navigation.replace('Register')} style={[profileStyles.iconCntr]}>
+                  <View style={profileStyles.iconRow}>
+                    <Iconify icon='mdi:sign-in' size={25} color={colors.gradientBg} />
+                    <Text style={profileStyles.signup}>Sign Up</Text>
+                  </View>
+                </TouchableOpacity>
+
+              </View>}
 
 
             <View style={{ borderBottomColor: '#979797', borderBottomWidth: 0.5, marginTop: hp(2) }} />
 
 
-          {isUserLogin &&
-            <TouchableOpacity onPress={() => setDeleteModalVisible(true)}
-              style={[profileStyles.iconCntr, { marginTop: hp('5%') }]}>
-              <View style={profileStyles.iconRow}>
-                <Image source={images.delete} style={profileStyles.iconImg} />
-                <Text style={profileStyles.deleteTxt}>Delete Account</Text>
-              </View>
-            </TouchableOpacity>}
-        </View>
-
-        
-        <Modal
-          isVisible={isDeleteModalVisible}
-          animationIn='bounceIn'
-          animationOut='bounceOut'
-          hasBackdrop={true}
-          onBackdropPress={() => setDeleteModalVisible(false)}
-          onBackButtonPress={() => setDeleteModalVisible(false)}
-        >
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-
-              <View style={{ alignItems: 'flex-end' }}>
-                <TouchableOpacity onPress={()=>setDeleteModalVisible(false)} style={{
-                  borderColor: '#000000',
-                  borderWidth: 0.5,
-                  borderRadius: 8,
-                  padding: 8,
-                }}>
-                  <Image source={images.close} style={{
-                    width: wp('4%'),
-                    height: hp('2%'), resizeMode: 'contain'
-                  }} />
-                </TouchableOpacity>
-              </View>
-
-              <View style={{alignItems:'center'}}>
-                 <Image source={images.rafiki} style={{width:wp('15%'),height:hp('15%'),resizeMode:'contain'}} />
-              </View>
-
-
-              <View style={{  }}>
-                <Text style={styles.modalText}>Are you sure you want to delete</Text>
-                <Text style={styles.modalText}>your account?</Text>
-              </View>
-
-              <View style={{marginTop:hp(2)}}>
-                <Text style={styles.contentText}>Deleting your account will also terminate your access to</Text>
-                <Text style={styles.contentText}>all services and functionalities provided by this platform.</Text>
-              </View>
-
-
-              <View style={styles.btnCtr}>
-                <TouchableOpacity style={styles.confirmButton} onPress={handleCancel}>
-                  <Text style={styles.confirmButtonText}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.closeButton} onPress={handleConfirmDelete}>
-                  <Text style={styles.closeButtonText}>Delete</Text>
-                </TouchableOpacity>
-              </View>
-
-            </View>
+            {isUserLogin &&
+              <TouchableOpacity onPress={() => setDeleteModalVisible(true)}
+                style={[profileStyles.iconCntr, { marginTop: hp('5%') }]}>
+                <View style={profileStyles.iconRow}>
+                  <Image source={images.delete} style={profileStyles.iconImg} />
+                  <Text style={profileStyles.deleteTxt}>Delete Account</Text>
+                </View>
+              </TouchableOpacity>}
           </View>
-        </Modal>
 
-      </ScrollContainer>
+
+          <Modal
+            isVisible={isDeleteModalVisible}
+            animationIn='bounceIn'
+            animationOut='bounceOut'
+            hasBackdrop={true}
+            onBackdropPress={() => setDeleteModalVisible(false)}
+            onBackButtonPress={() => setDeleteModalVisible(false)}
+          >
+            <View style={styles.modalContainer}>
+              <View style={styles.modalContent}>
+
+                <View style={{ alignItems: 'flex-end' }}>
+                  <TouchableOpacity onPress={() => setDeleteModalVisible(false)} style={{
+                    borderColor: '#000000',
+                    borderWidth: 0.5,
+                    borderRadius: 8,
+                    padding: 8,
+                  }}>
+                    <Image source={images.close} style={{
+                      width: wp('4%'),
+                      height: hp('2%'), resizeMode: 'contain'
+                    }} />
+                  </TouchableOpacity>
+                </View>
+
+                <View style={{ alignItems: 'center' }}>
+                  <Image source={images.rafiki} style={{ width: wp('15%'), height: hp('15%'), resizeMode: 'contain' }} />
+                </View>
+
+
+                <View style={{}}>
+                  <Text style={styles.modalText}>Are you sure you want to delete</Text>
+                  <Text style={styles.modalText}>your account?</Text>
+                </View>
+
+                <View style={{ marginTop: hp(2) }}>
+                  <Text style={styles.contentText}>Deleting your account will also terminate your access to</Text>
+                  <Text style={styles.contentText}>all services and functionalities provided by this platform.</Text>
+                </View>
+
+
+                <View style={styles.btnCtr}>
+                  <TouchableOpacity style={styles.confirmButton} onPress={handleCancel}>
+                    <Text style={styles.confirmButtonText}>Cancel</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.closeButton} onPress={handleConfirmDelete}>
+                    <Text style={styles.closeButtonText}>Delete</Text>
+                  </TouchableOpacity>
+                </View>
+
+              </View>
+            </View>
+          </Modal>
+
+        </ScrollContainer>
+
+      </ImageBackground>
     </SafeAreaView>
   );
 };

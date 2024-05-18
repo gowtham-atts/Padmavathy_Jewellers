@@ -76,8 +76,10 @@ export const strings = {
       mobilePlaceholder:'Enter Your Mobile Number',
       password: 'Reset Password',
       passwordPlaceholder:'Enter your password',
-      rePassword:'Re-Enter Password',
-      rePasswordPlaceholder:'Enter your re-enter password',
+      newPassword:'New Password',
+      newPasswordPlaceholder:'New Password',
+      rePassword:'Confirm Password',
+      rePasswordPlaceholder:'Confirm password',
       forgotFailed:'Forgot Failed',
       unexpectedError:'An unexpected error occurred. Please try again.'
     },

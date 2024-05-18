@@ -10,7 +10,10 @@ const commonFontFamily = {
 const loginStyles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:colors.white
+    },
+    login_bg:{
+       width:"100%",
+       height:"100%"
     },
     logoContainer: {
         alignItems: 'center', 
@@ -25,7 +28,7 @@ const loginStyles = StyleSheet.create({
         alignItems: 'center',
       },
     img_logo:{
-        width: wp('40%'), 
+        width: wp('60%'), 
         height: hp('10%'), 
         resizeMode: 'contain'
     },
@@ -55,7 +58,7 @@ const loginStyles = StyleSheet.create({
         color: '#2D2B2E',
     },
     subHeader2: {
-        fontFamily:FONTS.OUTFIT_BOLD,
+        fontFamily:FONTS.OUTFIT_MEDIUM,
         fontSize: rfpercentage(4),
         fontWeight: '500',
         color: colors.black_clr,
@@ -71,7 +74,7 @@ const loginStyles = StyleSheet.create({
     },
     userTitle: {
         ...commonFontFamily,
-        fontSize: rfpercentage(2),
+        fontSize: rfpercentage(2.4),
         fontWeight: '500',
         color: colors.headerclr,
         textAlign: 'left',
@@ -79,7 +82,7 @@ const loginStyles = StyleSheet.create({
     },
     passTitle: {
         ...commonFontFamily,
-        fontSize: rfpercentage(2),
+        fontSize: rfpercentage(2.4),
         fontWeight: '500',
         color: colors.inputheader,
         textAlign: 'left',
@@ -87,13 +90,11 @@ const loginStyles = StyleSheet.create({
     },
     input: {
         flex:1,
-        backgroundColor:colors.placeholder,
         padding:Platform.OS === 'ios' ? 8 : 6
     },
     
     passInput: {
         flex:1,
-        backgroundColor:colors.placeholder,
         padding:Platform.OS === 'ios' ? 8 : 6
     },
     inputText: {
@@ -123,7 +124,7 @@ const loginStyles = StyleSheet.create({
         height: 20,
     },
     buttonContainer: {
-        marginTop: hp(4)
+        marginTop:hp('6%')
     },
     newUser: {
         color: COLORS.SECONDARY,
@@ -133,13 +134,13 @@ const loginStyles = StyleSheet.create({
         textAlign: 'center'
     },
     createAcc: {
-        color: COLORS.PRIMARY,
+        color: colors.forgottxt_clr,
         fontSize: rfpercentage(2),
         fontWeight: '500',
         fontFamily: FONTS.OUTFIT_BOLD,
     },
     forgotText: {
-        color: COLORS.DARK_PRIMARY,
+        color: colors.forgottxt_clr,
         fontSize: rfpercentage(2),
         fontWeight: '500',
         fontFamily: 'Outfit-Medium',
@@ -205,9 +206,9 @@ const loginStyles = StyleSheet.create({
         textAlign: 'center',
     },
     skipTxt:{
-        fontSize: scaleFont(16),
+        fontSize: rfpercentage(2),
         fontWeight: '400',
-        color: colors.gray58,
+        color: colors.forgottxt_clr,
         fontFamily:FONTS.OUTFIT_MEDIUM,
         margin:responsiveHeight(2),
         textAlign:"right"

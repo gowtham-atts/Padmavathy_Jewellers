@@ -15,18 +15,17 @@ const commonFontWeight = {
     fontWeight: '500'
 }
 
-const BLACK = {
-    color: COLORS.BLACK
-}
 
-
-const avator = responsiveImageSize(100, 100);
 
 
 const changePassStyles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor:COLORS.WHITE
+    },
+    login_bg:{
+      width:"100%",
+      height:"100%"
     },
     titleText: {
         fontFamily: FONTS.OUTFIT_BOLD,
@@ -83,10 +82,10 @@ const changePassStyles = StyleSheet.create({
     },
     input: {
         width: wp(80),
-        borderColor: colors.gray58,
+        borderColor: colors.borderclr,
         borderWidth: 1,
         borderRadius: 8,
-        paddingHorizontal: 10,
+        paddingHorizontal: 14,
         margin: 6,
         padding:Platform.OS === 'ios' ? 16 : 12
     },

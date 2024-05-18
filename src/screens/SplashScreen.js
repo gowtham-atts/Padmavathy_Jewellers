@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
+import { View, StyleSheet, Animated, ImageBackground } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { COLORS, images } from '../utils/constants';
@@ -47,7 +47,7 @@ const SplashScreen = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <LinearGradient colors={[COLORS.SPLASH_PRIMARY, COLORS.SPLASH_SECONDARY, COLORS.SPLASH_SECONDARY]} style={styles.gradient}>
+       <ImageBackground source={images.pad_splash} style={styles.splash_logo} resizeMode='cover'>
         <View style={styles.logoContainer}>
           <Animated.Image
             source={images.dark_logo}
@@ -58,7 +58,7 @@ const SplashScreen = ({ navigation }) => {
         <View style={styles.footer}>
           <Footer />
         </View>
-      </LinearGradient>
+      </ImageBackground>
     </SafeAreaView>
   );
 };
@@ -67,6 +67,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+  },
+  splash_logo:{
+     flex:1,
+     justifyContent:'center',
+     width:"100%",
+     height:"100%",
   },
   gradient: {
     flex: 1,

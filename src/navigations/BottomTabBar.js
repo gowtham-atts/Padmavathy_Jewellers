@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Platform, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ProfileScreen from '../screens/ProfileScreen';
-import { COLORS, FONTS } from '../utils/constants';
+import { COLORS, FONTS, colors } from '../utils/constants';
 import { Iconify } from 'react-native-iconify';
 import { hp, rfpercentage, wp } from '../utils/responsive';
 import OfferScreen from '../screens/OfferScreen';
@@ -46,9 +46,9 @@ const BottomTabBar = ({ route }) => {
         options={{
           tabBarIcon: ({ focused }) => (
             <View
-              style={[styles.tabItem,{backgroundColor: focused ? '#B76E00' : '#FFFFFF'}]}>
-              <Iconify icon="iconoir:home" size={size}  color={focused ? '#FFFFFF' : '#B76E00'} />
-              <Text style={[styles.text, { color: focused ? '#FFFFFF' : '#B76E00' }]}>Home</Text>
+              style={[styles.tabItem,{backgroundColor: focused ? colors.gradientBg : colors.white}]}>
+              <Iconify icon="iconoir:home" size={size}  color={focused ? colors.white : colors.gradientBg} />
+              <Text style={[styles.text, { color: focused ? colors.white : colors.gradientBg }]}>Home</Text>
             </View>
           ),
         }}
@@ -58,9 +58,9 @@ const BottomTabBar = ({ route }) => {
         component={OfferScreen}
         options={{
           tabBarIcon: ({ focused }) => (
-            <View style={[styles.tabItem,{backgroundColor: focused ? '#B76E00' : '#FFFFFF'}]}>
-              <Iconify icon="bxs:offer" size={size}  color={focused ? '#FFFFFF' : '#B76E00'} />
-              <Text style={[styles.text, { color: focused ? '#FFFFFF' : '#B76E00' }]}>Offers</Text>
+            <View style={[styles.tabItem,{backgroundColor: focused ? colors.gradientBg : colors.white}]}>
+              <Iconify icon="bxs:offer" size={size}  color={focused ? colors.white : colors.gradientBg } />
+              <Text style={[styles.text, { color: focused ? colors.white : colors.gradientBg  }]}>Offers</Text>
             </View>
           ),
           tabBarIconStyle: {},
@@ -71,9 +71,9 @@ const BottomTabBar = ({ route }) => {
         component={ProfileScreen}
         options={{
           tabBarIcon: ({ focused }) => (
-            <View style={[styles.tabItem,{backgroundColor: focused ? '#B76E00' : '#FFFFFF'}]}>
-              <Iconify icon="iconamoon:profile-circle" size={size} color={focused ? '#FFFFFF' : '#B76E00'} />
-              <Text style={[styles.text, { color: focused ? '#FFFFFF' : '#B76E00' }]}>Profile</Text>
+            <View style={[styles.tabItem,{backgroundColor: focused ? colors.gradientBg : colors.white}]}>
+              <Iconify icon="iconamoon:profile-circle" size={size} color={focused ? colors.white : colors.gradientBg} />
+              <Text style={[styles.text, { color: focused ? colors.white : colors.gradientBg }]}>Profile</Text>
             </View>
           ),
         }}

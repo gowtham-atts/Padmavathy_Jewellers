@@ -164,8 +164,10 @@ export const PLACEHOLDER_IMAGES = {
 
 
 export const images = {
-
+ 
+  pad_splash:require('../assets/shanthi_jellewery/pad_splash.png'),
   logo: require('../assets/shanthi_jellewery/shanthi-logo.png'),
+  login_bg:require('../assets/shanthi_jellewery/login-bg.png'),
   dark_logo : require('../assets/shanthi_jellewery/pad-logo.png'),
   powered_aurum : require('../assets/shanthi_jellewery/powered_aurum.png'),
   poweredLogo: require('../assets/shanthi_jellewery/powered_by_logo.png'),
@@ -184,9 +186,9 @@ export const images = {
   header_logo: require('../assets/shanthi_jellewery/header-logo.png'),
   refund:require('../assets/shanthi_jellewery/refund.png'),
   ourstore:require('../assets/shanthi_jellewery/out-store.png'),
-
-
-
+  padtext_logo:require('../assets/shanthi_jellewery/padtext-logo.png'),
+  atts_logo_light:require('../assets/shanthi_jellewery/atts-logo-light.png'),
+  atts_logo_dark:require('../assets/shanthi_jellewery/atts-logo-dark.png'),
 
   // side bar icon
   empty_avator:require('../assets/shanthi_jellewery/empty-avator.png'),
@@ -199,7 +201,6 @@ export const images = {
   notify_dark:require('../assets/shanthi_jellewery/notify-icon.png'),
   fillHeart : require('../assets/shanthi_jellewery/fill-heart.png'),
 
-
   // profile screen
   notify_bell : require('../assets/shanthi_jellewery/notify-bell.png'),
   offers: require('../assets/shanthi_jellewery/offers.png'),
@@ -210,7 +211,6 @@ export const images = {
   changePass: require('../assets/shanthi_jellewery/change-pass.png'),
   header_effect : require('../assets/shanthi_jellewery/header-effect.png'),
   delete : require('../assets/shanthi_jellewery/delete_acc.png'),
-
 
   // shanthi_jellewery plans
   round_arrow:require('../assets/shanthi_jellewery/round-arr-white.png'),
@@ -226,9 +226,6 @@ export const images = {
 
   radio_checked : require('../assets/shanthi_jellewery/radio_button_checked.png'),
   radio_unchecked : require('../assets/shanthi_jellewery/radio_button_unchecked.png'),
-
-
-
   rafiki : require('../assets/shanthi_jellewery/rafiki.png'),
   close : require('../assets/shanthi_jellewery/close_icon.png')
 
@@ -246,15 +243,17 @@ export const STATUS_CODES = {
 
 // kandhan jellwery color codes
 export const colors = {
-  gradientBg: '#B76E00',
-  gradientBg2: '#B76E00',
+  gradientBg: '#E27C00',
+  gradientBg2: '#E27C00',
   primaryBtn:'#294279',
   white:'#FFFFFF',
   gray58:'#8D8D8D',
   headerclr:'#3A3A3A',
   inputheader:'#242424',
   placeholder:'#F1F1F1',
-  black_clr:'#2D2B2E'
+  black_clr:'#2D2B2E',
+  forgottxt_clr:'#706FE5',
+  borderclr:"#E2E2E2"
 };
 
 

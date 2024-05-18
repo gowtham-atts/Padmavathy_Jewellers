@@ -25,6 +25,8 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    borderColor:colors.gradientBg,
+    borderWidth:1,
     borderRadius: 8,
     paddingHorizontal: 10,
   },

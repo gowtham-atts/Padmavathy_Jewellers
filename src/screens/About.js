@@ -84,6 +84,7 @@ const About = ({ navigation }) => {
         <SafeAreaView style={aboutStyles.container}>
             <FlatList
                 data={termsCondition}
+                style={{marginBottom:hp('6%')}}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item, index }) => <ListItem {...item} index={index} />}
                 ListHeaderComponent={

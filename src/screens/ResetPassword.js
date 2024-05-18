@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Image, TouchableOpacity, Text, SafeAreaView, StyleSheet, Platform } from 'react-native';
+import { View, Image, TouchableOpacity, Text, SafeAreaView, StyleSheet, Platform, ImageBackground } from 'react-native';
 import TextInput from '../components/TextInput';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 import ScrollContainer from '../components/ScrollContainer';
@@ -68,13 +68,18 @@ const ResetPassword = ({ navigation, route }) => {
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.WHITE }}>
-            <KeyboardAvoidingWrapper>
-                <ScrollContainer>
+          <ImageBackground source={images.login_bg} style={forgotStyles.login_bg} resizeMode='cover'>
+              <KeyboardAvoidingWrapper>
+                 <ScrollContainer>
 
-                    <View style={{ alignItems: 'center', marginTop: hp(2) }}>
-                        <Image source={images.dark_logo}
-                            style={{ width: wp('40%'), height: hp('10%'), resizeMode: 'contain' }} />
-                    </View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', margin: hp('2%') }}>
+                            <TouchableOpacity onPress={() => navigation.goBack()}>
+                                <Image source={images.back} style={{ width: wp('8%'), height: hp('4%'), resizeMode: 'contain' }} />
+                            </TouchableOpacity>
+                            <View style={{ alignItems: 'center', flex: 1 }}>
+                                <Image source={images.padtext_logo} style={{ width: wp('60%'), height: hp('10%'), resizeMode: 'contain' }} />
+                            </View>
+                        </View>
 
                     <View style={{ padding: hp(2) }}>
                         <View>
@@ -96,10 +101,10 @@ const ResetPassword = ({ navigation, route }) => {
                         </View>
 
                         <View>
-                            <Text style={loginStyles.passTitle}>{strings.loginScreen.passwordPlaceholder}</Text>
+                            <Text style={loginStyles.passTitle}>{strings.resetPasswordScreen.newPassword}</Text>
                             <View style={loginStyles.passwordContainer}>
                                 <TextInput
-                                    placeholder={strings.loginScreen.passwordPlaceholder}
+                                    placeholder={strings.resetPasswordScreen.newPasswordPlaceholder}
                                     placeholderTextColor={COLORS.PLACEHOLDER_TEXT}
                                     value={passwd}
                                     onChangeText={(text) => setPassword(text)}
@@ -166,7 +171,8 @@ const ResetPassword = ({ navigation, route }) => {
                     </View>
 
                 </ScrollContainer>
-            </KeyboardAvoidingWrapper>
+              </KeyboardAvoidingWrapper>
+          </ImageBackground>
         </SafeAreaView>
 
     );
@@ -178,7 +184,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         flex: 1,
         padding: Platform.OS === 'ios' ? 8 : 6,
-        backgroundColor: '#F1F1F1',
     },
     inputText: {
         color: COLORS.TEXT,

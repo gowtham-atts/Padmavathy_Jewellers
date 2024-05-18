@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Image, StyleSheet, ImageBackground, Text, TouchableOpacity } from 'react-native';
 import Swiper from 'react-native-swiper';
-import { COLORS, FONTS, images } from '../utils/constants';
+import { COLORS, FONTS, colors, images } from '../utils/constants';
 import { hp, responsiveHeight, responsiveImageSize, responsiveWidth, rfpercentage, scaleFont, wp } from '../utils/responsive';
 
 const OnGoingScreen = ({ navigation }) => {
@@ -17,9 +17,14 @@ const OnGoingScreen = ({ navigation }) => {
     navigation.replace('Login');
   }
 
+  
+  const onSkip = () => {
+    navigation.replace('Login');
+  }
+
 
   return (
-    <ImageBackground source={images.bg_splash} style={styles.bgLogo} >
+    <ImageBackground source={images.pad_splash} style={styles.bgLogo} >
 
       <Swiper
         loop={false}
@@ -36,12 +41,12 @@ const OnGoingScreen = ({ navigation }) => {
           <View style={{ marginTop: responsiveHeight(2) }}>
             <Text style={[styles.text1, { color: COLORS.WHITE }]}>Choose Your Scheme</Text>
           </View>
-          <View style={{ marginTop: responsiveHeight(2) }}>
+          {/* <View style={{ marginTop: responsiveHeight(2) }}>
             <Text style={[styles.text2, { color: '#FBF3FF' }]}>I provide essential stuff for your</Text>
           </View>
           <View style={{ marginTop: responsiveHeight(2) }}>
             <Text style={[styles.text2, { color: '#FBF3FF' }]}>ui designs every tuesday!</Text>
-          </View>
+          </View> */}
         </View>
 
         <View style={styles.slide}>
@@ -53,12 +58,12 @@ const OnGoingScreen = ({ navigation }) => {
           <View style={{ marginTop: responsiveHeight(2) }}>
             <Text style={[styles.text1, { color: COLORS.WHITE }]}>Make Your Payment</Text>
           </View>
-          <View style={{ marginTop: responsiveHeight(2) }}>
+          {/* <View style={{ marginTop: responsiveHeight(2) }}>
             <Text style={[styles.text2, { color: '#FBF3FF' }]}>I provide essential stuff for your</Text>
           </View>
           <View style={{ marginTop: responsiveHeight(2) }}>
             <Text style={[styles.text2, { color: '#FBF3FF' }]}>ui designs every tuesday!</Text>
-          </View>
+          </View> */}
         </View>
 
         <View style={styles.slide}>
@@ -71,13 +76,13 @@ const OnGoingScreen = ({ navigation }) => {
             <Text style={[styles.text1, { color: COLORS.WHITE }]}>Explore  the Products</Text>
           </View>
 
-          <View style={{ marginTop: responsiveHeight(2) }}>
+          {/* <View style={{ marginTop: responsiveHeight(2) }}>
             <Text style={[styles.text2, { color: '#FBF3FF' }]}>I provide essential stuff for your</Text>
           </View>
 
           <View style={{ marginTop: responsiveHeight(2) }}>
             <Text style={[styles.text2, { color: '#FBF3FF' }]}>ui designs every tuesday!</Text>
-          </View>
+          </View> */}
 
         </View>
 
@@ -96,6 +101,10 @@ const OnGoingScreen = ({ navigation }) => {
 
       <TouchableOpacity onPress={handleSubmit} style={styles.button}>
         <Text style={[styles.buttonTxt]}>Get Started</Text>
+      </TouchableOpacity>
+
+       <TouchableOpacity onPress={onSkip} style={{marginBottom:hp('2%')}}>
+          <Text style={[styles.skip]}>Skip</Text>
       </TouchableOpacity>
 
     </ImageBackground>
@@ -170,13 +179,20 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     alignSelf: 'center',
     width: responsiveWidth(80),
-    marginBottom: responsiveHeight(5)
+    marginBottom: responsiveHeight(2)
   },
   buttonTxt: {
     fontFamily: FONTS.OUTFIT_MEDIUM,
     fontSize: rfpercentage(2),
     fontWeight: '600',
     color: "#1B243D",
+    textAlign: 'center'
+  },
+  skip:{
+    fontFamily: FONTS.OUTFIT_MEDIUM,
+    fontSize: rfpercentage(2),
+    fontWeight: '600',
+    color: colors.white,
     textAlign: 'center'
   },
   bgLogo: {
