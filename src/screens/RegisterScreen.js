@@ -40,6 +40,15 @@ const RegisterScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+  const [fnameError, setfNameError] = useState('');
+  const [lnameError, setlNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [mobileError, setMobileError] = useState('');
+  const [additionalError, setAdditionalMobileError] = useState('');
+  const [branchError, setBranchError] = useState('');
+  const [addressError, setAddressError] = useState('');
+  const [passError, setPassError] = useState('');
+  const [cpassError, setCPassError] = useState('');
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible(!isPasswordVisible);
@@ -74,20 +83,6 @@ const RegisterScreen = ({ navigation }) => {
       console.error('Error fetching branches', err);
     }
   };
-
-  const [fnameError, setfNameError] = useState('');
-  const [lnameError, setlNameError] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [mobileError, setMobileError] = useState('');
-  const [additionalError, setAdditionalMobileError] = useState('');
-  const [branchError, setBranchError] = useState('');
-  const [addressError, setAddressError] = useState('');
-  const [passError, setPassError] = useState('');
-  const [cpassError, setCPassError] = useState('');
-
-
-
-
 
 
   const validateRegistration = () => {
@@ -189,9 +184,8 @@ const RegisterScreen = ({ navigation }) => {
   };
 
 
-  
 
-  const handleSignUpOtp = async () => {
+const handleSignUpOtp = async () => {
     try {
       setLoading(true);
       const payload = {
@@ -216,8 +210,6 @@ const RegisterScreen = ({ navigation }) => {
       setLoading(false);
     }
   };
-
-
 
 
   useEffect(() => {
@@ -405,12 +397,11 @@ const RegisterScreen = ({ navigation }) => {
               style={{ marginTop: responsiveHeight(4), marginBottom: hp(2) }}>
               <Text style={registerStyles.newUser}>{strings.registerScreen.backtologin} <Text style={registerStyles.createAcc}>{strings.registerScreen.clickhere}</Text></Text>
             </TouchableOpacity>
-            
-          </View>
+            </View>
 
-          <FooterLogo/>
+             <FooterLogo/>
 
-        </ScrollContainer>
+          </ScrollContainer>
         </KeyboardAvoidingWrapper>
       </ImageBackground>
     </SafeAreaView>

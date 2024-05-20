@@ -81,7 +81,7 @@ const HomeScreen = ({ navigation }) => {
     setOfferBannerData(offerList?.list);
   };
 
-
+  
 
   const getGoldRate = async () => {
     let customerId = await getData('customerId');
@@ -96,10 +96,10 @@ const HomeScreen = ({ navigation }) => {
       const response = await offerService.getGoldRate(payload);
       const todayGoldRate = response?.currentgold;
       const prevGoldRate = response?.prevgold;
-
+      
       // Checking if today's gold rate is higher or lower than yesterday's to determine the arrow direction
-      const isGoldArrowUp = todayGoldRate.goldrate_22ct < prevGoldRate.goldrate_22ct;
-      const isSilverArrowUp = todayGoldRate.silverrate_1gm < prevGoldRate.silverrate_1gm;
+      const isGoldArrowUp = todayGoldRate?.mjdmagoldrate_22ct < prevGoldRate?.mjdmagoldrate_22ct;
+      const isSilverArrowUp = todayGoldRate?.silverrate_1gm < prevGoldRate?.silverrate_1gm;
 
       setPrevGoldRate(prevGoldRate);
       setTodayGoldRate(todayGoldRate);

@@ -16,6 +16,7 @@ const GoldRateCard = ({ goldLoading, isGoldArrow, isSilverArrow, onRefresh }) =>
   const prevGoldRate = useSelector(selectPrevGoldRateState);
 
 
+
   return (
     <Card style={styles.goldRateCard}>
       {/* Loading indicator */}

@@ -170,6 +170,17 @@ const PayEMA = ({ navigation }) => {
         }
         setSelectedIndex(dataIndex);
         setSelectedItems(dataItem);
+
+        let data = [...emaData];
+
+        for (var i in emaData) {
+            if (emaData[i].id_scheme_account == item.id_scheme_account) {
+                data[i]['paytotal_weight'] = parseFloat(item.min_weight);
+                break;
+            }
+        }
+
+        setEmaData(data);
     };
 
 
@@ -207,22 +218,16 @@ const PayEMA = ({ navigation }) => {
     }
 
 
+
     const handleChange = (item, value) => {
 
         let data = [...emaData];
-
+        
         const enteredAmount = parseFloat(value);
         const minAmount = parseFloat(item.min_amount);
         const maxAmount = parseFloat(item.max_amount);
 
-        for (var i in emaData) {
-            if (emaData[i].id_scheme_account === item.id_scheme_account) {
-                data[i]['payamount'] = parseFloat(value) || 0;
-                break;
-            }
-        }
-
-        for (var i in emaData) {
+          for (var i in emaData) {
             if (emaData[i].id_scheme_account === item.id_scheme_account) {
                 data[i]['payamount'] = parseFloat(value) || 0;
                 if (isNaN(enteredAmount) || enteredAmount < minAmount || enteredAmount > maxAmount) {
@@ -238,9 +243,6 @@ const PayEMA = ({ navigation }) => {
     }
 
 
-
-
-
     const handleWeightChange = (item, value) => {
 
         let data = [...emaData];
@@ -251,12 +253,14 @@ const PayEMA = ({ navigation }) => {
 
         for (var i in emaData) {
             if (emaData[i].id_scheme_account == item.id_scheme_account) {
-                data[i]['payamount'] = parseFloat(value);
-                data[i]['paytotal_weight'] = parseFloat(value);
-                if (isNaN(enteredAmount) || enteredAmount < minAmount || enteredAmount > maxAmount) {
+                if (isNaN(enteredAmount) || enteredAmount < minWeight || enteredAmount > maxWeight) {
                     data[i]['text_field_error'] = `Weight must between ₹ ${minWeight} - ₹ ${maxWeight}.`
+                    data[i]['payamount'] = 0;
+                    data[i]['paytotal_weight'] = 0;
                 } else {
                     data[i]['text_field_error'] = "";
+                    data[i]['payamount'] = parseFloat(enteredAmount);
+                    data[i]['paytotal_weight'] = parseFloat(enteredAmount);
                 }
                 break;
             }
@@ -264,7 +268,7 @@ const PayEMA = ({ navigation }) => {
 
         setEmaData(data);
     }
-
+   
 
     const updatePayEMI = async () => {
 
