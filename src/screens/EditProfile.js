@@ -275,7 +275,7 @@ const EditProfile = ({ navigation }) => {
             if (response?.status === 'success') {
                 Toast.show(response.message, Toast.BOTTOM);
                 setCustomerDetails((prevDetails) => ({ ...prevDetails, ...form }));
-                navigation.replace('Profile');
+                navigation.goBack();
             } else {
                 Toast.show(response.message, Toast.BOTTOM);
             }

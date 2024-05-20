@@ -131,7 +131,6 @@ const NewPlans = ({ navigation }) => {
         };
     
 
-
         return (
             <View style={[newPlanStyles.accordianContainer, { borderColor: COLORS.BACKGROUND }]}>
                 <TouchableOpacity
@@ -153,23 +152,23 @@ const NewPlans = ({ navigation }) => {
                         </View>
                         <View>
                             <ImageZoom
-                                cropWidth={Dimensions.get('window').width * 0.80}
-                                cropHeight={Dimensions.get('window').height * 0.40}
-                                imageWidth={300}
-                                imageHeight={300}
-                                useNativeDriver={true}
-                                style={{ borderRadius: 10, marginTop: hp(1), alignSelf: 'center',backgroundColor:COLORS.BACKGROUND }}
-                                resizeMode="cover"
-                            >
+                                 cropWidth={Dimensions.get('window').width * 0.80}
+                                 cropHeight={Dimensions.get('window').height * 0.40}
+                                 imageWidth={300}
+                                 imageHeight={300}
+                                 useNativeDriver={true}
+                                 style={{ borderRadius: 10, marginTop: hp(1), alignSelf: 'center' }}
+                                 resizeMode="cover"
+                             >
                                 <Animated.View style={newPlanStyles.imageContainer}>
                                     {item.logo ? (
-                                        <Image
+                                        <Image 
                                             source={{ uri: item.urlpath + item.logo }}
                                             style={newPlanStyles.imgStyle}
                                         />
-                                    ) : (
+                                       ) : (
                                         <Image
-                                            source={images.empty_avator}
+                                            source={images.default_branch}
                                             style={newPlanStyles.imgStyle}
                                         />
                                     )}
@@ -201,6 +200,7 @@ const NewPlans = ({ navigation }) => {
                 keyExtractor={(item) =>
                     `${item.id}-${item.classification_name}`
                 }
+                style={{marginBottom:hp('5%')}}
                 renderItem={renderClassificationData}
                 ListHeaderComponent={
                     <View>

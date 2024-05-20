@@ -200,6 +200,8 @@ export const images = {
   back:require('../assets/shanthi_jellewery/back-icon.png'),
   notify_dark:require('../assets/shanthi_jellewery/notify-icon.png'),
   fillHeart : require('../assets/shanthi_jellewery/fill-heart.png'),
+  default_branch:require('../assets/shanthi_jellewery/default-branch.jpg'),
+
 
   // profile screen
   notify_bell : require('../assets/shanthi_jellewery/notify-bell.png'),
