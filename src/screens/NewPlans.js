@@ -8,7 +8,6 @@ import {
     Animated,
     Dimensions,
     SafeAreaView,
-    TurboModuleRegistry,
 } from 'react-native';
 import { hp } from '../utils/responsive';
 import { COLORS, colors, images } from '../utils/constants';
@@ -22,7 +21,6 @@ import DetailsHeader from '../components/DetailsHeader';
 import FooterLogo from '../components/FooterLogo';
 import Toast from 'react-native-simple-toast';
 import { handleConfirmLogout } from '../utils/helpers';
-import { setLoading } from '../features/auth/authSlice';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 
@@ -81,8 +79,8 @@ const NewPlans = ({ navigation }) => {
 
     const handleJoinPlan = async (item) => {
         try {
-            const custome_id = await getData('customerId');
-            if (!custome_id) {
+            const user = await getData('userToken');
+            if (!user) {
                 navigation.replace('Login');
                 Toast.show("Please log in to join new plan.",Toast.BOTTOM);
                 return;

@@ -11,6 +11,7 @@ import { selectProfileDetails } from '../features/profile/profileSlice';
 import { Iconify } from 'react-native-iconify';
 import FooterLogo from '../components/FooterLogo';
 import { removeData } from '../utils/storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 
 
@@ -85,7 +86,13 @@ const DrawerItems = ({ navigation }) => {
         isAuth();
     }, []);
 
-  
+    useFocusEffect(
+        React.useCallback(() => {
+          isAuth()
+          dispatch(fetchCustomerDetails());
+        }, [dispatch])
+    );
+
 
     return (
         <SafeAreaView>
