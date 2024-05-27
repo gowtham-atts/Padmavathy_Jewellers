@@ -139,7 +139,7 @@ const HomeScreen = ({ navigation }) => {
 
 
   const isAuth = async () => {
-    const isLoggedIn = await AsyncStorage.getItem('loggedIn');
+    const isLoggedIn = await getData('userToken');
     setIsLoggedIn(isLoggedIn)
     return isLoggedIn;
   }
@@ -210,6 +210,7 @@ const HomeScreen = ({ navigation }) => {
 
   useFocusEffect(
     React.useCallback(() => {
+      isAuth()
       handleRefresh()
       dispatch(fetchGoldRates());
     }, [dispatch])

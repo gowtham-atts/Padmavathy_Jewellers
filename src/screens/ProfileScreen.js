@@ -9,13 +9,13 @@ import { selectProfileDetails } from '../features/profile/profileSlice';
 import { fetchCustomerDetails } from '../features/profile/profileActions';
 import DetailsHeader from '../components/DetailsHeader';
 import notificationService from '../services/notificationService';
-import { getData, removeData } from '../utils/storage';
+import { getData } from '../utils/storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import profileStyles from './styles/profileStyles';
 import { COLORS, FONTS, colors, images } from '../utils/constants';
 import Toast from 'react-native-simple-toast';
 import Modal from 'react-native-modal';
-import authService, { clearCredentials, deleteCredentials } from '../services/authService';
+import authService, { deleteCredentials } from '../services/authService';
 import { selectNotificationCount } from '../features/notifications/notificationSlice';
 import { handleConfirmLogout } from '../utils/helpers';
 import { useFocusEffect } from '@react-navigation/native';
@@ -40,7 +40,7 @@ const ProfileScreen = ({ navigation }) => {
   const [isUserLogin, setIsLoggedIn] = useState('');
 
   const isAuth = async () => {
-    const isLoggedIn = await AsyncStorage.getItem('loggedIn');
+    const isLoggedIn = await getData('userToken');
     setIsLoggedIn(isLoggedIn)
     return isLoggedIn;
   }
@@ -117,6 +117,7 @@ const ProfileScreen = ({ navigation }) => {
 
   useFocusEffect(
     React.useCallback(() => {
+      isAuth()
       dispatch(fetchCustomerDetails());
     }, [dispatch])
   )

@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { COLORS, images } from '../utils/constants';
 import Footer from '../components/Footer';
 import LinearGradient from 'react-native-linear-gradient';
+import { getData } from '../utils/storage';
 
 const SplashScreen = ({ navigation }) => {
   
@@ -30,7 +31,7 @@ const SplashScreen = ({ navigation }) => {
         ]).start(async () => {
           // Code to stop sound (uncomment when needed)
           // await SoundPlayer.stop();
-          const isAuthenticated = await AsyncStorage.getItem('loggedIn');
+          const isAuthenticated = await getData('userToken');
           if (isAuthenticated) {
             navigation.replace('Home');
           } else {

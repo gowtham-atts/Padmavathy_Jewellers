@@ -395,6 +395,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         fontSize: rfpercentage(1.8),
         fontFamily: FONTS.OUTFIT_MEDIUM,
+        color:COLORS.BLACK
     },
     error: {
         color: COLORS.ERROR,

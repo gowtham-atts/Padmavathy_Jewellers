@@ -10,6 +10,7 @@ import { fetchCustomerDetails } from '../features/profile/profileActions';
 import { selectProfileDetails } from '../features/profile/profileSlice';
 import { Iconify } from 'react-native-iconify';
 import FooterLogo from '../components/FooterLogo';
+import { removeData } from '../utils/storage';
 
 
 
@@ -73,9 +74,8 @@ const DrawerItems = ({ navigation }) => {
     };
 
     const handleConfirmLogout = async () => {
-        await AsyncStorage.removeItem('loggedIn');
-        await AsyncStorage.removeItem('customerId');
-        navigation.replace('Login');
+        await removeData('userToken');
+        navigation.push('Login');
     };
 
     const bg_color = getBgColor();
