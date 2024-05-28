@@ -288,7 +288,7 @@ const PaymentHistory = ({ navigation }) => {
                                 <TouchableOpacity style={[paymentHistoryStyles.touchableBtn, { backgroundColor: '#c5c5f4' }]}>
                                     <Text style={[paymentHistoryStyles.contentText, { color: '#706FE5' }]}>₹ {viewPaymentlist?.total_paid_amount}</Text>
                                 </TouchableOpacity>
-                                {viewpayweight && <TouchableOpacity style={[paymentHistoryStyles.touchableBtn, { backgroundColor: '#E59F6F' }]}>
+                                {viewpayweight && <TouchableOpacity style={[paymentHistoryStyles.touchableBtn, { backgroundColor: '#d9c7ba' }]}>
                                     <Text style={[paymentHistoryStyles.contentText, { color: '#A17353' }]}>{viewpayweight}</Text>
                                 </TouchableOpacity>}
                                 <TouchableOpacity style={[paymentHistoryStyles.touchableBtn, { backgroundColor: '#bcf2b7' }]}>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Image, TouchableOpacity, Text, SafeAreaView, StyleSheet, Platform, ImageBackground } from 'react-native';
 import TextInput from '../components/TextInput';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
@@ -22,9 +22,11 @@ const lockImg = require('../assets/shanthi_jellewery/lock.png')
 
 const ResetPassword = ({ navigation, route }) => {
 
-    const user_name = route?.params?.username;
+   
+    const initialUser = route?.params?.user || '';
 
-    const [username, setUsername] = useState('');
+    const [user, setUser] = useState(initialUser);
+
     const [passwd, setPassword] = useState('');
     const [confirmpasswd, setConfirmPassword] = useState('');
 
@@ -35,7 +37,9 @@ const ResetPassword = ({ navigation, route }) => {
 
     const [loading, setLoading] = useState(false)
 
-
+    const handleChange = (text) => {
+        setUser(text); 
+    };
 
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
@@ -46,12 +50,11 @@ const ResetPassword = ({ navigation, route }) => {
     };
 
 
-
     const handleResetPassword = async () => {
         try {
             setLoading(true)
             setErrorText('');
-            const response = await authService.reset_password(username, passwd, confirmpasswd);
+            const response = await authService.reset_password(user, passwd, confirmpasswd);
             if (response?.status === 'success') {
                 Toast.show(response.message, Toast.BOTTOM);
                 navigation.replace('Login');
@@ -64,6 +67,11 @@ const ResetPassword = ({ navigation, route }) => {
             setLoading(false)
         }
     };
+
+    useEffect(() => {
+        // console.log('User updated:', user);
+    }, [user]);
+
 
 
     return (
@@ -93,8 +101,8 @@ const ResetPassword = ({ navigation, route }) => {
                             <TextInput
                                 placeholder={strings.forgotScreen.mobilePlaceholder}
                                 placeholderTextColor={COLORS.PLACEHOLDER_TEXT}
-                                value={username}
-                                onChangeText={(text) => setUsername(text)}
+                                value={user}
+                                onChangeText={handleChange}
                                 style={[styles.input, styles.inputText]}
                                 iconSource={smsImg}
                             />

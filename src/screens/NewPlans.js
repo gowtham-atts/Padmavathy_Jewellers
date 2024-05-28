@@ -198,7 +198,7 @@ const NewPlans = ({ navigation }) => {
                 keyExtractor={(item) =>
                     `${item.id}-${item.classification_name}`
                 }
-                style={{marginBottom:hp('5%')}}
+                contentContainerStyle={{paddingBottom:hp('5%')}}
                 renderItem={renderClassificationData}
                 ListHeaderComponent={
                     <View>

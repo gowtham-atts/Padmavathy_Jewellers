@@ -15,7 +15,6 @@ import { fetchCompanyDetails } from '../features/company/companyActions';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PayEMICount from '../components/PayEMICount';
 import GoldRateCard from '../components/GoldRateCard';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { fetchPayEMI } from '../features/payEMI/payEMIActions';
 import { selectProfileDetails } from '../features/profile/profileSlice';
 import { fetchGoldRates } from '../features/products/productActions';
@@ -26,6 +25,7 @@ import Toast from 'react-native-simple-toast';
 
 const windowWidth = Dimensions.get('screen').width;
 
+const size = Platform.isPad ? 60 : (Platform.OS === "ios" ? wp(6) : wp(6));
 
 const top = Platform.isPad ? -20 : (Platform.OS === 'ios' ? -15 : -10);
 
@@ -243,11 +243,14 @@ const HomeScreen = ({ navigation }) => {
     
         <View style={styles.cardYupye}>
 
-          <View>
-            {isUserLogin ? (
-              <Text style={styles.welcome}>Welcome, {`${profileList?.firstname + ' ' + profileList?.lastname}!`}</Text>) : (
-              <Text style={styles.welcome}>Welcome to {`${'PADMAVATHY JEWELLERS'}`}</Text>)}
-          </View>
+            <View>
+              {isUserLogin ? (
+                <Text style={styles.welcome}>Welcome, {profileList?.firstname && profileList?.lastname ? `${profileList.firstname} ${profileList.lastname}!` : 'User!'}</Text>
+              ) : (
+                <Text style={styles.welcome}>Welcome to {`${'PADMAVATHY JEWELLERS'}`}</Text>
+              )}
+            </View>
+
 
           <View style={{ marginTop: hp(2) }}>
             <View style={styles.slide}>
@@ -255,21 +258,21 @@ const HomeScreen = ({ navigation }) => {
 
                 <TouchableOpacity style={{alignItems:'center'}} onPress={() => navigation.navigate('NewPlans')}>
                   <View style={styles.roundCtnr}>
-                    <Iconify icon='mingcute:file-new-fill' size={wp(4)} color={'#1B243D'} />
+                    <Iconify icon='mingcute:file-new-fill' size={size} color={'#1B243D'} />
                   </View>
                   <Text style={styles.cardText}>New{'\n'}Plan</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={{alignItems:'center'}} onPress={handleMyPlan}>
                   <View style={styles.roundCtnr}>
-                    <Iconify icon='heroicons:wallet-solid' size={wp(4)} color={'#1B243D'} />
+                    <Iconify icon='heroicons:wallet-solid' size={size} color={'#1B243D'} />
                   </View>
                   <Text style={styles.cardText}>My{'\n'}Plans</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={{alignItems:'center',position: 'relative'}} onPress={handlePayEma}>
                   <View style={styles.roundCtnr}>
-                    <Iconify icon='gg:qr' size={wp(4)} color={'#1B243D'} />
+                    <Iconify icon='gg:qr' size={size} color={'#1B243D'} />
                   </View>
                   {isUserLogin &&
                     <View style={styles.notificationCountContainer}>
@@ -281,7 +284,7 @@ const HomeScreen = ({ navigation }) => {
 
                 <TouchableOpacity style={{alignItems:'center'}} onPress={handlePayHistory}>
                   <View style={styles.roundCtnr}>
-                    <Iconify icon='fluent:money-hand-20-filled' size={wp(4)} color={'#1B243D'} />
+                    <Iconify icon='fluent:money-hand-20-filled' size={size} color={'#1B243D'} />
                   </View>
                   <Text style={styles.cardText}>Payments{'\n'}History</Text>
                 </TouchableOpacity>
@@ -298,7 +301,7 @@ const HomeScreen = ({ navigation }) => {
 
                 <TouchableOpacity style={{alignItems:'center'}} onPress={handleTotalWeight}>
                   <View style={styles.roundCtnr}>
-                    <Iconify icon='healthicons:weight' size={wp(4)} color={'#1B243D'} />
+                    <Iconify icon='healthicons:weight' size={size} color={'#1B243D'} />
                   </View>
                   <Text style={styles.cardText}>Total{'\n'}Weight</Text>
                 </TouchableOpacity>
@@ -310,7 +313,7 @@ const HomeScreen = ({ navigation }) => {
                   }, 3000);
                 }} >
                   <View style={styles.roundCtnr}>
-                    <Iconify icon='fontisto:wallet'size={wp(4)} color={'#1B243D'} />
+                    <Iconify icon='fontisto:wallet'size={size} color={'#1B243D'} />
                   </View>
                   {!showComingSoon && <Text style={styles.cardText}>My{'\n'}Wallet</Text>}
                   {showComingSoon && <Text style={[styles.comingText]}>Coming{'\n'}Soon</Text>}
@@ -318,14 +321,14 @@ const HomeScreen = ({ navigation }) => {
 
                 <TouchableOpacity style={{alignItems:'center'}} onPress={() => navigation.navigate('NewArrivals')}>
                   <View style={styles.roundCtnr}>
-                    <Iconify icon='mdi:jewel-case' size={wp(4)} color={'#1B243D'} />
+                    <Iconify icon='mdi:jewel-case' size={size} color={'#1B243D'} />
                   </View>
                   <Text style={styles.cardText}>New{'\n'}Arrivals</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={{alignItems:'center'}} onPress={handleClosedAccount} >
                   <View style={styles.roundCtnr}>
-                    <Iconify icon='mdi:account-alert' size={wp(4)}  color={'#1B243D'} />
+                    <Iconify icon='mdi:account-alert' size={size}  color={'#1B243D'} />
                   </View>
                   <Text style={styles.cardText}>Closed{'\n'}Accounts</Text>
                 </TouchableOpacity>
@@ -338,7 +341,7 @@ const HomeScreen = ({ navigation }) => {
 
         <View style={{ marginTop: hp(4) }}>
           <View style={{ paddingLeft: hp(2), }}>
-            <Text style={styles.todaytext}>Today’s Gold Rates</Text>
+            <Text style={styles.todaytext}>Today’s Rates</Text>
           </View>
         </View>
 

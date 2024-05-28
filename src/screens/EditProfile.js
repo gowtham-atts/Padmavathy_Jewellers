@@ -49,7 +49,7 @@ const EditProfile = ({ navigation }) => {
 
     const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({
-        name: '',
+        firstname: '',
         lastname: '',
         email: '',
         mobile: '',
@@ -227,7 +227,7 @@ const EditProfile = ({ navigation }) => {
 
         setForm((prevForm) => ({
             ...prevForm,
-            name: firstname || '',
+            firstname: firstname || '',
             lastname: lastname || '',
             mobile: mobile || '',
             email: email || '',
@@ -354,10 +354,9 @@ const EditProfile = ({ navigation }) => {
                     <View style={styles.avatarContainer}>
                         <TouchableOpacity
                             style={styles.avatarContainer}
-                            onPress={() => setModalVisible(true)}
-                        >
+                            onPress={() => setModalVisible(true)}>
                             {renderBase64Image()}
-                            <Text style={styles.avatarText}>{customerDetails?.firstname + ' ' + customerDetails?.lastname || 'Welcome'}</Text>
+                            <Text style={styles.avatarText}>{customerDetails?.firstname && customerDetails?.lastname ? `${customerDetails.firstname} ${customerDetails.lastname}!` : 'User!'}</Text>
                             <Text style={styles.descStyle}>{customerDetails?.mobile || ''}</Text>
                         </TouchableOpacity>
                     </View>
@@ -376,7 +375,7 @@ const EditProfile = ({ navigation }) => {
                     <View style={styles.centeredContainer}>
                         {loading && <ActivityIndicator size="large" color={COLORS.WHITE} style={styles.loadingIndicator} />}
                         <View>
-                            {renderTextInput({ placeholder: 'First Name', fieldName: 'name', value: form.name, error: fnameError, })}
+                            {renderTextInput({ placeholder: 'First Name', fieldName: 'firstname', value: form.firstname, error: fnameError, })}
                             {renderTextInput({ placeholder: 'Last Name', fieldName: 'lastname', value: form.lastname, error: lnameError })}
                             {renderTextInput({ placeholder: 'Email', fieldName: 'email', value: form.email, error: emailError, keyboardType: 'email-address' })}
                             {renderTextInput({ placeholder: 'Mobile', fieldName: 'mobile', value: form.mobile, error: mobileError, keyboardType: 'numeric', editable:false })}

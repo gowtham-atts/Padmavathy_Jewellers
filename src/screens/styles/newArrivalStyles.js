@@ -28,7 +28,6 @@ const newArrivalStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: (windowWidth - 48) / 3, 
-    aspectRatio: 0.6,
     margin:hp(1)
   },
   image: {

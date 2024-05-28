@@ -103,7 +103,7 @@ const WeightList = ({ item, index, toggleAccordion, handleModal, isOpen, bgColor
                         <View style={[styles.iconCntr, { marginTop: 5 }]}>
                             {renderBtnInfo('Paid Amount', `₹ ${item.total_paid_amount}`, '#706FE5' ,'#c5c5f4')}
                             {['2', '3', '5','6'].includes(item.scheme_type) &&
-                             renderBtnInfo('Paid Weight', item.paid_weight, '#219653','#E59F6F')}
+                             renderBtnInfo('Paid Weight', item.paid_weight, '#219653','#d9c7ba')}
                             {renderBtnInfo('Installments', `${item.total_paid_installments}/${item.total_installments}`, '#219653','#bcf2b7')}
                         </View>
                         <TouchableOpacity onPress={() => handleModal(item.id_scheme_account)} 

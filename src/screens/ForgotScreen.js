@@ -31,13 +31,7 @@ const ForgotScreen = ({ navigation }) => {
 
 
   const handleSendOtp = async () => {
-    const user = await getData('userToken');
     try {
-      if(!user){
-        Toast.show('User does not exist.',Toast.BOTTOM);
-        navigation.goBack()
-        return;
-      }
       dispatch(setLoading(true))
       setErrorText('');
       if (!isPhoneNumberValid(username)) {
@@ -45,6 +39,7 @@ const ForgotScreen = ({ navigation }) => {
         return;
       }
       const response = await authService.send_otp(username);
+      console.log('response',response)
       if (response?.status === 'success') {
         Toast.show(response?.message, Toast.BOTTOM);
         setUsername('')

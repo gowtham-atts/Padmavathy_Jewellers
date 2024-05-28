@@ -274,10 +274,11 @@ const LoginScreen = ({ navigation }) => {
               </TouchableOpacity>
             </View>
 
-            <FooterLogo/>
 
           </ScrollView>
         </KeyboardAvoidingView>
+
+        <FooterLogo/>
 
       </ImageBackground>
 

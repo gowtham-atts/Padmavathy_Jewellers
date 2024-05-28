@@ -282,7 +282,7 @@ const MyPlans = ({ navigation }) => {
                             <View style={[myPlanStyles.iconCntr, { marginTop: 5 }]}>
                                 {renderBtnInfo('Paid Amount', `₹ ${item.total_paid_amount}`, '#706FE5', '#c5c5f4')}
                                 {['2', '3', '5', '6'].includes(item.scheme_type) &&
-                                 renderBtnInfo('Paid Weight', item.paid_weight, '#A17353', '#E59F6F')}
+                                 renderBtnInfo('Paid Weight', item.paid_weight, '#A17353', '#d9c7ba')}
                                 {renderBtnInfo('Installments', `${item.total_paid_installments}/${item.total_installments}`, '#4F9349', '#bcf2b7')}
                             </View>
                             <TouchableOpacity onPress={() => toggleModal(item)} style={[myPlanStyles.submitButton, { backgroundColor: colors.gradientBg }]}>
@@ -450,7 +450,7 @@ const MyPlans = ({ navigation }) => {
                                     <Text style={[myPlanStyles.contentText, { color: "#706FE5" }]}>₹ {getSchemeData?.total_paid_amount}</Text>
                                 </TouchableOpacity>
                                 {paidWeight() &&
-                                    <TouchableOpacity style={[myPlanStyles.touchableBtn, { backgroundColor: '#E59F6F', }]}>
+                                    <TouchableOpacity style={[myPlanStyles.touchableBtn, { backgroundColor: '#d9c7ba', }]}>
                                         <Text style={[myPlanStyles.contentText, { color: '#A17353' }]}>{paidWeight()}</Text>
                                     </TouchableOpacity>}
                                 <TouchableOpacity style={[myPlanStyles.touchableBtn, { backgroundColor: '#bcf2b7', }]}>

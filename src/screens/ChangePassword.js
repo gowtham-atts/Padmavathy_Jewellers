@@ -112,11 +112,11 @@ const ChangePassword = ({ navigation }) => {
                         <View>
                             <TouchableOpacity style={changePassStyles.iconCntr}>
                                 <View style={changePassStyles.iconRow}>
-                                    <Text style={changePassStyles.profileHeaderTxt}>Password</Text>
+                                    <Text style={changePassStyles.profileHeaderTxt}>Enter New Password</Text>
                                 </View>
                             </TouchableOpacity>
                             <TextInput
-                                placeholder={'Password'}
+                                placeholder={'New Password'}
                                 placeholderTextColor={colors.gray58}
                                 value={passwd}
                                 onChangeText={(text) => { setPassword(text), setPassError('') }}
@@ -128,7 +128,7 @@ const ChangePassword = ({ navigation }) => {
                         <View>
                             <TouchableOpacity style={changePassStyles.iconCntr}>
                                 <View style={changePassStyles.iconRow}>
-                                    <Text style={changePassStyles.profileHeaderTxt}>Confirm Password</Text>
+                                    <Text style={changePassStyles.profileHeaderTxt}>Enter Confirm Password</Text>
                                 </View>
                             </TouchableOpacity>
                             <TextInput

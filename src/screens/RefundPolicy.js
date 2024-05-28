@@ -123,7 +123,7 @@ const RefundPolicy = ({ navigation }) => {
 
             </ScrollView>
 
-
+  
 
         </SafeAreaView>
     );

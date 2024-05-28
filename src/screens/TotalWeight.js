@@ -293,7 +293,7 @@ const TotalWeight = ({ navigation }) => {
                                     <Text style={[totalWtStyles.contentText, { color: '#706FE5' }]}>₹ {viewPaymentlist?.total_paid_amount}</Text>
                                 </TouchableOpacity>
                                 {viewpayweight &&
-                                    <TouchableOpacity style={[totalWtStyles.touchableBtn, { backgroundColor: '#E59F6F' }]}>
+                                    <TouchableOpacity style={[totalWtStyles.touchableBtn, { backgroundColor: '#d9c7ba' }]}>
                                         <Text style={[totalWtStyles.contentText, { color: '#A17353' }]}>{viewpayweight}</Text>
                                     </TouchableOpacity>}
                                 <TouchableOpacity style={[totalWtStyles.touchableBtn, { backgroundColor: '#bcf2b7' }]}>

@@ -14,24 +14,24 @@ const PaymentSuccessScreen = ({ navigation, route }) => {
   const transactionNO = route?.params?.transactionNo;
   
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  // const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const extendSchemeData = useSelector(selectExtendScheme)
+  // const extendSchemeData = useSelector(selectExtendScheme)
 
 
-  const handleExtendScheme = () => {
-    setIsModalVisible(true);
-  };
+  // const handleExtendScheme = () => {
+  //   setIsModalVisible(true);
+  // };
 
-  const handleExtendSchemeConfirm = () => {
-    // Add logic to extend the scheme here
-    navigation.navigate('ExtendedScheme')
-    setIsModalVisible(false); // Close the modal after extending the scheme
-  };
+  // const handleExtendSchemeConfirm = () => {
+  //   // Add logic to extend the scheme here
+  //   navigation.navigate('ExtendedScheme')
+  //   setIsModalVisible(false); // Close the modal after extending the scheme
+  // };
 
-  const handleExtendSchemeCancel = () => {
-    setIsModalVisible(false); // Close the modal if the user cancels
-  };
+  // const handleExtendSchemeCancel = () => {
+  //   setIsModalVisible(false); // Close the modal if the user cancels
+  // };
 
   React.useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
@@ -103,7 +103,7 @@ const PaymentSuccessScreen = ({ navigation, route }) => {
         </TouchableOpacity>
       </View>
 
-      {extendSchemeData?.length > 0 ?
+      {/* {extendSchemeData?.length > 0 ?
         <View style={{}}>
           <TouchableOpacity
             style={[styles.button, { backgroundColor: '#1E282A' }]}
@@ -129,7 +129,7 @@ const PaymentSuccessScreen = ({ navigation, route }) => {
             </TouchableOpacity>
           </View>
         </View>
-      </Modal>
+      </Modal> */}
 
     </View>
   );

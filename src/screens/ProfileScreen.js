@@ -173,8 +173,8 @@ const ProfileScreen = ({ navigation }) => {
           }}>
             {renderBase64Image()}
             <View style={{ marginHorizontal: hp(2) }}>
-              <Text style={profileStyles.titleStyle}>{(profileList?.firstname || 'Welcome') + ' ' + (profileList?.lastname || ' ')}</Text>
-              <Text style={profileStyles.descStyle}>{profileList?.address1 || ''}</Text>
+              <Text style={profileStyles.titleStyle}>{(profileList?.firstname || 'Welcome User') + ' ' + (profileList?.lastname || ' ')}</Text>
+              <Text style={profileStyles.descStyle}>{profileList?.address || ''}</Text>
             </View>
           </View>
 
@@ -217,6 +217,7 @@ const ProfileScreen = ({ navigation }) => {
               </View>
             </View>}
 
+          <View style={{ borderBottomColor: '#979797', borderBottomWidth: 0.5, marginTop: hp(2) }} />
 
           <View style={{ margin: 15, marginBottom: isUserLogin ? hp(15) : hp(40) }}>
             <View>
@@ -297,11 +298,11 @@ const ProfileScreen = ({ navigation }) => {
                 </View>
 
                 <View style={{ alignItems: 'center' }}>
-                  <Image source={images.rafiki} style={{ width: wp('15%'), height: hp('15%'), resizeMode: 'contain' }} />
+                  <Image source={images.rafiki} style={{ width: wp('20%'), height: hp('10%'), resizeMode: 'contain' }} />
                 </View>
 
 
-                <View style={{}}>
+                <View style={{paddingTop:hp('1%')}}>
                   <Text style={styles.modalText}>Are you sure you want to delete</Text>
                   <Text style={styles.modalText}>your account?</Text>
                 </View>

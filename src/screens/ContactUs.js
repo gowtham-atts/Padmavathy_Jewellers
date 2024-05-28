@@ -20,6 +20,7 @@ import { useDispatch } from 'react-redux';
 import { setEnquiryDetails } from '../features/terms/termsSlice';
 import { isEmailValid, isFirstNameValid, isPhoneNumberValid, validateEmail, validateFirstName, validateMessage, validateMobile, validateSubject } from '../utils/validations';
 import Toast from 'react-native-simple-toast';
+import ScrollContainer from '../components/ScrollContainer';
 
 
 
@@ -152,7 +153,7 @@ const ContactUs = ({ navigation }) => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
       >
-        <View>
+        <ScrollContainer>
           <DetailsHeader
             title="Contact Us"
             onBackPress={() => {
@@ -243,7 +244,7 @@ const ContactUs = ({ navigation }) => {
             />
           </View>
 
-        </View>
+        </ScrollContainer>
 
       </KeyboardAvoidingView>
     </SafeAreaView>

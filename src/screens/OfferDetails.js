@@ -10,7 +10,6 @@ import {
 import ScrollContainer from '../components/ScrollContainer';
 import DetailsHeader from '../components/DetailsHeader';
 import Card from '../components/Card';
-import { Iconify } from 'react-native-iconify';
 import {
     useDispatch,
     useSelector,
@@ -79,8 +78,10 @@ const OfferDetails = ({ navigation }) => {
 
         let custome_id = await getData('customerId');
 
+        let user = await getData('userToken');
+
         try {
-            if (!custome_id) {
+            if (!user) {
                 navigation.replace('Login');
                 Toast.show("Please login.",Toast.BOTTOM);
                 return;
@@ -111,10 +112,7 @@ const OfferDetails = ({ navigation }) => {
                 dispatch(toggleWishlist(1));
                 saveWishlistStatus();
             }
-            Toast.show(
-                `${response?.message}`,
-                Toast.BOTTOM
-            );
+            Toast.show(`${response?.message}`,Toast.BOTTOM);
         } catch (err) {
             console.log('Error updating wishlist', err);
         }
@@ -149,7 +147,7 @@ const OfferDetails = ({ navigation }) => {
 
 
     const isAuth = async () => {
-        const isLoggedIn = await AsyncStorage.getItem('loggedIn');
+        const isLoggedIn = await getData('userToken');
         setIsLoggedIn(isLoggedIn)
         return isLoggedIn;
     }

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, Dimensions, TouchableOpacity, Linking, ScrollView, SafeAreaView } from 'react-native';
-import { getBgColor, images } from '../utils/constants';
+import {  images } from '../utils/constants';
 import DetailsHeader from '../components/DetailsHeader';
 import Card from '../components/Card';
-import { Iconify } from 'react-native-iconify';
 import wishListService from '../services/wishListService';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch, useSelector } from 'react-redux';
@@ -41,7 +40,7 @@ const NewArrivalsDetails = ({ navigation }) => {
     const [selectedImg, setSelectedImg] = useState(splitStrings[0]);
 
     const isAuth = async () => {
-        const isLoggedIn = await AsyncStorage.getItem('loggedIn');
+        const isLoggedIn = await getData('userToken');
         setIsLoggedIn(isLoggedIn)
         return isLoggedIn;
     }
@@ -68,10 +67,13 @@ const NewArrivalsDetails = ({ navigation }) => {
 
     const updateWishList = async () => {
 
-        const custome_id = await getData('customerId');
+        let custome_id = await getData('customerId');
+
+        let user = await getData('userToken');
+
 
         try {
-            if (!custome_id) {
+            if (!user) {
                 navigation.replace('Login');
                 Toast.show("Please login.",Toast.BOTTOM);
                 return;

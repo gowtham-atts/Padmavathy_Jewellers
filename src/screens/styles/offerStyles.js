@@ -20,7 +20,7 @@ const offerStyles = StyleSheet.create({
         height:"100%"
      },
       title: {
-        fontSize: rfpercentage(2.6),
+        fontSize: rfpercentage(2.8),
         fontFamily: FONTS.OUTFIT_MEDIUM,
         ...commonFontWeight,
         color: COLORS.DARK_PRIMARY

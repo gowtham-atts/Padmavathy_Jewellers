@@ -80,6 +80,7 @@ const AmountScheme = ({ navigation }) => {
                 id_classification: classData?.id_classification
             };
             const response = await newPlanService.getAllNewPlan(payload);
+            console.log('response',response)
             setNewPlanData(response);
         } catch (err) {
             console.log("Error fetching categories", err);

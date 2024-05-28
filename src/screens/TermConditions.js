@@ -213,7 +213,7 @@ const TermConditions = ({ navigation }) => {
 
             <FlatList
                 data={termsCondition}
-                style={{marginBottom:hp('6%')}}
+                contentContainerStyle={{paddingBottom:hp('5%')}}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({ item, index }) => <ListItem {...item} index={index} />}
                 ListHeaderComponent={

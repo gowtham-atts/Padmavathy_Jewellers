@@ -43,6 +43,7 @@ const JoinScheme = ({ navigation }) => {
 
     const createNewPlan = async () => {
         const custome_id = await getData('customerId');
+        const branch_id = await getData('branchId')
         try {
             let total_paid_amount;
             if (joinSchemes.scheme_type === '6') {
@@ -52,7 +53,7 @@ const JoinScheme = ({ navigation }) => {
             }
             const payload = {
                 id_customer: custome_id,
-                id_branch: joinSchemes.id_branch,
+                id_branch: branch_id,
                 id_scheme: joinSchemes.id_scheme,
                 amount:total_paid_amount,
                 accounter_name: username,

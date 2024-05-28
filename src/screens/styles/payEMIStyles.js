@@ -49,7 +49,7 @@ const payEMIStyles = StyleSheet.create({
     input: {
         marginRight: 5,
         paddingLeft: 4,
-        width: 'auto',
+        width: wp('20%'),
         fontSize: 16,
         height: 40,
         position: 'absolute',

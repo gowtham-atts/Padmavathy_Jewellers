@@ -120,7 +120,7 @@ const OfferScreen = ({ navigation }) => {
         <FlatList
           data={getTodayOfferData}
           keyExtractor={(item) => item.id_offer.toString()}
-          style={{ marginBottom: hp(8) }}
+          contentContainerStyle={{paddingBottom:hp('10%')}}
           renderItem={renderTodayOffer}
           numColumns={3}
           columnWrapperStyle={offerStyles.columnWrapperStyle}
@@ -139,16 +139,15 @@ const OfferScreen = ({ navigation }) => {
               <View style={offerStyles.carouselContainer}>
                 <CarouselComponent data={getOfferBannerData} />
               </View>
-              {loading && <LoadingSpinner />}
               <View style={{ paddingLeft: hp(2), marginBottom: hp(2) }}>
                 <Text style={offerStyles.title}>Offers</Text>
               </View>
             </View>}
           ListEmptyComponent={
-            loading &&
-            <View style={offerStyles.noWishlistContainer}>
-              <Text style={offerStyles.noWishlistText}>No Records Founds</Text>
-            </View>}
+             <View style={offerStyles.noWishlistContainer}>
+                 <Text style={offerStyles.noWishlistText}>No Records Founds</Text>
+             </View>
+            }
          />
 
       </ImageBackground>

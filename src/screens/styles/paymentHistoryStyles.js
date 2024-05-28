@@ -136,7 +136,7 @@ const paymentHistoryStyles = StyleSheet.create({
     },
     modalContent: {
         padding: 20,
-        backgroundColor: COLORS.LIGHT_WHITE,
+        backgroundColor: COLORS.WHITE,
         width: wp(100),
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20
@@ -151,7 +151,7 @@ const paymentHistoryStyles = StyleSheet.create({
         fontFamily: FONTS.OUTFIT_MEDIUM,
         fontSize: rfpercentage(1.6),
         ...commonFontWeight,
-        color: '#C7C7C7'
+        color:COLORS.BLACK
     },
     durationcntr: {
         flexDirection: 'row',

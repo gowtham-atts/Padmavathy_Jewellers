@@ -6,8 +6,9 @@ import { hp, rfpercentage, wp } from '../utils/responsive';
 const Footer = () => {
   return (
     <View style={styles.container}>
+      <Text style={styles.text}>Powered By</Text>
       <Image
-        source={images.atts_logo_light}
+        source={images.poweredLogo}
         style={styles.logo}
       />
     </View>
@@ -20,14 +21,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   logo: {
-    width: wp(14),
-    height: hp(7),
+    width: wp('16%'),
+    height: hp("6%"),
     resizeMode: 'contain',
   },
   text: {
     color:'#D1B5B5',
     fontFamily:FONTS.OUTFIT_MEDIUM,
-    fontSize:rfpercentage(2),
+    fontSize:rfpercentage(1),
     textTransform:'uppercase',
     fontWeight:'500',
     marginTop:hp(2),

@@ -9,7 +9,7 @@ import OfferScreen from '../screens/OfferScreen';
 import HomeScreen from '../screens/HomeScreen';
 
 
-const size = Platform.OS === "ios" ? wp(4) : wp(4) ;
+const size = Platform.OS === "ios" ? wp(6) : wp(6) ;
 
 const width = Platform.isPad ? 180 : (Platform.OS === 'ios' ? 100 : 100);
 

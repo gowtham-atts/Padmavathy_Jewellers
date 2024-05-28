@@ -86,6 +86,7 @@ const VerifyForgotOtp = ({ navigation, route }) => {
     const handleSendOtp = async () => {
         try {
             const response = await authService.send_otp(user);
+            console.log('response',response)
             if (response?.status === 'success') {
                 Toast.show(response?.message, Toast.BOTTOM);
             } else {
@@ -103,8 +104,9 @@ const VerifyForgotOtp = ({ navigation, route }) => {
             setLoading(true)
             const enteredOtp = otp.join('');
             const response = await authService.verify_otp(user, enteredOtp);
+            console.log('response',response)
             if (response?.status === 'success') {
-                navigation.navigate('ResetPassword');
+                navigation.navigate('ResetPassword',{user: user});
                 Toast.show(response?.message, Toast.BOTTOM);
                 setOtp(['', '', '', ''])
             } else {

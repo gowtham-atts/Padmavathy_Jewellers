@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet, SafeAreaView, Dimensions } from 'react-native';
 import { COLORS, FONTS, colors, getBgColor, images } from '../utils/constants';
 import { hp, responsiveHeight, responsiveImageSize, rfpercentage, wp } from '../utils/responsive';
 import CustomModal from '../components/Modal';
@@ -10,7 +10,7 @@ import { fetchCustomerDetails } from '../features/profile/profileActions';
 import { selectProfileDetails } from '../features/profile/profileSlice';
 import { Iconify } from 'react-native-iconify';
 import FooterLogo from '../components/FooterLogo';
-import { removeData } from '../utils/storage';
+import { getData, removeData } from '../utils/storage';
 import { useFocusEffect } from '@react-navigation/native';
 
 
@@ -51,7 +51,7 @@ const DrawerItems = ({ navigation }) => {
       };
 
     const isAuth = async () => {
-       const isLoggedIn = await AsyncStorage.getItem('loggedIn');
+       const isLoggedIn = await getData('userToken');
        setIsLoggedIn(isLoggedIn)
        return isLoggedIn;
     }
@@ -109,8 +109,9 @@ const DrawerItems = ({ navigation }) => {
                 <View style={{flexDirection:'row', alignItems: 'center', marginVertical:hp(3) }}>
                    {renderBase64Image()}
                    <View style={{flexDirection:'column', marginHorizontal:hp(2)}}>
-                        <Text style={styles.userName}>{(profileList?.firstname || 'Welcome') + ' ' + (profileList?.lastname || ' ')}</Text>
-                   {isUserLogin && <TouchableOpacity style={[styles.drawerItem,{marginVertical:hp(1)}]}  onPress={handleLogout}>
+                        <Text style={styles.userName}>{(profileList?.firstname || 'Welcome User') + ' ' + (profileList?.lastname || ' ')}</Text>
+                   {isUserLogin && 
+                      <TouchableOpacity style={[styles.drawerItem,{marginVertical:hp(1)}]}  onPress={handleLogout}>
                         <View style={styles.iconRow}>
                             <Image source={images.logout} style={[styles.iconImg,{ tintColor:'#D93636'}]} />
                             <Text style={[styles.logoutText]}>Logout</Text>
@@ -188,7 +189,7 @@ const DrawerItems = ({ navigation }) => {
                     </TouchableOpacity>
                 }
 
-                <View style={{marginTop:hp('15%')}}>
+                <View style={{marginTop:Dimensions.get('screen').height * 0.20}}>
                     <FooterLogo />
                 </View>
 

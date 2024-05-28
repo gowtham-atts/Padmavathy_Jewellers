@@ -8,6 +8,7 @@ import { setSelectedNewArrivals } from '../features/offers/offerSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import newArrivalStyles from './styles/newArrivalStyles';
 import { COLORS } from '../utils/constants';
+import { hp } from '../utils/responsive';
 
 
 const NewArrivals = ({ navigation }) => {
@@ -31,7 +32,7 @@ const NewArrivals = ({ navigation }) => {
       dispatch(setNewArrivalDetails(response?.list || []))
       setLoading(false)
     } catch (err) {
-      console.error("Error fetching new arrivals", err);
+      console.log("Error fetching new arrivals", err);
       setLoading(false)
     }
   };
@@ -69,11 +70,10 @@ const NewArrivals = ({ navigation }) => {
           style={newArrivalStyles.loadingIndicator} />}
       <FlatList
         data={newArrivalsData}
-        style={newArrivalStyles.flatListContainer}
+        contentContainerStyle={{paddingBottom:hp('10%')}}
         keyExtractor={(item) => item.id_new_arrivals.toString()}
         renderItem={renderNewArrivals}
         numColumns={3}
-        columnWrapperStyle={newArrivalStyles.columnWrapperStyle}
         ListHeaderComponent={<View>
           <DetailsHeader
             title="New Arrivals"
