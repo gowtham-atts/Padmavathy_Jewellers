@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import {  responsiveWidth, scaleFont } from '../utils/responsive';
+import {  hp, responsiveWidth, rfpercentage, scaleFont } from '../utils/responsive';
 import { COLORS, FONTS, colors } from '../utils/constants';
 import { Iconify } from 'react-native-iconify';
 
@@ -11,7 +11,7 @@ const GoldRateHeader = ({ title, rate, isUp }) => {
     <View style={styles.headerContainer}>
       <Text style={styles.headerText}>{title}</Text>
       <View style={styles.rateContainer}>
-        <Text style={styles.rateText}>{rate}</Text>
+        <Text style={[styles.rateText]}>{rate}</Text>
         {isUp ? (
           <Iconify icon='fluent-mdl2:stock-up' size={20} color="#4CE965" />
         ) : (
@@ -25,8 +25,11 @@ const GoldRateHeader = ({ title, rate, isUp }) => {
 
 const styles = StyleSheet.create({
   headerCtnrStyle: {
-    marginTop:10,
-    marginBottom:10
+    marginTop:hp('2%'),
+    padding:6,
+    // backgroundColor:"#1B243D",
+    backgroundColor:colors.placeholder
+
   },
   headerContainer: {
     flexDirection: 'row',
@@ -36,10 +39,11 @@ const styles = StyleSheet.create({
     alignSelf:'center'
   },
   headerText: {
-    color: colors.white,
-    fontSize:scaleFont(13),
+    color: "#1B243D",
+    fontSize:rfpercentage(2),
     fontWeight: '400',
     fontFamily:FONTS.OUTFIT_MEDIUM,
+    textTransform:'uppercase'
   },
   rateContainer: {
     flexDirection: 'row',
@@ -48,10 +52,10 @@ const styles = StyleSheet.create({
     marginLeft:5
   },
   rateText: {
-    color:COLORS.GOLD,
-    fontSize:scaleFont(13),
+    fontSize:rfpercentage(1.8),
     fontWeight: '500',
     fontFamily:FONTS.OUTFIT_MEDIUM,
+    color:colors.gradientBg2
   },
 });
 

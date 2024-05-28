@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, ActivityIndicator, StyleSheet, Image, Dimensions } from 'react-native';
-import { COLORS, FONTS } from '../utils/constants';
+import { COLORS, FONTS, colors } from '../utils/constants';
 import Card from './Card';
 import { useSelector } from 'react-redux';
 import { selectGoldRateState, selectPrevGoldRateState } from '../features/products/productSlice';
@@ -8,7 +8,7 @@ import { hp, rfpercentage, wp } from '../utils/responsive';
 
 const refreshIcon = require('../assets/shanthi_jellewery/update_refresh.png');
 
-const GoldRateCard = ({ goldLoading, isGoldArrow, isSilverArrow, onRefresh }) => {
+const GoldRateCard = ({  isGoldArrow, isSilverArrow, onRefresh }) => {
 
 
   const todayGoldRate = useSelector(selectGoldRateState);
@@ -17,75 +17,73 @@ const GoldRateCard = ({ goldLoading, isGoldArrow, isSilverArrow, onRefresh }) =>
 
 
 
+
   return (
     <Card style={styles.goldRateCard}>
-      {/* Loading indicator */}
-      {/* {goldLoading && (
-        <View style={styles.loadingcontainer}>
-          <ActivityIndicator size="large" color={COLORS.WHITE} style={styles.loadingIndicator} />
-        </View>
-      )} */}
 
-      {/* Refresh button */}
-      <TouchableOpacity onPress={onRefresh} style={styles.updateRateButton}>
-        <Image source={refreshIcon} style={styles.refreshIcon} />
-      </TouchableOpacity>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+        <View>
+          <Text style={styles.todaytext}>Today’s Rates</Text>
+        </View>
+        <TouchableOpacity onPress={onRefresh} style={styles.updateRateButton}>
+          <Text style={styles.updateTxt}>Update Rates</Text>
+          <View style={{ paddingLeft: hp('1%') }}>
+            <Image source={refreshIcon} style={styles.refreshIcon} />
+          </View>
+        </TouchableOpacity>
+      </View>
 
       <View style={styles.goldRateContentContainer}>
-        {/* Gold Rate */}
+
         <View style={styles.goldRateDetails}>
-          <View style={{flexDirection:'row',gap:15}}>
+          <View style={styles.columAlign}>
             <Text style={[styles.goldRateTxt, { color: COLORS.DARK_PRIMARY }]}>Gold Rate</Text>
             <Text style={styles.gramContent}>22Kt  1 Gm</Text>
           </View>
-          <View style={{flexDirection:'row',gap:0,alignItems:'center',justifyContent:'center'}}>
-          <Text style={[styles.goldRateContent,{color: isGoldArrow ? 'green' : 'red'}]}>
-              {`₹ ${prevGoldRate ? prevGoldRate.mjdmagoldrate_22ct : todayGoldRate.mjdmagoldrate_22ct}`}
-            </Text>
-            {prevGoldRate && todayGoldRate && (
-                <Text style={{ color: isGoldArrow ? 'green' : 'red' ,fontSize:rfpercentage(2.8) }}>
+          <View style={styles.rowAlign}>
+              <Text style={[styles.goldRateContent]}>
+                {`₹ ${prevGoldRate ? prevGoldRate.mjdmagoldrate_22ct : todayGoldRate.mjdmagoldrate_22ct}`}
+              </Text>
+              {prevGoldRate && todayGoldRate && (
+                <Text style={{ color: isGoldArrow ? 'green' : 'red', fontSize: rfpercentage(2.8) }}>
                   {isGoldArrow ? ' ▲' : ' ▼'}
                 </Text>
               )}
-          </View>
+            </View>
         </View>
 
-        {/* Divider */}
+
         <View style={styles.divider} />
 
-        {/* Silver Rate */}
         <View style={styles.goldRateDetails}>
-          <View style={{flexDirection:'row',gap:15}}>
+          <View style={styles.columAlign}>
             <Text style={[styles.goldRateTxt, { color: COLORS.DARK_PRIMARY }]}>Silver Rate</Text>
             <Text style={styles.gramContent}>1 Gm</Text>
           </View>
-          <View style={{flexDirection:'row',gap:10,alignItems:'center', justifyContent:'center'}}>
-            <Text style={[styles.goldRateContent,{color: isSilverArrow ? 'green' : 'red'}]}>
+          <View style={styles.rowAlign}>
+              <Text style={[styles.goldRateContent]}>
                 {`₹ ${prevGoldRate ? prevGoldRate.silverrate_1gm : todayGoldRate.silverrate_1gm}`}
-            </Text>
-            {prevGoldRate && todayGoldRate && (
-                <Text style={{ color: isSilverArrow ? 'green' : 'red', fontSize:rfpercentage(2.8) }}>
+              </Text>
+              {prevGoldRate && todayGoldRate && (
+                <Text style={{ color: isSilverArrow ? 'green' : 'red', fontSize: rfpercentage(2.8) }}>
                   {isSilverArrow ? ' ▲' : ' ▼'}
                 </Text>
-               )}
-          </View>
+              )}
+            </View>
         </View>
 
+
       </View>
+
     </Card>
   );
 };
 
 const styles = StyleSheet.create({
   goldRateCard: {
-    margin: 10,
-    padding: 20,
-    borderRadius: 10,
-    backgroundColor: '#fff',
-    shadowColor: '#000',
-    shadowOpacity: 0.2,
-    shadowOffset: { width: 0, height: 2 },
-    elevation: 2,
+    paddingTop:hp('4%'),
+    paddingLeft:hp('2%'),
+    paddingRight:hp('2%')
   },
   loadingcontainer: {
     position: 'absolute',
@@ -96,39 +94,70 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 16
   },
+  rowAlign: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop:hp('1%')
+  },
+  columAlign: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: hp('2%')
+  },
+  updateTxt: {
+    fontFamily: FONTS.OUTFIT_MEDIUM,
+    fontSize: rfpercentage(1.5),
+    color: '#666',
+    fontWeight: '400',
+  },
   loadingIndicator: {
     alignSelf: 'center',
   },
   updateRateButton: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center'
   },
   refreshIcon: {
     width: wp('6%'),
     height: hp('3%'),
-    resizeMode:'contain'
+    resizeMode: 'contain'
   },
   goldRateContentContainer: {
-    marginTop: hp(4),
-  },
-  goldRateDetails: {
+    marginTop: hp(3),
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 8,
+    margin: 10,
+    backgroundColor:colors.placeholder,
+    borderRadius:10
+  },
+  goldRateDetails: {
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    margin:15
+  },
+  todaytext: {
+    fontFamily: FONTS.OUTFIT_BOLD,
+    fontSize: rfpercentage(2.8),
+    color: '#1B243D',
+    fontWeight: '600'
   },
   goldRateTxt: {
     fontSize: rfpercentage(2.2),
     fontFamily: FONTS.OUTFIT_MEDIUM,
     fontWeight: 'bold',
     textTransform: 'uppercase',
-    color: COLORS.BLACK
+    color: COLORS.BLACK,
   },
   goldRateContent: {
     fontSize: rfpercentage(2.2),
     fontFamily: FONTS.OUTFIT_MEDIUM,
-    // color: COLORS.BLACK
+    fontWeight: '400',
+    color:colors.gradientBg2
   },
   gramContent: {
     fontSize: rfpercentage(2.2),
@@ -137,9 +166,9 @@ const styles = StyleSheet.create({
     color: '#666',
   },
   divider: {
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-    marginVertical: 12,
+    width: wp('0.5%'),
+    height: hp('10%'),
+    backgroundColor: colors.borderclr
   },
 });
 

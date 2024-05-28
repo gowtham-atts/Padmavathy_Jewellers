@@ -424,14 +424,13 @@ const PayEMA = ({ navigation }) => {
         try {
             const mobile = await AsyncStorage.getItem('user_mobile');
             const email = await AsyncStorage.getItem('user_email');
-            // const test_key = 'rzp_test_BbzKy5Kkzoy4eZ';
-            // const live_key = 'rzp_live_fWBWMEgVw77Sjl';
+            const test_key = 'rzp_test_drOwVbKrfYHPMF';
             setLodebutton(true);
             const options = {
                 description: 'Purchase Description',
                 image: images.logo,
                 currency: 'INR',
-                key: merchant_key,
+                key: test_key,
                 amount: res?.total_trans,
                 name: 'Padmavathy Jewellers',
                 prefill: {

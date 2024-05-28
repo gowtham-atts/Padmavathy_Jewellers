@@ -98,8 +98,9 @@ const HomeScreen = ({ navigation }) => {
       const prevGoldRate = response?.prevgold;
       
       // Checking if today's gold rate is higher or lower than yesterday's to determine the arrow direction
-      const isGoldArrowUp = todayGoldRate?.mjdmagoldrate_22ct < prevGoldRate?.mjdmagoldrate_22ct;
-      const isSilverArrowUp = todayGoldRate?.silverrate_1gm < prevGoldRate?.silverrate_1gm;
+      const isGoldArrowUp = parseFloat(todayGoldRate?.mjdmagoldrate_22ct) < parseFloat(prevGoldRate?.mjdmagoldrate_22ct);
+      const isSilverArrowUp = parseFloat(todayGoldRate?.silverrate_1gm) < parseFloat(prevGoldRate?.silverrate_1gm);
+
 
       setPrevGoldRate(prevGoldRate);
       setTodayGoldRate(todayGoldRate);
@@ -228,8 +229,8 @@ const HomeScreen = ({ navigation }) => {
           onWishlistPress={wishList}
           onNotifyPress={notify}
           notificationCount={notifyCount}
-          todayGoldRate={`₹ ${todayGoldRate?.mjdmagoldrate_22ct}`}
-          todaySliverRate={`₹ ${todayGoldRate?.silverrate_1gm}`}
+          todayGoldRate={`₹ ${prevGoldRate?.mjdmagoldrate_22ct}`}
+          todaySliverRate={`₹ ${prevGoldRate?.silverrate_1gm}`}
           isGoldArrow={isGoldArrow}
           isSilverArrow={isSilverArrow}
         />
@@ -239,7 +240,6 @@ const HomeScreen = ({ navigation }) => {
               <ActivityIndicator size="large" color={COLORS.WHITE} style={styles.loadingIndicator} />
             </View> 
          )}
-
     
         <View style={styles.cardYupye}>
 
@@ -339,13 +339,7 @@ const HomeScreen = ({ navigation }) => {
           </View>
         </View>
 
-        <View style={{ marginTop: hp(4) }}>
-          <View style={{ paddingLeft: hp(2), }}>
-            <Text style={styles.todaytext}>Today’s Rates</Text>
-          </View>
-        </View>
 
-        <View>
           <GoldRateCard
             todayGoldRate={todayGoldRate}
             prevGoldRate={prevGoldRate}
@@ -354,7 +348,7 @@ const HomeScreen = ({ navigation }) => {
             onRefresh={handleRefresh}
             goldLoading={goldLoading}
           />
-        </View>
+
 
         </ScrollView>
       </ImageBackground>

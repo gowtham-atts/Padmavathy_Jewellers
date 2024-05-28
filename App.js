@@ -39,7 +39,7 @@ function App() {
         }
         // Initialize OneSignal
         OneSignal.Debug.setLogLevel(LogLevel.Verbose);
-        OneSignal.initialize("0aa15e65-beae-4b3f-abc5-e94557c3ed27");
+        OneSignal.initialize("e101ebb1-0133-46f5-966b-c2b2f1228e40");
         OneSignal.Notifications.requestPermission(true);
 
         // Add a listener for notification clicks

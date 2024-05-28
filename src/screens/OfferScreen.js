@@ -109,8 +109,8 @@ const OfferScreen = ({ navigation }) => {
   }, [])
 
 
-  const isGoldArrow = parseFloat(todayGoldRate?.mjdmagoldrate_22ct) > parseFloat(prevGoldRate?.mjdmagoldrate_22ct);
-  const isSilverArrow = parseFloat(todayGoldRate?.silverrate_1gm) > parseFloat(prevGoldRate?.silverrate_1gm);
+  const isGoldArrow = parseFloat(todayGoldRate?.mjdmagoldrate_22ct) < parseFloat(prevGoldRate?.mjdmagoldrate_22ct);
+  const isSilverArrow = parseFloat(todayGoldRate?.silverrate_1gm) < parseFloat(prevGoldRate?.silverrate_1gm);
 
 
   return (
@@ -131,8 +131,8 @@ const OfferScreen = ({ navigation }) => {
                 onWishlistPress={wishList}
                 onNotifyPress={notify}
                 notificationCount={notifyCount}
-                todayGoldRate={`₹ ${todayGoldRate?.mjdmagoldrate_22ct}`}
-                todaySliverRate={`₹ ${todayGoldRate?.silverrate_1gm}`}
+                todayGoldRate={`₹ ${prevGoldRate?.mjdmagoldrate_22ct}`}
+                todaySliverRate={`₹ ${prevGoldRate?.silverrate_1gm}`}
                 isGoldArrow={isGoldArrow}
                 isSilverArrow={isSilverArrow}
               />

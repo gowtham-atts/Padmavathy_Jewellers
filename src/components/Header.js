@@ -3,6 +3,7 @@ import { View, TouchableOpacity, StyleSheet, Image, Platform } from 'react-nativ
 import { hp, responsiveImageSize, rfpercentage, wp } from '../utils/responsive';
 import { COLORS, FONTS, FONT_SIZES, colors, images } from '../utils/constants';
 import NotificationBadge from './NotificationBadge';
+import GoldRateHeader from './GoldRateHeader';
 
 
 
@@ -53,6 +54,11 @@ const Header = ({
             </TouchableOpacity>
           </View>
 
+        </View>
+
+        <View style={styles.goldRateHeaderContainer}>
+            <GoldRateHeader title="Gold Rate" rate={todayGoldRate} isUp={isGoldArrow} />
+            <GoldRateHeader title="Silver Rate" rate={todaySliverRate} isUp={isSilverArrow} />
         </View>
 
     </View>
