@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Modal, BackHandler } from 'react-native';
 import DetailsHeader from '../components/DetailsHeader';
-import { COLORS, FONTS, FONT_SIZES } from '../utils/constants';
+import { COLORS, FONTS, FONT_SIZES, colors } from '../utils/constants';
 import { hp, responsiveHeight, responsiveWidth, rfpercentage } from '../utils/responsive';
 import { formatDateTime } from '../utils/helpers';
 import { selectExtendScheme } from '../features/payEMI/payEMISlice';
@@ -96,7 +96,7 @@ const PaymentSuccessScreen = ({ navigation, route }) => {
 
       <View style={{}}>
         <TouchableOpacity
-          style={[styles.button, { backgroundColor: '#1E282A' }]}
+          style={[styles.button, { backgroundColor: colors.gradientBg }]}
           onPress={() => navigation.navigate('Home')}
         >
           <Text style={styles.buttonText}>Go to Dashboard</Text>
