@@ -72,7 +72,7 @@ const RefundPolicy = ({ navigation }) => {
                 <View style={styles.sectionContainer}>
                     <Text style={styles.heading}>CREDIT CARD:</Text>
                     <Text style={styles.definition}>
-                       The credit card account of the Member will be re-credited with the refund amount by PADMAVATHY JEWELLERS. The refund amount will be credited to the Member's account within the time span stipulated by the bank which has issued the credit card.
+                       The credit card account of the Member will be re-credited with the refund amount by SRI PADMAVATHY JEWELLERS. The refund amount will be credited to the Member's account within the time span stipulated by the bank which has issued the credit card.
                     </Text>
                 </View>
 
@@ -80,7 +80,7 @@ const RefundPolicy = ({ navigation }) => {
                 <View style={styles.sectionContainer}>
                     <Text style={styles.heading}>CHEQUE OR WIRE TRANSFER:</Text>
                     <Text style={styles.definition}>
-                    The refund amount shall be deposited into the bank account of the Member by PADMAVATHY JEWELLERS within seven (7) business days after the receipt of a request for refund by the Member.
+                    The refund amount shall be deposited into the bank account of the Member by SRI PADMAVATHY JEWELLERS within seven (7) business days after the receipt of a request for refund by the Member.
                     </Text>
                 </View>
 

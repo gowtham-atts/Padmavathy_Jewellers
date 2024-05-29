@@ -431,8 +431,8 @@ const PayEMA = ({ navigation }) => {
                 image: images.logo,
                 currency: 'INR',
                 key: test_key,
-                amount: res?.total_trans,
-                name: 'Padmavathy Jewellers',
+                amount: res?.total_trans, 
+                name: 'Sri Padmavathy Jewellers',
                 prefill: {
                     email: email,
                     contact: mobile

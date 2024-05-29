@@ -224,7 +224,7 @@ const HomeScreen = ({ navigation }) => {
         <ScrollView contentContainerStyle={{ paddingVertical: hp(2), paddingBottom: hp(10) }}>
 
         <Header
-          title="Shanthi Jewellery"
+          title="SRI PADMAVATHY JEWELLERS"
           onMenuPress={openToggle}
           onWishlistPress={wishList}
           onNotifyPress={notify}
@@ -247,7 +247,7 @@ const HomeScreen = ({ navigation }) => {
               {isUserLogin ? (
                 <Text style={styles.welcome}>Welcome, {profileList?.firstname && profileList?.lastname ? `${profileList.firstname} ${profileList.lastname}!` : 'User!'}</Text>
               ) : (
-                <Text style={styles.welcome}>Welcome to {`${'PADMAVATHY JEWELLERS'}`}</Text>
+                <Text style={styles.welcome}>Welcome to {`${'SRI PADMAVATHY JEWELLERS'}`}</Text>
               )}
             </View>
 
