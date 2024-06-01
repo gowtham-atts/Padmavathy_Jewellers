@@ -173,7 +173,7 @@ const ProfileScreen = ({ navigation }) => {
           }}>
             {renderBase64Image()}
             <View style={{ marginHorizontal: hp(2) }}>
-              <Text style={profileStyles.titleStyle}>{(profileList?.firstname || 'Welcome User') + ' ' + (profileList?.lastname || ' ')}</Text>
+              <Text style={profileStyles.titleStyle}>{(profileList?.firstname || 'Welcome') + ' ' + (profileList?.lastname || ' ')}</Text>
               <Text style={profileStyles.descStyle}>{profileList?.address || ''}</Text>
             </View>
           </View>
@@ -217,7 +217,7 @@ const ProfileScreen = ({ navigation }) => {
               </View>
             </View>}
 
-          <View style={{ borderBottomColor: '#979797', borderBottomWidth: 0.5, marginTop: hp(2) }} />
+          {isUserLogin &&<View style={{ borderBottomColor: '#979797', borderBottomWidth: 0.5, marginTop: hp(2) }} />}
 
           <View style={{ margin: 15, marginBottom: isUserLogin ? hp(15) : hp(40) }}>
             <View>

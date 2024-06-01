@@ -26,7 +26,7 @@ const GoldRateCard = ({  isGoldArrow, isSilverArrow, onRefresh }) => {
           <Text style={styles.todaytext}>Today’s Rates</Text>
         </View>
         <TouchableOpacity onPress={onRefresh} style={styles.updateRateButton}>
-          <Text style={styles.updateTxt}>Update Rates</Text>
+          {/* <Text style={styles.updateTxt}>Update Rates</Text> */}
           <View style={{ paddingLeft: hp('1%') }}>
             <Image source={refreshIcon} style={styles.refreshIcon} />
           </View>
@@ -41,9 +41,9 @@ const GoldRateCard = ({  isGoldArrow, isSilverArrow, onRefresh }) => {
             <Text style={styles.gramContent}>22Kt  1 Gm</Text>
           </View>
           <View style={styles.rowAlign}>
-              <Text style={[styles.goldRateContent]}>
-                {`₹ ${prevGoldRate ? prevGoldRate.mjdmagoldrate_22ct : todayGoldRate.mjdmagoldrate_22ct}`}
-              </Text>
+              <Text style={[styles.goldRateContent, { color: isGoldArrow ? 'green' : 'red' }]}>
+                 {`₹ ${prevGoldRate?.mjdmagoldrate_22ct ?? todayGoldRate?.mjdmagoldrate_22ct ?? 0}`}
+              </Text>    
               {prevGoldRate && todayGoldRate && (
                 <Text style={{ color: isGoldArrow ? 'green' : 'red', fontSize: rfpercentage(2.8) }}>
                   {isGoldArrow ? ' ▲' : ' ▼'}
@@ -61,9 +61,9 @@ const GoldRateCard = ({  isGoldArrow, isSilverArrow, onRefresh }) => {
             <Text style={styles.gramContent}>1 Gm</Text>
           </View>
           <View style={styles.rowAlign}>
-              <Text style={[styles.goldRateContent]}>
-                {`₹ ${prevGoldRate ? prevGoldRate.silverrate_1gm : todayGoldRate.silverrate_1gm}`}
-              </Text>
+             <Text style={[styles.goldRateContent, { color: isGoldArrow ? 'green' : 'red' }]}>
+                 {`₹ ${prevGoldRate?.silverrate_1gm ?? todayGoldRate?.silverrate_1gm ?? 0}`}
+             </Text>          
               {prevGoldRate && todayGoldRate && (
                 <Text style={{ color: isSilverArrow ? 'green' : 'red', fontSize: rfpercentage(2.8) }}>
                   {isSilverArrow ? ' ▲' : ' ▼'}

@@ -109,7 +109,7 @@ const DrawerItems = ({ navigation }) => {
                 <View style={{flexDirection:'row', alignItems: 'center', marginVertical:hp(3) }}>
                    {renderBase64Image()}
                    <View style={{flexDirection:'column', marginHorizontal:hp(2)}}>
-                        <Text style={styles.userName}>{(profileList?.firstname || 'Welcome User') + ' ' + (profileList?.lastname || ' ')}</Text>
+                        <Text style={styles.userName}>{(profileList?.firstname || 'Welcome') + ' ' + (profileList?.lastname || ' ')}</Text>
                    {isUserLogin && 
                       <TouchableOpacity style={[styles.drawerItem,{marginVertical:hp(1)}]}  onPress={handleLogout}>
                         <View style={styles.iconRow}>

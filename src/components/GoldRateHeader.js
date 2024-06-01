@@ -11,7 +11,7 @@ const GoldRateHeader = ({ title, rate, isUp }) => {
     <View style={styles.headerContainer}>
       <Text style={styles.headerText}>{title}</Text>
       <View style={styles.rateContainer}>
-        <Text style={[styles.rateText]}>{rate}</Text>
+      <Text style={[styles.rateText]}>{rate}</Text>
         {isUp ? (
           <Iconify icon='fluent-mdl2:stock-up' size={20} color="#4CE965" />
         ) : (

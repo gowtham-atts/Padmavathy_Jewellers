@@ -131,8 +131,8 @@ const OfferScreen = ({ navigation }) => {
                 onWishlistPress={wishList}
                 onNotifyPress={notify}
                 notificationCount={notifyCount}
-                todayGoldRate={`₹ ${prevGoldRate?.mjdmagoldrate_22ct}`}
-                todaySliverRate={`₹ ${prevGoldRate?.silverrate_1gm}`}
+                todayGoldRate={`₹ ${prevGoldRate?.mjdmagoldrate_22ct ?? 0}`}
+                todaySliverRate={`₹ ${prevGoldRate?.silverrate_1gm ?? 0}`}
                 isGoldArrow={isGoldArrow}
                 isSilverArrow={isSilverArrow}
               />

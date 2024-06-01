@@ -220,8 +220,6 @@ export const isEmptyObject = (obj) => {
 
 export const handleConfirmLogout = async () => {
     await AsyncStorage.removeItem('userToken');
-    await AsyncStorage.removeItem('loggedIn');
-    await AsyncStorage.removeItem('customerId');
 };
 
 

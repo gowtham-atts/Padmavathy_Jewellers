@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Pressable, ScrollView, ActivityIndicator, Platform, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, ScrollView, ActivityIndicator, Platform, ImageBackground } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Iconify } from 'react-native-iconify';
 import Header from '../components/Header';
@@ -34,6 +34,7 @@ const right = Platform.isPad ? -10 : (Platform.OS === 'ios' ? -10 :  10);
 const width = Platform.isPad ? 40 : (Platform.OS === 'ios' ? 20 : 0);
 
 const height = Platform.isPad ? 40 :  (Platform.OS === 'ios' ? 30  : 25);
+
 
 
 const HomeScreen = ({ navigation }) => {
@@ -229,8 +230,8 @@ const HomeScreen = ({ navigation }) => {
           onWishlistPress={wishList}
           onNotifyPress={notify}
           notificationCount={notifyCount}
-          todayGoldRate={`₹ ${prevGoldRate?.mjdmagoldrate_22ct}`}
-          todaySliverRate={`₹ ${prevGoldRate?.silverrate_1gm}`}
+          todayGoldRate={`₹ ${prevGoldRate?.mjdmagoldrate_22ct ?? 0}`}
+          todaySliverRate={`₹ ${prevGoldRate?.silverrate_1gm ?? 0}`}
           isGoldArrow={isGoldArrow}
           isSilverArrow={isSilverArrow}
         />
@@ -245,7 +246,7 @@ const HomeScreen = ({ navigation }) => {
 
             <View>
               {isUserLogin ? (
-                <Text style={styles.welcome}>Welcome, {profileList?.firstname && profileList?.lastname ? `${profileList.firstname} ${profileList.lastname}!` : 'User!'}</Text>
+                <Text style={styles.welcome}>Welcome, {profileList?.firstname && profileList?.lastname ? `${profileList.firstname} ${profileList.lastname}!` : ''}</Text>
               ) : (
                 <Text style={styles.welcome}>Welcome to {`${'SRI PADMAVATHY JEWELLERS'}`}</Text>
               )}

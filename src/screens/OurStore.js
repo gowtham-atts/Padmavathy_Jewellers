@@ -71,7 +71,7 @@ const OurStore = ({ navigation }) => {
             onPress={() => Linking.openURL(item.map_url)}
             style={styles.copyContainer}
           >
-            <Iconify icon="mdi:address-marker" size={wp(3)} color={COLORS.DARK_PRIMARY} />
+            <Iconify icon="mdi:address-marker" size={wp(6)} color={COLORS.DARK_PRIMARY} />
             <Text style={[styles.copytxt]}>
               {item.address1}
             </Text>
@@ -81,7 +81,7 @@ const OurStore = ({ navigation }) => {
             onPress={() => handlePhonePress(item.mobile)}
             style={[styles.copyContainer]}
           >
-            <Iconify icon="fluent:call-20-filled" size={wp(3)} color={COLORS.DARK_PRIMARY} />
+            <Iconify icon="fluent:call-20-filled" size={wp(6)} color={COLORS.DARK_PRIMARY} />
             <Text
               style={[
                 styles.copytxt,

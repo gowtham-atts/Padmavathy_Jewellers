@@ -32,6 +32,7 @@ const offerStyles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        height:Dimensions.get('screen').height * 0.5
       },
       emptyWishlistImage: {
         width: wp(10),

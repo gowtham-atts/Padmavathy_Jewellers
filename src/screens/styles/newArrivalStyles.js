@@ -55,7 +55,7 @@ const newArrivalStyles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    height: Dimensions.get('window').height * 0.40
+    height: Dimensions.get('window').height * 0.8
   },
   emptyWishlistImage: {
     width: wp(16),
