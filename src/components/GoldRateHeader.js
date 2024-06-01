@@ -26,9 +26,9 @@ const GoldRateHeader = ({ title, rate, isUp }) => {
 const styles = StyleSheet.create({
   headerCtnrStyle: {
     marginTop:hp('2%'),
-    padding:6,
-    // backgroundColor:"#1B243D",
-    backgroundColor:colors.placeholder
+    backgroundColor:colors.placeholder,
+    paddingTop:hp('1%'),
+    paddingBottom:hp('1%')
 
   },
   headerContainer: {
