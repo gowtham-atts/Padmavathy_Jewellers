@@ -10,3 +10,6 @@
 # Add any project specific keep options here:
 -dontwarn proguard.annotation.Keep
 -dontwarn proguard.annotation.KeepClassMembers
+-keepclassmembers class com.easebuzz.payment.kit.**{
+*;
+}

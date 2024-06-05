@@ -2,9 +2,18 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import DetailsHeader from '../components/DetailsHeader';
 import { COLORS, FONTS, FONT_SIZES } from '../utils/constants';
-import { responsiveWidth } from '../utils/responsive';
+import { hp, responsiveWidth, rfpercentage } from '../utils/responsive';
+import { formatDate, formatDateTime } from '../utils/helpers';
 
-const PaymentFailureScreen = ({ navigation }) => {
+
+const PaymentFailureScreen = ({ navigation, route }) => {
+
+  const paymentData = route?.params?.paymentData;
+
+  const transactionNO = route?.params?.transactionNo;
+
+  const easeBuzzPayData = route?.params?.easebuzzData;
+
   return (
     <View style={styles.container}>
       <DetailsHeader
@@ -26,30 +35,36 @@ const PaymentFailureScreen = ({ navigation }) => {
           </View>
 
           <View style={{ alignItems: 'center', bottom: 30 }}>
-            <Text style={styles.totalTxt}>Payment Total</Text>
-            <Text style={styles.totalSubTxt}>$1000</Text>
+            <Text style={styles.totalTxt}>{"Payment Failed"}</Text>
+            <Text style={styles.totalSubTxt}>₹ {paymentData?.list?.amount || easeBuzzPayData?.amount}</Text>
           </View>
 
           <View>
             <View style={styles.detailsContainer}>
               <Text style={styles.detailLabel}>Date</Text>
-              <Text style={styles.detailValue}>2024-01-11</Text>
+              <Text style={styles.detailValue}>{formatDateTime(paymentData?.list?.trans_date)}</Text>
             </View>
             <View style={styles.detailsContainer}>
-              <Text style={styles.detailLabel}>Scheme</Text>
-              <Text style={styles.detailValue}>Gold</Text>
+              <Text style={styles.detailLabel}>Amount</Text>
+              <Text style={styles.detailValue}>₹ {paymentData?.list?.amount || easeBuzzPayData?.amount}</Text>
+            </View>
+            <View style={styles.detailsContainer}>
+              <Text style={styles.detailLabel}>Transaction No</Text>
+              <Text style={styles.detailValue}>{transactionNO}</Text>
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.detailLabel}>Payment ID</Text>
-              <Text style={styles.detailValue}>123456</Text>
+              <Text style={styles.detailValue}>{paymentData?.list?.transactionId || easeBuzzPayData?.easepayid}</Text>
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.detailLabel}>Payment Status</Text>
-              <Text style={styles.detailValue}>Failed</Text>
+              <Text style={styles.detailValue}>{paymentData?.status || easeBuzzPayData?.status}</Text>
             </View>
           </View>
+
         </View>
       </View>
+
       <View style={{ flex: 0.4 }}>
         <TouchableOpacity
           style={[styles.button, { backgroundColor: '#1B243D' }]}
@@ -97,42 +112,38 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   detailLabel: {
-    fontSize: 16,
+    fontSize: rfpercentage(2),
     fontWeight: 'bold',
     color: '#333',
     fontFamily: FONTS.OUTFIT_MEDIUM,
     fontWeight: '500'
   },
   detailValue: {
-    fontSize: 16,
+    fontSize: rfpercentage(2),
     color: '#666',
     fontFamily: FONTS.OUTFIT_MEDIUM,
-    fontWeight: '500'
-  },
-  detailLabel: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
-    fontFamily: FONTS.OUTFIT_MEDIUM,
-    fontWeight: '500'
+    fontWeight: '500',
+    textTransform:'capitalize'
   },
   totalTxt: {
-    fontSize: 16,
+    fontSize: rfpercentage(2.8),
     color: '#666',
     fontFamily: FONTS.OUTFIT_MEDIUM,
-    fontWeight: '500'
+    fontWeight: '500',
+    textTransform: "uppercase"
   },
   totalSubTxt: {
     fontSize: FONT_SIZES.EXTRA_LARGE,
     color: COLORS.DARK_PRIMARY,
     fontFamily: FONTS.OUTFIT_MEDIUM,
-    fontWeight: '500'
+    fontWeight: '500',
+    marginTop: hp('1%')
   },
   button: {
     marginTop: 20,
-    padding: 4,
-    borderRadius: 16,
-    width: responsiveWidth(40),
+    padding: 12,
+    borderRadius: 10,
+    width: responsiveWidth(60),
     alignItems: 'center',
     alignSelf: 'center'
   },

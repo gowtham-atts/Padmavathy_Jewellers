@@ -356,7 +356,7 @@ const EditProfile = ({ navigation }) => {
                             style={styles.avatarContainer}
                             onPress={() => setModalVisible(true)}>
                             {renderBase64Image()}
-                            <Text style={styles.avatarText}>{customerDetails?.firstname && customerDetails?.lastname ? `${customerDetails.firstname} ${customerDetails.lastname}!` : 'Welcome'}</Text>
+                            <Text style={styles.avatarText}>{customerDetails?.firstname && customerDetails?.lastname ? `${customerDetails.firstname} ${customerDetails.lastname}` : 'Welcome'}</Text>
                             <Text style={styles.descStyle}>{customerDetails?.mobile || ''}</Text>
                         </TouchableOpacity>
                     </View>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, ActivityIndicator, TouchableOpacity, SafeAreaView, TextInput, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import payEMIStyles from './styles/payEMIStyles';
 import ListEmpty from '../components/ListEmpty';
 import DetailsHeader from '../components/DetailsHeader';
@@ -16,11 +16,23 @@ import { setExtendScheme } from '../features/payEMI/payEMISlice';
 import KeyboardAvoidingWrapper from '../components/KeyboardAvoidingWrapper';
 import Toast from 'react-native-simple-toast';
 import { hp, wp } from '../utils/responsive';
+import EasebuzzCheckout from 'react-native-easebuzz-kit';
+import qs from 'qs';
+import sha512 from 'js-sha512';
+import axios from 'axios';
+import { selectProfileDetails } from '../features/profile/profileSlice';
 
 
 
+const generateHash = (key, txnid, amount, productinfo, firstname, email, salt) => {
+    const hashString = `${key}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|||||||||||${salt}`;
+    return sha512(hashString);
+};
 
 const PayEMA = ({ navigation }) => {
+
+
+    const profileList = useSelector(selectProfileDetails);
     const [loading, setLoading] = useState(true);
     const [emaData, setEmaData] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
@@ -386,7 +398,8 @@ const PayEMA = ({ navigation }) => {
                 setTranscationId(response?.transactionid);
                 setStatusSuccess(response?.status);
                 if (response?.status == "Success") {
-                    handlePayment(response)
+                    // handlePayment(response)
+                    initiatePayment(response)
                 } else {
                     console.log('Error in update payment. Response:', response);
                 }
@@ -396,6 +409,132 @@ const PayEMA = ({ navigation }) => {
             console.log('Error fetching update payment', error);
         }
     };
+
+
+    
+    const initiatePayment = async (res) => {
+        
+        const username = profileList?.firstname + '' + profileList?.lastname;
+        const mobile = await  AsyncStorage.getItem('user_mobile');
+        let mail = await getData('user_email');
+        let usermail =  'user123@gmail.com';
+        if(mail === null){
+            usermail;
+        } else {
+            usermail = mail;
+        }
+        const total_amt = totalAmount.replace(",","");
+        const test_key = "2PBP7IABZ2"
+        const key =  merchant_key;
+        const txnid = res.transactionid; 
+        const amount = total_amt;
+        const productinfo = 'A Jewellers maintain Gold Chit Sliver Chit Join Scheme'; 
+        const firstname = username; 
+        const phone = mobile;
+        const email = usermail; 
+        const surl = 'https://sripadmavathy.aupay.auss.co/auss/api/scheme/payment/paymentsuccess';
+        const furl = 'https://sripadmavathy.aupay.auss.co/auss/api/scheme/payment/paymentfailed'; 
+        const salt = 'AOUVS3Y6C3'; 
+        const test_salt = "DAH88E3UWQ"
+        const hash = generateHash(test_key, txnid, amount, productinfo, firstname, email, test_salt);
+        const requestFlow = 'SEAMLESS';
+    
+        const params = {
+          key: test_key,
+          txnid: txnid,
+          amount: amount,
+          productinfo: productinfo,
+          firstname: firstname,
+          phone: phone,
+          email: email,
+          surl: surl,
+          furl: furl,
+          hash: hash,
+          udf1: '',
+          udf2: '',
+          udf3: '',
+          udf4: '',
+          udf5: '',
+          udf6: '',
+          udf7: '',
+          address1: '',
+          address2: '',
+          city: '',
+          state: '',
+          country: '',
+          zipcode: '',
+          show_payment_mode: '',
+          request_flow: requestFlow,
+          sub_merchant_id: '',
+          payment_category: '',
+          account_no: '',
+          ifsc: ''
+        };
+    
+        const options = {
+          method: 'POST',
+          url: 'https://testpay.easebuzz.in/payment/initiateLink',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Accept': 'application/json',
+          },
+          data: qs.stringify(params),
+        };
+    
+        try {
+          const response = await axios.request(options);
+          if(response.data.status === 1){
+            callPaymentGateway(response?.data)
+          }
+        } catch (error) {
+          if (error.response) {
+            // Server responded with a status other than 200 range
+            console.log('Error response:', error.response.data);
+          } else if (error.request) {
+            // Request was made but no response was received
+            console.log('Error request:', error.request);
+          } else {
+            // Something else happened in setting up the request
+            console.log('Error message:', error.message);
+          }
+        }
+      };
+
+
+    const callPaymentGateway = async (res) => {
+        const customerId = await getData('customerId');
+        var options = {
+            access_key: res?.data,
+            pay_mode: "test"
+        }
+        try {
+            setLodebutton(true);
+            const data = await EasebuzzCheckout.open(options);
+            let payment_id = data?.payment_response?.easepayid;
+            let paymentStatus = data?.result;
+            let transaction_no = data?.payment_response?.txnid;
+            const payload = {
+                id_customer: customerId,
+                txnid: transaction_no,
+                status: paymentStatus,
+                payment_id: payment_id
+            };
+            if (paymentStatus === "payment_successfull") {
+                const successData = await paymentService.successPayment(payload);
+                navigation.navigate('PaymentSuccessScreen', { paymentData: successData, transactionNo: transaction_no });
+            } else if (paymentStatus === "bank_back_pressed") {
+                navigation.replace('PayEMA');
+            } else if (paymentStatus === "user_cancelled") {
+                navigation.navigate('PaymentPendingScreen', { easebuzzData: data?.payment_response, transactionNo: data?.payment_response?.txnid });
+            } else {
+                const failedData = await paymentService.failedPayment(payload)
+                navigation.navigate('PaymentFailureScreen', { paymentData: failedData, transactionNo: transaction_no });            }
+        } catch (error) {
+            console.log("SDK Error:", error)
+        } finally {
+            setLodebutton(false);
+        }
+    }
 
     const callPaymentApi = async (res, payment_id, status) => {
         try {
@@ -592,7 +731,6 @@ const PayEMA = ({ navigation }) => {
                                 <Text style={payEMIStyles.profileHeaderTxt}>Total Amount</Text>
                                 <Text style={payEMIStyles.profileHeaderTxt}>{`₹ ${parseInt(item.installments) * parseFloat(item.payamount) * todayGoldRate || 0}`}</Text>
                             </View>)}
-
 
                             {(payEmaTotalWeightByShow.includes(parseInt(item.scheme_type)) &&
                                 <View style={payEMIStyles.iconCntr}>

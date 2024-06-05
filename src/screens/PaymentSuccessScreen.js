@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Modal, BackHandler } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Modal, SafeAreaView, BackHandler } from 'react-native';
 import DetailsHeader from '../components/DetailsHeader';
-import { COLORS, FONTS, FONT_SIZES, colors } from '../utils/constants';
-import { hp, responsiveHeight, responsiveWidth, rfpercentage } from '../utils/responsive';
-import { formatDateTime } from '../utils/helpers';
+import { COLORS, FONTS, FONT_SIZES } from '../utils/constants';
+import { hp, responsiveWidth, rfpercentage } from '../utils/responsive';
+import { formatDate, formatDateTime } from '../utils/helpers';
 import { selectExtendScheme } from '../features/payEMI/payEMISlice';
 import { useSelector } from 'react-redux';
 
@@ -12,7 +12,9 @@ const PaymentSuccessScreen = ({ navigation, route }) => {
   const paymentData = route?.params?.paymentData;
 
   const transactionNO = route?.params?.transactionNo;
-  
+
+  const easeBuzzPayData = route?.params?.paymentData;
+
 
   // const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -33,6 +35,7 @@ const PaymentSuccessScreen = ({ navigation, route }) => {
   //   setIsModalVisible(false); // Close the modal if the user cancels
   // };
 
+
   React.useEffect(() => {
     const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
       navigation.replace('Home');
@@ -43,7 +46,8 @@ const PaymentSuccessScreen = ({ navigation, route }) => {
 
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+
       <DetailsHeader
         title="Payment"
         onBackPress={() => {
@@ -64,18 +68,23 @@ const PaymentSuccessScreen = ({ navigation, route }) => {
           </View>
 
           <View style={{ alignItems: 'center', bottom: 30 }}>
-            <Text style={styles.totalTxt}>Paid Amount</Text>
-            <Text style={styles.totalSubTxt}>₹ {paymentData?.list?.amount}</Text>
+            <Text style={styles.totalTxt}>Payment Success</Text>
+            <Text style={styles.totalSubTxt}>₹ {paymentData?.list?.amount || easeBuzzPayData?.amount}</Text>
           </View>
 
           <View>
             <View style={styles.detailsContainer}>
               <Text style={styles.detailLabel}>Date</Text>
               <Text style={styles.detailValue}>{formatDateTime(paymentData?.list?.trans_date)}</Text>
+              {/* {paymentData === null ?
+                <Text style={styles.detailValue}>{formatDateTime(paymentData?.list?.trans_date)}</Text>
+                      :
+                <Text style={styles.detailValue}>{formatDateTime(easeBuzzPayData?.addedon)}</Text>
+                } */}
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.detailLabel}>Amount</Text>
-              <Text style={styles.detailValue}>₹ {paymentData?.list?.amount}</Text>
+              <Text style={styles.detailValue}>₹ {paymentData?.list?.amount || easeBuzzPayData?.amount}</Text>
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.detailLabel}>Transaction No</Text>
@@ -83,20 +92,20 @@ const PaymentSuccessScreen = ({ navigation, route }) => {
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.detailLabel}>Payment ID</Text>
-              <Text style={styles.detailValue}>{paymentData?.list?.transactionId}</Text>
+              <Text style={styles.detailValue}>{paymentData?.list?.transactionId || easeBuzzPayData?.easepayid}</Text>
             </View>
             <View style={styles.detailsContainer}>
               <Text style={styles.detailLabel}>Payment Status</Text>
-              <Text style={styles.detailValue}>{paymentData?.status}</Text>
+              <Text style={styles.detailValue}>{paymentData?.status || easeBuzzPayData?.status}</Text>
             </View>
           </View>
 
         </View>
       </View>
 
-      <View style={{}}>
+      <View>
         <TouchableOpacity
-          style={[styles.button, { backgroundColor: colors.gradientBg }]}
+          style={[styles.button, { backgroundColor: '#1E282A' }]}
           onPress={() => navigation.navigate('Home')}
         >
           <Text style={styles.buttonText}>Go to Dashboard</Text>
@@ -131,7 +140,7 @@ const PaymentSuccessScreen = ({ navigation, route }) => {
         </View>
       </Modal> */}
 
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -170,30 +179,32 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   detailLabel: {
-    fontSize: 16,
+    fontSize: rfpercentage(2),
     fontWeight: 'bold',
     color: '#333',
     fontFamily: FONTS.OUTFIT_MEDIUM,
     fontWeight: '500'
   },
   detailValue: {
-    fontSize: 16,
+    fontSize: rfpercentage(2),
     color: '#666',
     fontFamily: FONTS.OUTFIT_MEDIUM,
-    fontWeight: '500'
+    fontWeight: '500',
+    textTransform:'capitalize'
   },
   detailLabel: {
-    fontSize: 16,
+    fontSize: rfpercentage(2),
     fontWeight: 'bold',
     color: '#333',
     fontFamily: FONTS.OUTFIT_MEDIUM,
     fontWeight: '500'
   },
   totalTxt: {
-    fontSize:rfpercentage(2.8),
+    fontSize: rfpercentage(2.8),
     color: '#666',
     fontFamily: FONTS.OUTFIT_MEDIUM,
-    fontWeight: '500'
+    fontWeight: '500',
+    textTransform:'uppercase'
   },
   totalSubTxt: {
     fontSize: FONT_SIZES.EXTRA_LARGE,
@@ -211,7 +222,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-    fontSize: 16,
+    fontSize: rfpercentage(2),
     fontFamily: FONTS.OUTFIT_MEDIUM,
     fontWeight: '500'
   },
