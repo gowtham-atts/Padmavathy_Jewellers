@@ -13,8 +13,6 @@ const PaymentPendingScreen = ({ navigation, route }) => {
 
     const easeBuzzPayData = route?.params?.easebuzzData;
 
-    console.log('easeBuzzPayData',paymentData)
-
 
     return (
         <View style={styles.container}>

@@ -1,8 +1,6 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { hp, responsiveImageSize, rfpercentage, wp } from '../../utils/responsive';
 import { COLORS, FONTS, colors } from '../../utils/constants';
-
-const img = responsiveImageSize(300, 200);
 
 
 const commonFontWeight = {
@@ -12,7 +10,6 @@ const commonFontWeight = {
 const payEMIStyles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:COLORS.WHITE
     },
     title: {
         fontFamily: FONTS.OUTFIT_MEDIUM,
@@ -43,14 +40,15 @@ const payEMIStyles = StyleSheet.create({
         marginRight: 5,
         paddingLeft: 10,
         borderRadius: 6,
-        width: wp(20),
+        width: wp('30%'),
         height: 40,
     },
     input: {
         marginRight: 5,
         paddingLeft: 4,
-        width: wp('20%'),
+        width: wp('30%'),
         fontSize: 16,
+        color:COLORS.BLACK,
         height: 40,
         position: 'absolute',
         left: 0,
@@ -64,13 +62,14 @@ const payEMIStyles = StyleSheet.create({
     radioButtonContainer: {
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent:'space-between'
     },
     radioButton: {
         width: 20,
         height: 20,
         borderRadius: 10,
         borderWidth: 2,
-        borderColor: colors.gradientBg,
+        borderColor: colors.gradientBg2,
         marginRight: 10,
         justifyContent: 'center',
         alignItems: 'center',
@@ -131,7 +130,7 @@ const payEMIStyles = StyleSheet.create({
         marginLeft: 15,
         marginRight: 15,
         borderRadius: 10,
-        marginBottom:hp(2)
+        marginBottom: hp(2),
     },
     summaryTextContainer: {
         flexDirection: 'row',
@@ -157,14 +156,11 @@ const payEMIStyles = StyleSheet.create({
         ...StyleSheet.absoluteFillObject,
         justifyContent: 'center',
         alignItems: 'center',
-        height:Dimensions.get('window').height 
-      },
-    
+    },
     noWishlistContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        height:Dimensions.get('window').height * 0.60
     },
     emptyWishlistImage: {
         width: hp(10),
@@ -175,8 +171,11 @@ const payEMIStyles = StyleSheet.create({
     noWishlistText: {
         fontSize: rfpercentage(1.8),
         fontFamily: FONTS.OUTFIT_BOLD,
-        color: COLORS.TEXT_COLOR,
-    }
+        color: COLORS.PLACEHOLDER_TEXT,
+    },
+    errorBorder: {
+        borderColor: 'red',
+     },
 
 });
 

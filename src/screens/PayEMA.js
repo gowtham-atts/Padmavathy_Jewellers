@@ -23,7 +23,6 @@ import axios from 'axios';
 import { selectProfileDetails } from '../features/profile/profileSlice';
 
 
-
 const generateHash = (key, txnid, amount, productinfo, firstname, email, salt) => {
     const hashString = `${key}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|||||||||||${salt}`;
     return sha512(hashString);
@@ -31,8 +30,7 @@ const generateHash = (key, txnid, amount, productinfo, firstname, email, salt) =
 
 const PayEMA = ({ navigation }) => {
 
-
-    const profileList = useSelector(selectProfileDetails);
+    const profileList = useSelector(selectProfileDetails)
     const [loading, setLoading] = useState(true);
     const [emaData, setEmaData] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
@@ -410,10 +408,7 @@ const PayEMA = ({ navigation }) => {
         }
     };
 
-
-    
     const initiatePayment = async (res) => {
-        
         const username = profileList?.firstname + '' + profileList?.lastname;
         const mobile = await  AsyncStorage.getItem('user_mobile');
         let mail = await getData('user_email');
@@ -425,7 +420,7 @@ const PayEMA = ({ navigation }) => {
         }
         const total_amt = totalAmount.replace(",","");
         const test_key = "2PBP7IABZ2"
-        const key =  merchant_key;
+        const key =  "7GUOYLC6RN";
         const txnid = res.transactionid; 
         const amount = total_amt;
         const productinfo = 'A Jewellers maintain Gold Chit Sliver Chit Join Scheme'; 
@@ -434,13 +429,13 @@ const PayEMA = ({ navigation }) => {
         const email = usermail; 
         const surl = 'https://sripadmavathy.aupay.auss.co/auss/api/scheme/payment/paymentsuccess';
         const furl = 'https://sripadmavathy.aupay.auss.co/auss/api/scheme/payment/paymentfailed'; 
-        const salt = 'AOUVS3Y6C3'; 
-        const test_salt = "DAH88E3UWQ"
-        const hash = generateHash(test_key, txnid, amount, productinfo, firstname, email, test_salt);
+        const salt = "Z90V4UCBWH"; 
+        const test_salt = "Z90V4UCBWH";
+        const hash = generateHash(key, txnid, amount, productinfo, firstname, email, salt);
         const requestFlow = 'SEAMLESS';
     
         const params = {
-          key: test_key,
+          key: key,
           txnid: txnid,
           amount: amount,
           productinfo: productinfo,
@@ -473,7 +468,7 @@ const PayEMA = ({ navigation }) => {
     
         const options = {
           method: 'POST',
-          url: 'https://testpay.easebuzz.in/payment/initiateLink',
+          url: 'https://pay.easebuzz.in/payment/initiateLink',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
             'Accept': 'application/json',
@@ -483,6 +478,7 @@ const PayEMA = ({ navigation }) => {
     
         try {
           const response = await axios.request(options);
+          console.log('response',response.data)
           if(response.data.status === 1){
             callPaymentGateway(response?.data)
           }
@@ -505,7 +501,7 @@ const PayEMA = ({ navigation }) => {
         const customerId = await getData('customerId');
         var options = {
             access_key: res?.data,
-            pay_mode: "test"
+            pay_mode: "production"
         }
         try {
             setLodebutton(true);
@@ -637,10 +633,13 @@ const PayEMA = ({ navigation }) => {
             <View style={payEMIStyles.contentCard}>
 
                 <View style={payEMIStyles.radioButtonContainer}>
-                    <TouchableOpacity onPress={() => handleSelectItem(item.id_scheme_account, item)} style={[payEMIStyles.radioButton,{marginLeft:hp('1%')}]}>
-                            {selectedIndex.includes(item.id_scheme_account) && <View style={payEMIStyles.radioButtonSelected} />}
-                    </TouchableOpacity>
                     <Text style={payEMIStyles.title}>{item.scheme_name}</Text>
+                    <View style={{flexDirection:'row',alignItems:'center'}}>
+                        <Text style={[payEMIStyles.title]}>{"Pay Now"}</Text>
+                        <TouchableOpacity onPress={() => handleSelectItem(item.id_scheme_account, item)} style={[payEMIStyles.radioButton,{marginLeft:hp('1%')}]}>
+                            {selectedIndex.includes(item.id_scheme_account) && <View style={payEMIStyles.radioButtonSelected} />}
+                        </TouchableOpacity>
+                    </View> 
                 </View>
 
                 <View style={{ gap: 8, marginTop: 10 }}>
@@ -732,6 +731,7 @@ const PayEMA = ({ navigation }) => {
                                 <Text style={payEMIStyles.profileHeaderTxt}>{`₹ ${parseInt(item.installments) * parseFloat(item.payamount) * todayGoldRate || 0}`}</Text>
                             </View>)}
 
+
                             {(payEmaTotalWeightByShow.includes(parseInt(item.scheme_type)) &&
                                 <View style={payEMIStyles.iconCntr}>
                                     <Text style={payEMIStyles.profileHeaderTxt}>Total Weight</Text>
@@ -781,9 +781,7 @@ const PayEMA = ({ navigation }) => {
                         ListHeaderComponent={
                             <DetailsHeader
                                 title="Pay EMA"
-                                onBackPress={() => {
-                                    navigation.replace('Home')
-                                }}
+                                onBackPress={() => navigation.replace('Home')}
                                 onNotifyPress={() => navigation.navigate('Notification')}
                                 onWishlistPress={() => navigation.navigate('WishList')}
                             />

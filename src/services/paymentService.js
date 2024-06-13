@@ -85,6 +85,7 @@ const paymentService = {
                   'Authorization': `${token}`, 
               },
           });
+          payload["status"] = "success"
           const response = await apiUrl.post(apiEndpoints.PAYMENT_SUCCESS,payload);
           return response.data;
         } catch (error) {
