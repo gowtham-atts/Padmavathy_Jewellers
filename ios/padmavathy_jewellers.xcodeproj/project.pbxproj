@@ -21,6 +21,7 @@
 		3348BF8C2C0DD9F300A60F63 /* Outfit-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3348BF832C0DD9F300A60F63 /* Outfit-Bold.ttf */; };
 		3348BF8D2C0DD9F300A60F63 /* Outfit-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3348BF842C0DD9F300A60F63 /* Outfit-ExtraLight.ttf */; };
 		3348BF8E2C0DD9F300A60F63 /* Outfit-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3348BF852C0DD9F300A60F63 /* Outfit-Regular.ttf */; };
+		337322AF2C2059FA004C14E5 /* Easebuzz.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 337322AE2C2059FA004C14E5 /* Easebuzz.xcframework */; };
 		7699B88040F8A987B510C191 /* libPods-padmavathy_jewellers-padmavathy_jewellersTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-padmavathy_jewellers-padmavathy_jewellersTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -56,6 +57,7 @@
 		3348BF832C0DD9F300A60F63 /* Outfit-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Outfit-Bold.ttf"; sourceTree = "<group>"; };
 		3348BF842C0DD9F300A60F63 /* Outfit-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Outfit-ExtraLight.ttf"; sourceTree = "<group>"; };
 		3348BF852C0DD9F300A60F63 /* Outfit-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Outfit-Regular.ttf"; sourceTree = "<group>"; };
+		337322AE2C2059FA004C14E5 /* Easebuzz.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = Easebuzz.xcframework; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-padmavathy_jewellers.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-padmavathy_jewellers.debug.xcconfig"; path = "Target Support Files/Pods-padmavathy_jewellers/Pods-padmavathy_jewellers.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-padmavathy_jewellers.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-padmavathy_jewellers.release.xcconfig"; path = "Target Support Files/Pods-padmavathy_jewellers/Pods-padmavathy_jewellers.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-padmavathy_jewellers-padmavathy_jewellersTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-padmavathy_jewellers-padmavathy_jewellersTests.debug.xcconfig"; path = "Target Support Files/Pods-padmavathy_jewellers-padmavathy_jewellersTests/Pods-padmavathy_jewellers-padmavathy_jewellersTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				337322AF2C2059FA004C14E5 /* Easebuzz.xcframework in Frameworks */,
 				0C80B921A6F3F58F76C31292 /* libPods-padmavathy_jewellers.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -105,6 +108,7 @@
 		13B07FAE1A68108700A75B9A /* padmavathy_jewellers */ = {
 			isa = PBXGroup;
 			children = (
+				337322AE2C2059FA004C14E5 /* Easebuzz.xcframework */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -504,8 +508,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5W75DS9GZZ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = padmavathy_jewellers/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Sri Padmavathy Jewellers";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -516,7 +523,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.padmavathy.app;
 				PRODUCT_NAME = padmavathy_jewellers;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -534,7 +541,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5W75DS9GZZ;
 				INFOPLIST_FILE = padmavathy_jewellers/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Sri Padmavathy Jewellers";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -545,7 +555,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.padmavathy.app;
 				PRODUCT_NAME = padmavathy_jewellers;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -558,6 +568,7 @@
 		83CBBA201A601CBA00E9B192 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
@@ -638,6 +649,7 @@
 		83CBBA211A601CBA00E9B192 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";

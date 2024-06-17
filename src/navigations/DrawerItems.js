@@ -75,6 +75,7 @@ const DrawerItems = ({ navigation }) => {
     };
 
     const handleConfirmLogout = async () => {
+        setLogoutModalVisible(false);
         await removeData('userToken');
         navigation.push('Login');
     };

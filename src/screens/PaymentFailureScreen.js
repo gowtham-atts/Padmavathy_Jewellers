@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import DetailsHeader from '../components/DetailsHeader';
 import { COLORS, FONTS, FONT_SIZES } from '../utils/constants';
 import { hp, responsiveWidth, rfpercentage } from '../utils/responsive';
@@ -15,7 +15,7 @@ const PaymentFailureScreen = ({ navigation, route }) => {
   const easeBuzzPayData = route?.params?.easebuzzData;
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <DetailsHeader
         title="Payment"
         onBackPress={() => {
@@ -73,7 +73,7 @@ const PaymentFailureScreen = ({ navigation, route }) => {
           <Text style={styles.buttonText}>Go to Dashboard</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

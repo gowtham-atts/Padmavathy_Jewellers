@@ -4,6 +4,7 @@ import DetailsHeader from '../components/DetailsHeader';
 import { COLORS, FONTS, FONT_SIZES } from '../utils/constants';
 import { hp, responsiveWidth, rfpercentage } from '../utils/responsive';
 import { formatDate, formatDateTime } from '../utils/helpers';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const PaymentPendingScreen = ({ navigation, route }) => {
 
@@ -15,7 +16,7 @@ const PaymentPendingScreen = ({ navigation, route }) => {
 
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
 
             <DetailsHeader
                 title="Payment"
@@ -81,7 +82,7 @@ const PaymentPendingScreen = ({ navigation, route }) => {
                 </TouchableOpacity>
             </View>
 
-        </View>
+        </SafeAreaView>
     );
 };
 
