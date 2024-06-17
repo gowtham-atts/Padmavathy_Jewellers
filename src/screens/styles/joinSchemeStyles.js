@@ -54,7 +54,7 @@ const joinSchemeStyles = StyleSheet.create({
         width: wp('90%'),
         borderColor:'#D4D4D4',
         borderWidth:1,
-        borderRadius:6
+        borderRadius:6,
     },
     modalTitle: {
         ...commonFontFamily,

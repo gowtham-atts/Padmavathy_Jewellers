@@ -104,9 +104,13 @@ const payEMIStyles = StyleSheet.create({
     contentCard: {
         backgroundColor: 'white',
         borderRadius: 8,
-        elevation: 3,
         padding: 15,
         margin: 15,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 2,  
+        elevation: 5
     },
     errorText: {
         fontFamily: FONTS.OUTFIT_MEDIUM,

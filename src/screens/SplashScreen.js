@@ -1,18 +1,22 @@
 import React, { useEffect, useRef } from 'react';
-import { View, StyleSheet, Animated, ImageBackground } from 'react-native';
+import { View, StyleSheet, Animated, ImageBackground, Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { COLORS, images } from '../utils/constants';
 import Footer from '../components/Footer';
 import LinearGradient from 'react-native-linear-gradient';
 import { getData } from '../utils/storage';
+ 
+
 
 const SplashScreen = ({ navigation }) => {
   
   const logoOpacity = useRef(new Animated.Value(0)).current;
   const textSlideAnimation = useRef(new Animated.Value(0)).current;
 
+
   useEffect(() => {
+
     const playSoundAndNavigate = async () => {
       try {
         // Code to play sound (uncomment when needed)
@@ -42,10 +46,9 @@ const SplashScreen = ({ navigation }) => {
         console.log('Failed to play the sound', error);
       }
     };
-
     playSoundAndNavigate();
   }, [navigation]);
-
+  
   return (
     <SafeAreaView style={styles.container}>
        <ImageBackground source={images.pad_splash} style={styles.splash_logo} resizeMode='cover'>

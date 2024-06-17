@@ -11,7 +11,7 @@ import HomeScreen from '../screens/HomeScreen';
 
 const size = Platform.OS === "ios" ? wp(6) : wp(6) ;
 
-const width = Platform.isPad ? 180 : (Platform.OS === 'ios' ? 100 : 100);
+const width = Platform.isPad ? 180 : (Platform.OS === 'ios' ? 120 : 100);
 
 const height = Platform.isPad ? 60 :  (Platform.OS === 'ios' ? 40 : 40);
 
@@ -19,7 +19,7 @@ const borderRadius = Platform.isPad ? 60 : (Platform.OS === 'ios' ? 30 : 20);
 
 const paddingBottom = Platform.isPad ? 30 : (Platform.OS === 'ios' ? 30 : 10);
 
-const paddingTop = Platform.isPad ? 30 : (Platform.OS === 'ios' ? 30 : 10)
+const paddingTop = Platform.isPad ? 30 : (Platform.OS === 'ios' ? 20 : 10)
 
 const tabBarHeight =  Platform.isPad ? 120 : (Platform.OS === 'ios' ? 100 : 70);
 

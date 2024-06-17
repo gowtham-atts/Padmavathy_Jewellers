@@ -23,7 +23,7 @@ export const strings = {
       register: 'Register',
       keepMeLogin:'Remember Me',
       loginFailed:'Login Failed',
-      skipLogin: 'Skip Login',
+      skipLogin: 'Skip',
       branch:'Branch',
       selectBranch:'Select Branch'
     },

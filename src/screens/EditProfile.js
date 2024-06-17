@@ -429,8 +429,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     avatar: {
-        width:imageWidth,
-        height:imageHeight,
+        width:imageWidth * 0.80,
+        height:imageHeight * 0.80,
         borderRadius:imageBorderRadius,
     },
     addButton: {

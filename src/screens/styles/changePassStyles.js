@@ -53,8 +53,8 @@ const changePassStyles = StyleSheet.create({
         gap: 10
     },
     avatar: {
-        width:imageWidth,
-        height:imageHeight,
+        width:imageWidth * 0.80,
+        height:imageHeight * 0.80,
         borderRadius:imageBorderRadius,
     },
     avatorText: {
