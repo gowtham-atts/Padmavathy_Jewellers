@@ -1,63 +1,66 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { View, Animated, StyleSheet, Dimensions, Easing } from 'react-native';
 
-const SkeletonLoader = () => {
-  const [loadingAnimation] = useState(new Animated.Value(0));
+const { width } = Dimensions.get('window');
+
+const SkeletonLoader = ({ length }) => {
+  const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    startLoadingAnimation();
-  }, []);
-
-  const startLoadingAnimation = () => {
     Animated.loop(
       Animated.sequence([
-        Animated.timing(loadingAnimation, {
+        Animated.timing(fadeAnim, {
           toValue: 1,
           duration: 1000,
           useNativeDriver: true,
+          easing: Easing.inOut(Easing.ease),
         }),
-        Animated.timing(loadingAnimation, {
+        Animated.timing(fadeAnim, {
           toValue: 0,
           duration: 1000,
           useNativeDriver: true,
+          easing: Easing.inOut(Easing.ease),
         }),
-      ]),
+      ])
     ).start();
-  };
+  }, [fadeAnim]);
 
-  const skeletonStyle = {
-    opacity: loadingAnimation.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0.5, 1],
-    }),
-    backgroundColor: '#E0E0E0',
-  };
-
-  return (
-    <View style={styles.container}>
-      <Animated.View style={[styles.skeleton, skeletonStyle]} />
-      <Animated.View style={[styles.skeleton, skeletonStyle]} />
-      <Animated.View style={[styles.skeleton, skeletonStyle]} />
-      <Animated.View style={[styles.skeleton, skeletonStyle]} />
-      <Animated.View style={[styles.skeleton, skeletonStyle]} />
-      <Animated.View style={[styles.skeleton, skeletonStyle]} />
+  const skeletonItems = Array.from({ length }, (_, index) => (
+    <View key={index}>
+      <Animated.View
+        style={[styles.rect, { opacity: fadeAnim }]}
+      />
+      <Animated.View
+        style={[styles.desc, { opacity: fadeAnim }]}
+      />
     </View>
-  );
+  ));
+
+  return <View style={styles.container}>{skeletonItems}</View>;
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
-    alignItems: 'flex-start',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingVertical: 14,
+    paddingHorizontal: 2
+  },
+  rect: {
+    width: 120,
+    height: 120,
+    backgroundColor: '#e0e0e0',
+    borderRadius: 5,
     margin: 10,
   },
-  skeleton: {
-    height: 80,
-    width: '100%',
-    marginVertical: 5,
+  desc:{
+    width: 120,
+    height: 20,
+    backgroundColor: '#e0e0e0',
     borderRadius: 5,
-    marginBottom: 10,
-  },
+    margin: 10,
+  }
 });
 
 export default SkeletonLoader;

@@ -1,6 +1,6 @@
-export const API_BASE_URL = "https://sripadmavathy.aupay.auss.co/auss"; 
+// export const API_BASE_URL = "https://sripadmavathy.aupay.auss.co/auss"; 
 
-// export const API_BASE_URL = 'https://aupay.auss.co/auss'; 
+export const API_BASE_URL = 'https://sriktm.aupay.auss.co/auss'; 
 
 
 export const LOGIN_ENDPOINT = '/api/user/login';

@@ -21,6 +21,8 @@ import qs from 'qs';
 import sha512 from 'js-sha512';
 import axios from 'axios';
 import { selectProfileDetails } from '../features/profile/profileSlice';
+import ContentLoader from "react-native-easy-content-loader";
+
 
 
 const generateHash = (key, txnid, amount, productinfo, firstname, email, salt) => {
@@ -92,7 +94,7 @@ const PayEMA = ({ navigation }) => {
 
                     // if(payEmaTextInputListByWeight.includes(parseInt(i.scheme_type))){
                     //     if (isNaN(i.payamount)  || i.payamount < i.min_weight || i.payamount > i.max_weight) {
-                            
+
                     //     } else {
                     //         selectedData.push(schemeData);
                     //     }
@@ -100,14 +102,14 @@ const PayEMA = ({ navigation }) => {
 
                     // if(payEmaTextInputListByAmount.includes(parseInt(i.scheme_type))){
                     //     if (isNaN(i.payamount)  || i.payamount < i.min_amount || i.payamount > i.max_amount) {
-                            
+
                     //     } else {
                     //         selectedData.push(schemeData);
                     //     }
                     // }
 
                     selectedData.push(schemeData);
-                    
+
                 }
             }
         }
@@ -143,7 +145,7 @@ const PayEMA = ({ navigation }) => {
         try {
             const payload = { id_customer: customerId };
             const response = await newPlanService.getPayEMI(payload);
-            if(response.status === "invalid"){
+            if (response.status === "invalid") {
                 Toast.show(response.message, Toast.SHORT)
                 handleConfirmLogout();
             } else {
@@ -253,7 +255,7 @@ const PayEMA = ({ navigation }) => {
     const handleChange = (item, value) => {
 
         let data = [...emaData];
-        
+
         const enteredAmount = parseFloat(value);
         const minAmount = parseFloat(item.min_amount);
         const maxAmount = parseFloat(item.max_amount);
@@ -305,7 +307,7 @@ const PayEMA = ({ navigation }) => {
     const updatePayEMI = async () => {
 
         try {
-            
+
             const mobile = await AsyncStorage.getItem('user_mobile');
 
             const customerId = await getData('customerId');
@@ -321,8 +323,8 @@ const PayEMA = ({ navigation }) => {
             selectedItems.forEach((selectedItem) => {
 
                 let metaltotalwt;
-                
-                if(payEmaTextInputListByAmount.includes(parseInt(selectedItem.scheme_type))){
+
+                if (payEmaTextInputListByAmount.includes(parseInt(selectedItem.scheme_type))) {
                     if (isNaN(selectedItem.payamount) || parseFloat(selectedItem.payamount) < parseFloat(selectedItem.min_amount) || parseFloat(selectedItem.payamount) > parseFloat(selectedItem.max_amount)) {
                         arr.push(0)
                         err = selectedItem['text_field_error'] = `Please enter a payment value between ₹ ${selectedItem.min_amount} - ₹ ${selectedItem.max_amount}.`
@@ -331,9 +333,9 @@ const PayEMA = ({ navigation }) => {
                         selectedItem['text_field_error'] = "";
                     }
                 }
-                
-                if(payEmaTextInputListByWeight.includes(parseInt(selectedItem.scheme_type))){
-                    if (isNaN(selectedItem.payamount)  || parseFloat(selectedItem.payamount) < parseFloat(selectedItem.min_weight) || parseFloat(selectedItem.payamount) > parseFloat(selectedItem.max_weight)) {
+
+                if (payEmaTextInputListByWeight.includes(parseInt(selectedItem.scheme_type))) {
+                    if (isNaN(selectedItem.payamount) || parseFloat(selectedItem.payamount) < parseFloat(selectedItem.min_weight) || parseFloat(selectedItem.payamount) > parseFloat(selectedItem.max_weight)) {
                         arr.push(0)
                         err = selectedItem['text_field_error'] = `Please enter a payment value between ₹ ${selectedItem.min_weight} - ₹ ${selectedItem.max_weight}.`
                     } else {
@@ -341,7 +343,7 @@ const PayEMA = ({ navigation }) => {
                         selectedItem['text_field_error'] = "";
                     }
                 }
-             
+
                 if (["2", "3", "4", "5"].includes(selectedItem.scheme_type)) {
                     if (selectedItem.id_metal === "1") {
                         metaltotalwt = `${(parseInt(selectedItem.installments) * (parseFloat(selectedItem.payamount) / todayGoldRate)).toFixed(2)} g`;
@@ -351,7 +353,7 @@ const PayEMA = ({ navigation }) => {
                         metaltotalwt = selectedItem.paidmetalweight;
                     }
                 } else {
-                        metaltotalwt = selectedItem.paidmetalweight;
+                    metaltotalwt = selectedItem.paidmetalweight;
                 }
 
 
@@ -378,10 +380,10 @@ const PayEMA = ({ navigation }) => {
                 };
                 updatedPaymentList.push(paymentItem);
             });
-           
-            if(arr.includes(0)){
+
+            if (arr.includes(0)) {
                 Toast.show(err, Toast.BOTTOM)
-               } else {
+            } else {
                 const payload = {
                     typeofway: 'android',
                     id_customer: customerId,
@@ -391,7 +393,7 @@ const PayEMA = ({ navigation }) => {
                     total_amount: totalAmount,
                     payment_list: updatedPaymentList
                 };
-               
+
                 const response = await paymentService.schemePayment(payload);
                 setTranscationId(response?.transactionid);
                 setStatusSuccess(response?.status);
@@ -410,91 +412,91 @@ const PayEMA = ({ navigation }) => {
 
     const initiatePayment = async (res) => {
         const username = profileList?.firstname + '' + profileList?.lastname;
-        const mobile = await  AsyncStorage.getItem('user_mobile');
+        const mobile = await AsyncStorage.getItem('user_mobile');
         let mail = await getData('user_email');
-        let usermail =  'user123@gmail.com';
-        if(mail === null){
+        let usermail = 'user123@gmail.com';
+        if (mail === null) {
             usermail;
         } else {
             usermail = mail;
         }
-        const total_amt = totalAmount.replace(",","");
+        const total_amt = totalAmount.replace(",", "");
         const test_key = "2PBP7IABZ2"
-        const key =  "7GUOYLC6RN";
-        const txnid = res.transactionid; 
+        const key = "7GUOYLC6RN";
+        const txnid = res.transactionid;
         const amount = total_amt;
-        const productinfo = 'A Jewellers maintain Gold Chit Sliver Chit Join Scheme'; 
-        const firstname = username; 
+        const productinfo = 'A Jewellers maintain Gold Chit Sliver Chit Join Scheme';
+        const firstname = username;
         const phone = mobile;
-        const email = usermail; 
+        const email = usermail;
         const surl = 'https://sripadmavathy.aupay.auss.co/auss/api/scheme/payment/paymentsuccess';
-        const furl = 'https://sripadmavathy.aupay.auss.co/auss/api/scheme/payment/paymentfailed'; 
-        const salt = "Z90V4UCBWH"; 
+        const furl = 'https://sripadmavathy.aupay.auss.co/auss/api/scheme/payment/paymentfailed';
+        const salt = "Z90V4UCBWH";
         const test_salt = "Z90V4UCBWH";
         const hash = generateHash(key, txnid, amount, productinfo, firstname, email, salt);
         const requestFlow = 'SEAMLESS';
-    
+
         const params = {
-          key: key,
-          txnid: txnid,
-          amount: amount,
-          productinfo: productinfo,
-          firstname: firstname,
-          phone: phone,
-          email: email,
-          surl: surl,
-          furl: furl,
-          hash: hash,
-          udf1: '',
-          udf2: '',
-          udf3: '',
-          udf4: '',
-          udf5: '',
-          udf6: '',
-          udf7: '',
-          address1: '',
-          address2: '',
-          city: '',
-          state: '',
-          country: '',
-          zipcode: '',
-          show_payment_mode: '',
-          request_flow: requestFlow,
-          sub_merchant_id: '',
-          payment_category: '',
-          account_no: '',
-          ifsc: ''
+            key: key,
+            txnid: txnid,
+            amount: amount,
+            productinfo: productinfo,
+            firstname: firstname,
+            phone: phone,
+            email: email,
+            surl: surl,
+            furl: furl,
+            hash: hash,
+            udf1: '',
+            udf2: '',
+            udf3: '',
+            udf4: '',
+            udf5: '',
+            udf6: '',
+            udf7: '',
+            address1: '',
+            address2: '',
+            city: '',
+            state: '',
+            country: '',
+            zipcode: '',
+            show_payment_mode: '',
+            request_flow: requestFlow,
+            sub_merchant_id: '',
+            payment_category: '',
+            account_no: '',
+            ifsc: ''
         };
-    
+
         const options = {
-          method: 'POST',
-          url: 'https://pay.easebuzz.in/payment/initiateLink',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Accept': 'application/json',
-          },
-          data: qs.stringify(params),
+            method: 'POST',
+            url: 'https://pay.easebuzz.in/payment/initiateLink',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept': 'application/json',
+            },
+            data: qs.stringify(params),
         };
-    
+
         try {
-          const response = await axios.request(options);
-          console.log('response',response.data)
-          if(response.data.status === 1){
-            callPaymentGateway(response?.data)
-          }
+            const response = await axios.request(options);
+            console.log('response', response.data)
+            if (response.data.status === 1) {
+                callPaymentGateway(response?.data)
+            }
         } catch (error) {
-          if (error.response) {
-            // Server responded with a status other than 200 range
-            console.log('Error response:', error.response.data);
-          } else if (error.request) {
-            // Request was made but no response was received
-            console.log('Error request:', error.request);
-          } else {
-            // Something else happened in setting up the request
-            console.log('Error message:', error.message);
-          }
+            if (error.response) {
+                // Server responded with a status other than 200 range
+                console.log('Error response:', error.response.data);
+            } else if (error.request) {
+                // Request was made but no response was received
+                console.log('Error request:', error.request);
+            } else {
+                // Something else happened in setting up the request
+                console.log('Error message:', error.message);
+            }
         }
-      };
+    };
 
 
     const callPaymentGateway = async (res) => {
@@ -524,7 +526,8 @@ const PayEMA = ({ navigation }) => {
                 navigation.navigate('PaymentPendingScreen', { easebuzzData: data?.payment_response, transactionNo: data?.payment_response?.txnid });
             } else {
                 const failedData = await paymentService.failedPayment(payload)
-                navigation.navigate('PaymentFailureScreen', { paymentData: failedData, transactionNo: transaction_no });            }
+                navigation.navigate('PaymentFailureScreen', { paymentData: failedData, transactionNo: transaction_no });
+            }
         } catch (error) {
             console.log("SDK Error:", error)
         } finally {
@@ -566,7 +569,7 @@ const PayEMA = ({ navigation }) => {
                 image: images.logo,
                 currency: 'INR',
                 key: test_key,
-                amount: res?.total_trans, 
+                amount: res?.total_trans,
                 name: 'Sri Padmavathy Jewellers',
                 prefill: {
                     email: email,
@@ -613,7 +616,7 @@ const PayEMA = ({ navigation }) => {
 
     const renderEmaList = ({ item }) => {
 
-        
+
         const paybleAmount = () => {
             switch (item.scheme_type) {
                 case '3':
@@ -634,12 +637,12 @@ const PayEMA = ({ navigation }) => {
 
                 <View style={payEMIStyles.radioButtonContainer}>
                     <Text style={payEMIStyles.title}>{item.scheme_name}</Text>
-                    <View style={{flexDirection:'row',alignItems:'center'}}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Text style={[payEMIStyles.title]}>{"Pay Now"}</Text>
-                        <TouchableOpacity onPress={() => handleSelectItem(item.id_scheme_account, item)} style={[payEMIStyles.radioButton,{marginLeft:hp('1%')}]}>
+                        <TouchableOpacity onPress={() => handleSelectItem(item.id_scheme_account, item)} style={[payEMIStyles.radioButton, { marginLeft: hp('1%') }]}>
                             {selectedIndex.includes(item.id_scheme_account) && <View style={payEMIStyles.radioButtonSelected} />}
                         </TouchableOpacity>
-                    </View> 
+                    </View>
                 </View>
 
                 <View style={{ gap: 8, marginTop: 10 }}>
@@ -767,27 +770,31 @@ const PayEMA = ({ navigation }) => {
 
     return (
         <SafeAreaView style={payEMIStyles.container}>
-
             <KeyboardAvoidingWrapper>
 
-                    {loading &&
-                        <ActivityIndicator size="large" color={COLORS.PRIMARY} style={payEMIStyles.loadingIndicator} />}
+                <DetailsHeader
+                    title="Pay EMA"
+                    onBackPress={() => navigation.replace('Home')}
+                    onNotifyPress={() => navigation.navigate('Notification')}
+                    onWishlistPress={() => navigation.navigate('WishList')}
+                />
 
+                <ContentLoader
+                    listSize={emaData.length}
+                    pHeight={[200]}
+                    pWidth={[400]}
+                    titleStyles={{ width: 0 }}
+                    pRows={1}
+                    loading={loading}>
                     <FlatList
                         data={emaData}
                         keyExtractor={(item) => item.id_scheme_account}
                         renderItem={renderEmaList}
-                        contentContainerStyle={{paddingBottom:hp('5%')}}
-                        ListHeaderComponent={
-                            <DetailsHeader
-                                title="Pay EMA"
-                                onBackPress={() => navigation.replace('Home')}
-                                onNotifyPress={() => navigation.navigate('Notification')}
-                                onWishlistPress={() => navigation.navigate('WishList')}
-                            />
-                        }
+                        contentContainerStyle={{ paddingBottom: hp('5%') }}
                         ListEmptyComponent={!loading && <ListEmpty empty={'No Records Found'} />}
                     />
+                </ContentLoader>
+
 
                 {selectedIndex.length > 0 && (
 

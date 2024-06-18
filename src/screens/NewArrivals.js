@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import newArrivalStyles from './styles/newArrivalStyles';
 import { COLORS } from '../utils/constants';
 import { hp } from '../utils/responsive';
+import ContentLoader from "react-native-easy-content-loader";
+import SkeletonLoader from '../components/SkeletonLoader';
 
 
 const NewArrivals = ({ navigation }) => {
@@ -49,7 +51,7 @@ const NewArrivals = ({ navigation }) => {
     const imageUrl = `${item.urlpath}${splitStrings[0]}`;
 
     return (
-      <TouchableOpacity style={newArrivalStyles.cardContainer} onPress={() => handleNewArrivalsDetails(item)}>
+      <TouchableOpacity key={item.id_new_arrivals} style={newArrivalStyles.cardContainer} onPress={() => handleNewArrivalsDetails(item)}>
         <Image source={{ uri: imageUrl }} style={newArrivalStyles.image} />
         <Text style={newArrivalStyles.productName}>{item?.name}</Text>
       </TouchableOpacity>
@@ -63,30 +65,28 @@ const NewArrivals = ({ navigation }) => {
 
   return (
     <SafeAreaView style={newArrivalStyles.container}>
-      {loading &&
-        <ActivityIndicator
-          size="large"
-          color={COLORS.DARK_PRIMARY}
-          style={newArrivalStyles.loadingIndicator} />}
-      <FlatList
-        data={newArrivalsData}
-        contentContainerStyle={{paddingBottom:hp('10%')}}
-        keyExtractor={(item) => item.id_new_arrivals.toString()}
-        renderItem={renderNewArrivals}
-        numColumns={3}
-        ListHeaderComponent={<View>
-          <DetailsHeader
-            title="New Arrivals"
-            onBackPress={() => navigation.replace('Home')}
-            onNotifyPress={handleNotifyPress}
-            onWishlistPress={handleWishlistPress}
-          />
-        </View>}
-        ListEmptyComponent={
-          !loading  && (<View style={newArrivalStyles.noWishlistContainer}>
-            <Text style={newArrivalStyles.noWishlistText}>No Records Found</Text>
-          </View>)}
+      <DetailsHeader
+        title="New Arrivals"
+        onBackPress={() => navigation.replace('Home')}
+        onNotifyPress={handleNotifyPress}
+        onWishlistPress={handleWishlistPress}
       />
+      
+       {/* <SkeletonLoader length={newArrivalsData.length} /> */}
+             
+        <FlatList
+          data={newArrivalsData}
+          contentContainerStyle={{ paddingBottom: hp('10%') }}
+          keyExtractor={(item) => item.id_new_arrivals.toString()}
+          renderItem={renderNewArrivals}
+          numColumns={3}
+          ListEmptyComponent={
+            !loading && (
+              <View style={newArrivalStyles.noWishlistContainer}>
+                <Text style={newArrivalStyles.noWishlistText}>No Records Found</Text>
+              </View>)
+              }
+        />
     </SafeAreaView>
   );
 };
